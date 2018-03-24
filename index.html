@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta key="author" value="SSBHPE">
+    <link rel="stylesheet" href="css/lib/jquery-ui.css" />
+    <link rel="stylesheet" href="css/lib/jquery-ui.theme.min.css" />
+    <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/lib/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="css/lib/toastr.min.css" />
+    <link rel="stylesheet" href="css/followup.css" />
+    <title>DASHBOARD</title>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <a href="http://chassis/dashboard/prioridades/">PRIORIDADES</a>
+        <a href="http://chassis/dashboard/cadastrar/">CADASTRAR</a>
+    </div>
+
+    <div class="text-center">
+        <h1>CHASSIS DASHBOARD</h1>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="filters">
+        <div class="filter-wrapper">
+            <div>LINE</div>
+            <select class="form-control" name="filter-line" id="filter-line"></select>
+        </div>
+        <div class="filter-wrapper">
+            <div>STATUS</div>
+            <select class="form-control" name="filter-status" id="filter-status"></select>
+        </div>
+        <div class="filter-wrapper">
+            <div>TIPO</div>
+            <select class="form-control" name="filter-type" id="filter-type"></select>
+        </div>
+        <div class="filter-wrapper filter-button">
+            <button class="btn" onclick="filterActivities()">FILTRAR</button>
+        </div>
+    </div>
+
+    <!-- TABELA -->
+    <div class="table-wrapper" style="display: none;">
+        <table class="table table-striped">
+            <thead class="thead-dark"></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal fade" id="activity-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">DETALHES DA ATIVIDADE</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row text-center">
+                            <div class="" style="display: none;">
+                                <label for="type">ID</label>
+                                <input name="id" id="form-id" type="hidden" />
+                            </div>
+                            <div class="input-group mb-5">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">NOME DO PROJETO</span>
+                                </div>
+                                <input type="text" class="form-control" id="form-project" disabled>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="input-group">
+                                <div class="">
+                                    <label for="type">TIPO</label>
+                                    <select name="type" class="form-control" id="form-type" disabled> </select>
+                                </div>
+                                <div class="">
+                                    <label for="line">LINHA</label>
+                                    <select name="line" class="form-control" id="form-line" disabled> </select>
+                                </div>
+                                <div class="">
+                                    <label for="type">FUNÇÃO</label>
+                                    <select name="function-area" class="form-control" id="form-function-area" disabled> </select>
+                                </div>
+                                <div class="">
+                                    <label for="type">POSTO</label>
+                                    <select name="station" class="form-control" id="form-station" disabled> </select>
+                                </div>
+                                <div class="">
+                                    <label for="type">POSIÇÃO</label>
+                                    <select name="position" class="form-control" id="form-position" disabled> </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="">
+                                <label for="type">RESPONSÁVEL</label>
+                                <select name="responsible" class="form-control" id="form-responsible" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="type">INPUT</label>
+                                <select name="input" class="form-control" id="form-input" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="type">NCG</label>
+                                <select name="ncg" class="form-control" id="form-ncg" disabled> </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">ATIVIDADE</span>
+                                </div>
+                                <input name="activity" class="form-control" id="form-activity" type="text" disabled/>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="">
+                                <label for="type">INPUT-DATE</label>
+                                <input name="input-date" class="form-control" id="form-input-date" type="text" disabled/>
+                            </div>
+                            <div class="">
+                                <label for="type">AD APROVAL</label>
+                                <input name="ad-aproval" class="form-control" id="form-ad-aproval-date" type="text" disabled/>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="">
+                                <label for="type">REQUISIÇÃO ALMOXARIFADO / OS</label>
+                                <input name="req-almox-os" class="form-control" id="form-req-almox-os" type="text" disabled/>
+                            </div>
+                            <div class="">
+                                <label for="type">STATUS REQUISIÇÃO</label>
+                                <select name="status-almox-os" class="form-control" id="form-status-almox-os" disabled> </select>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="">
+                                <label for="type">RC</label>
+                                <input name="rc-number" class="form-control" id="form-rc-number" type="number" min="0" disabled/>
+                            </div>
+                            <div class="">
+                                <label for="type">RC STATUS</label>
+                                <select name="rc-status" class="form-control" id="form-rc-status" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="type">ORDER</label>
+                                <input name="order-number" class="form-control" id="form-order-number" type="number" min="0" disabled/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="">
+                                <label for="type">LAYOUT E INFRAESTRUTURA</label>
+                                <input name="layout-infra" class="form-control" id="form-layout-infra" type="text" disabled/>
+                            </div>
+                            <div class="">
+                                <label for="type">TRY-OUT / INSTALAÇÃO</label>
+                                <input name="install-tryout" class="form-control" id="form-install-tryout-date" type="text" disabled/>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="">
+                                <label for="type">HANDOVER</label>
+                                <input name="handover" class="form-control" id="form-handover-date" type="text" disabled />
+                            </div>
+                            <div class="">
+                                <label for="type">STATUS</label>
+                                <select name="project-status" class="form-control" id="form-project-status" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="type">FASE</label>
+                                <select onchange="updatePercentage()" name="phase" class="form-control" id="form-phase" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="type">PORCENTAGEM (%) </label>
+                                <input name="percentage" class="form-control" id="form-percentage" type="number" min="0" maxlength="2" disabled/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">COMENTÁRIOS</span>
+                                </div>
+                                <input name="comments" class="form-control" id="form-comments" type="text" disabled/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="">
+                                <label for="type">PRIORIDADE</label>
+                                <input name="priority" class="form-control" id="form-priority" type="number" min="0" maxlength="2" disabled />
+                            </div>
+                            <div class="">
+                                <label for="type">NPR</label>
+                                <input name="npr" class="form-control" id="form-npr" type="number" min="0" maxlength="2" disabled/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">FECHAR</button>
+                    <button onclick="enableEdit()" type="button" class="btn btn-warning">EDITAR</button>
+                    <button data-dismiss="modal" onclick="updateActivity()" type="button" class="btn btn-primary">SALVAR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/jquery-ui.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="lib/toastr.min.js"></script>
+    <script src="js/constants.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/NTGActivitie.js"></script>
+    <script src="js/scripts.js"></script>
+
+    <script>
+
+        window.onload = function () {
+            getActivities(generateTable);
+            generateFilters();
+            generateOptions();
+        }
+
+        var statusEdit = false;
+        var activities = [];
+        var filteredActivities = [];
+        var activity = new NTGActivitie();
+
+        function generateFilters() {
+            var filters = [LINES, STATUS, TYPES];
+            var filterLine = document.querySelector('#filter-line');
+            var filterStatus = document.querySelector('#filter-status');
+            var filterType = document.querySelector('#filter-type');
+            LINES.forEach(function (line) {
+                var option = document.createElement('option');
+                option.value = line;
+                option.textContent = line;
+                filterLine.appendChild(option);
+            });
+            STATUS.forEach(function (status) {
+                var option = document.createElement('option');
+                option.value = status;
+                option.textContent = status;
+                filterStatus.appendChild(option);
+            });
+            TYPES.forEach(function (type) {
+                var option = document.createElement('option');
+                option.value = type;
+                option.textContent = type;
+                filterType.appendChild(option);
+            });
+        }
+
+        function generateTable(data) {
+            var thead = document.querySelector('thead');
+            var tbody = document.querySelector('tbody');
+            document.querySelector('.table-wrapper').style.display = 'flex';
+            $('thead').empty();
+            $('tbody').empty();
+            TABLE_CONTENT.forEach(function (tc) {
+                var th = document.createElement('th');
+                th.textContent = tc.header;
+                thead.appendChild(th);
+            });
+            data.map(function (d) {
+                var tr = document.createElement('tr');
+                TABLE_CONTENT.map(function (tc) {
+                    var td = document.createElement('td');
+                    td.textContent = d[tc.field];
+                    if (tc.field == "handover") {
+                        td.textContent = dateFormatter(td.textContent);
+                    }
+                    if (tc.field)
+                        tr.appendChild(td);
+                });
+                var btn = document.createElement('button');
+                btn.textContent = 'VER';
+                btn.setAttribute('data-target', '#activity-modal')
+                btn.setAttribute('data-toggle', 'modal')
+                btn.className = 'btn btn-info details-button';
+                btn.onclick = function () { openActivityDetails(d) };
+                tr.appendChild(btn);
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterActivities() {
+            var selectedLine = document.querySelector('#filter-line').value;
+            var selectedStatus = document.querySelector('#filter-status').value;
+            var selectedType = document.querySelector('#filter-type').value;
+            filteredActivities = activities;
+            if (selectedLine != 'ALL')
+                filteredActivities = filteredActivities.filter(function (a) { return a.line == selectedLine });
+            if (selectedStatus != 'ALL')
+                filteredActivities = filteredActivities.filter(function (a) { return a.projectStatus == selectedStatus });
+            if (selectedType != 'ALL')
+                filteredActivities = filteredActivities.filter(function (a) { return a.type == selectedType });
+            generateTable(filteredActivities);
+        }
+
+        function getActivities(callback) {
+            $.get(SERVER + '/api/dashboard', function (data) {
+                activities = [];
+                data.map(function (d) { activities.push(new NTGActivitie(d)); });
+                console.log('Atividades carregadas com sucesso');
+                callback(activities);
+            });
+        }
+
+        function openActivityDetails(data) {
+            statusEdit = false;
+            disableEdit();
+            document.querySelector('#form-id').value = data.id;
+            document.querySelector('#form-type').value = data.type;
+            document.querySelector('#form-line').value = data.line;
+            document.querySelector('#form-function-area').value = data.functionArea;
+            document.querySelector('#form-station').value = data.station;
+            document.querySelector('#form-position').value = data.position;
+            document.querySelector('#form-project').value = data.project;
+            document.querySelector('#form-responsible').value = data.responsible;
+            document.querySelector('#form-input').value = data.input;
+            document.querySelector('#form-ncg').value = data.ncg;
+            document.querySelector('#form-activity').value = data.activity;
+            document.querySelector('#form-input-date').value = dateFormatter(data.inputDate);
+            document.querySelector('#form-ad-aproval-date').value = dateFormatter(data.adAproval);
+            document.querySelector('#form-req-almox-os').value = data.reqAlmox_OS;
+            document.querySelector('#form-status-almox-os').value = data.statusReq_OS;
+            document.querySelector('#form-rc-number').value = data.rcNumber;
+            document.querySelector('#form-rc-status').value = data.rcStatus;
+            document.querySelector('#form-order-number').value = data.orderNumber;
+            document.querySelector('#form-layout-infra').value = data.infra_Layout;
+            document.querySelector('#form-install-tryout-date').value = dateFormatter(data.installation_TryOut);
+            document.querySelector('#form-handover-date').value = dateFormatter(data.handover);
+            document.querySelector('#form-phase').value = data.phase;
+            document.querySelector('#form-project-status').value = data.projectStatus;
+            document.querySelector('#form-comments').value = data.comments;
+            document.querySelector('#form-priority').value = data.priority;
+            document.querySelector('#form-npr').value = data.npr;
+            document.querySelector('#form-percentage').value = data.projectPercent;
+            updatePercentage();
+            
+
+        }
+
+        function updateActivity() {
+
+            activity.id = document.querySelector('#form-id').value;
+            activity.type = document.querySelector('#form-type').value;
+            activity.line = document.querySelector('#form-line').value;
+            activity.functionArea = document.querySelector('#form-function-area').value;
+            activity.station = document.querySelector('#form-station').value;
+            activity.position = document.querySelector('#form-position').value;
+            activity.project = document.querySelector('#form-project').value;
+            activity.responsible = document.querySelector('#form-responsible').value;
+            activity.input = document.querySelector('#form-input').value;
+            activity.ncg = document.querySelector('#form-ncg').value;
+            activity.activity = document.querySelector('#form-activity').value;
+            activity.inputDate = generateDate(document.querySelector('#form-input-date').value);
+            activity.adAproval = document.querySelector('#form-ad-aproval-date').value;
+            activity.reqAlmox_OS = document.querySelector('#form-req-almox-os').value;
+            activity.statusReq_OS = document.querySelector('#form-status-almox-os').value;
+            activity.rcNumber = document.querySelector('#form-rc-number').value;
+            activity.rcStatus = document.querySelector('#form-rc-status').value;
+            activity.orderNumber = document.querySelector('#form-order-number').value;
+            activity.infra_Layout = document.querySelector('#form-layout-infra').value;
+            activity.installation_TryOut = generateDate(document.querySelector('#form-install-tryout-date').value);
+            activity.handover = generateDate(document.querySelector('#form-handover-date').value);
+            activity.phase = document.querySelector('#form-phase').value;
+            activity.projectPercent = document.querySelector('#form-percentage').value;
+            activity.projectStatus = document.querySelector('#form-project-status').value;
+            activity.comments = document.querySelector('#form-comments').value;
+            activity.priority = document.querySelector('#form-priority').value;
+            activity.npr = document.querySelector('#form-npr').value;
+
+            console.log(activity);
+
+            $.post(SERVER + 'api/dashboard/' + activity.id, activity)
+                .done(function (data) {
+                    toastr.success("ATIVIDADE SALVA COM SUCESSO");
+                    getActivities(function (data) {
+                        activities = data;
+                        filterActivities();
+                        generateTable(filteredActivities)
+                    });
+
+                })
+                .fail(function (err) { toastr.error("ERRO AO CRIAR REQUISIÇÃO"); console.error(err) });
+        }
+
+        function enableEdit() {
+
+            document.querySelector('#form-type').disabled = false;
+            document.querySelector('#form-project').disabled = false;
+            document.querySelector('#form-line').disabled = false;
+            document.querySelector('#form-function-area').disabled = false;
+            document.querySelector('#form-station').disabled = false;
+            document.querySelector('#form-position').disabled = false;
+            document.querySelector('#form-responsible').disabled = false;
+            document.querySelector('#form-input').disabled = false;
+            document.querySelector('#form-ncg').disabled = false;
+            document.querySelector('#form-activity').disabled = false;
+            document.querySelector('#form-ad-aproval-date').disabled = false;
+            document.querySelector('#form-req-almox-os').disabled = false;
+            document.querySelector('#form-status-almox-os').disabled = false;
+            document.querySelector('#form-rc-number').disabled = false;
+            document.querySelector('#form-rc-status').disabled = false;
+            document.querySelector('#form-order-number').disabled = false;
+            document.querySelector('#form-layout-infra').disabled = false;
+            document.querySelector('#form-install-tryout-date').disabled = false;
+            document.querySelector('#form-handover-date').disabled = false;
+            document.querySelector('#form-phase').disabled = false;
+            // document.querySelector('#form-percentage').disabled = false;
+            document.querySelector('#form-project-status').disabled = false;
+            document.querySelector('#form-comments').disabled = false;
+            document.querySelector('#form-npr').disabled = false;
+
+        }
+        function disableEdit() {
+
+            document.querySelector('#form-responsible').disabled = true;
+            document.querySelector('#form-ncg').disabled = true;
+            document.querySelector('#form-activity').disabled = true;
+            document.querySelector('#form-ad-aproval-date').disabled = true;
+            document.querySelector('#form-req-almox-os').disabled = true;
+            document.querySelector('#form-status-almox-os').disabled = true;
+            document.querySelector('#form-rc-number').disabled = true;
+            document.querySelector('#form-rc-status').disabled = true;
+            document.querySelector('#form-order-number').disabled = true;
+            document.querySelector('#form-layout-infra').disabled = true;
+            document.querySelector('#form-install-tryout-date').disabled = true;
+            document.querySelector('#form-handover-date').disabled = true;
+            document.querySelector('#form-phase').disabled = true;
+            document.querySelector('#form-percentage').disabled = true;
+            document.querySelector('#form-project-status').disabled = true;
+            document.querySelector('#form-comments').disabled = true;
+            document.querySelector('#form-npr').disabled = true;
+
+        }
+
+        function generateOptions() {
+            OPTION_FIELDS.forEach(function (option) {
+                option.value.forEach(function (o) {
+                    var selection = document.getElementById('form-' + option.type);
+                    var el = document.createElement('option');
+                    el.value = o;
+                    el.textContent = o;
+                    selection.appendChild(el);
+                });
+            })
+        }
+
+        function updatePercentage() {
+            var inputPercent = document.querySelector('#form-percentage');
+            var phase = document.querySelector('#form-phase').value;            
+            var newPhase = PHASES.filter(function(ph) { return ph.name == phase})[0];
+            if (!newPhase) return;
+            if (newPhase.percentage >= 0 && newPhase.percentage <= 30) {
+                inputPercent.style.background = 'yellow';
+            } else if (newPhase.percentage > 60) {
+                inputPercent.style.background = 'limegreen';
+            } else {
+                inputPercent.style.background = 'lightgrey';
+            }
+            inputPercent.value = newPhase.percentage;
+            
+        }
+
+        
+
+
+
+    </script>
+
+</body>
+
+</html>

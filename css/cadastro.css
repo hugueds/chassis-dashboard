@@ -1,0 +1,28 @@
+*, body {
+    margin: 0 auto;    
+    text-align: center;
+}
+
+.header {
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.activity-form {
+    border: 1px solid black;    
+    font-size: 1.2em;
+}
+
+#form-activity, #form-comments, #form-project {    
+    width: 80%;
+}
+
+.field  {    
+    width: 90%;
+    display: flex;
+}
+
+.row {
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+}

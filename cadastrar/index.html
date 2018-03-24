@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../css/lib/jquery-ui.css" />
+    <link rel="stylesheet" href="../css/lib/jquery-ui.theme.min.css" />
+    <link rel="stylesheet" href="../css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/lib/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="../css/lib/toastr.min.css" />
+    <link rel="stylesheet" href="../css/cadastro.css" />
+    <title>Cadastrar Atividade</title>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <a href="http://chassis/dashboard/">FOLLOW UP</a>
+    </div>
+
+    <div class="header text-center">
+        <h1>CADASTRO DE ATIVIDADES</h1>
+    </div>
+
+    <div class="container activity-form">
+        <form id="form" onsubmit="return false">
+            <div class="row">
+                <div class="field">
+                    <label for="type">NOME DO PROJETO</label>
+                    <input class="form-control" name="project" id="form-project" type="text" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="">
+                    <label for="type">TIPO</label>
+                    <select class="form-control" name="type" id="form-type"> </select>
+                </div>
+                <div class="">
+                    <label for="line">LINHA</label>
+                    <select class="form-control" name="line" id="form-line"> </select>
+                </div>
+                <div class="">
+                    <label for="type">FUNÇÃO</label>
+                    <select class="form-control" name="function-area" id="form-function-area"> </select>
+                </div>
+                <div class="">
+                    <label for="type">POSTO</label>
+                    <select class="form-control" name="station" id="form-station"> </select>
+                </div>
+                <div class="">
+                    <label for="type">POSIÇÃO</label>
+                    <select class="form-control" name="position" id="form-position"> </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="">
+                    <label for="type">RESPONSÁVEL</label>
+                    <select class="form-control" name="responsible" id="form-responsible"> </select>                    
+                </div>
+                <div class="">
+                    <label for="type">INPUT</label>
+                    <select class="form-control" name="input" id="form-input"> </select>
+                </div>
+                <div class="">
+                    <label for="type">NCG</label>
+                    <select class="form-control" name="ncg" id="form-ncg"> </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="field">
+                    <label for="type">ATIVIDADE</label>
+                    <input class="form-control" name="activity" id="form-activity" type="text" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="">
+                    <label for="type">INPUT-DATE</label>
+                    <input class="form-control" name="input-date" id="form-input-date" type="text" />
+                </div>
+                <div class="">
+                    <label for="type">AD APROVAL</label>
+                    <input class="form-control" name="ad-aproval" id="form-ad-aproval-date" type="text" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="">
+                    <label for="type">REQUISIÇÃO ALMOXARIFADO / OS</label>
+                    <input class="form-control" name="req-almox-os" id="form-req-almox-os" type="text" />
+                </div>
+                <div class="">
+                    <label for="type">STATUS REQUISIÇÃO</label>
+                    <select class="form-control" name="status-almox-os" id="form-status-almox-os"> </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="">
+                    <label for="type">NUMERO DE RC</label>
+                    <input class="form-control" name="rc-number" id="form-rc-number" type="number" min="0" />
+                </div>
+                <div class="">
+                    <label for="type">RC STATUS</label>
+                    <select class="form-control" name="rc-status" id="form-rc-status"></select>                    
+                </div>
+                <div class="">
+                    <label for="type">ORDER</label>
+                    <input class="form-control" name="order-number" id="form-order-number" type="number" min="0" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="">
+                    <label for="type">LAYOUT E INFRAESTRUTURA</label>
+                    <input class="form-control" name="layout-infra" id="form-layout-infra" type="text" />
+                </div>
+                <div class="">
+                    <label for="type">TRY-OUT / INSTALAÇÃO</label>
+                    <input class="form-control" name="install-tryout" id="form-install-tryout-date" type="text" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="">
+                    <label for="type">HANDOVER</label>
+                    <input class="form-control" name="handover" id="form-handover-date" type="text" />
+                </div>
+                <div class="">
+                    <label for="type">FASE</label>
+                    <select class="form-control" name="phase" id="form-phase"> </select>
+                </div>
+                <div class="">
+                    <label for="type">STATUS DO PROJETO</label>
+                    <select class="form-control" name="project-status" id="form-project-status"> </select>
+                </div>
+                <div class="" style="display: none;">
+                    <label for="type">PORCENTAGEM (%)</label>
+                    <input class="form-control" name="percentage" id="form-percentage" type="number" min="0" maxlength="2" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="field">
+                    <label for="type">COMENTÁRIOS</label>
+                    <input class="form-control" name="comments" id="form-comments" type="text" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="">
+                    <label for="type">PRIORIDADE</label>
+                    <input class="form-control" name="priority" id="form-priority" type="number" min="0" maxlength="2" />
+                </div>
+                <div class="">
+                    <label for="type">NPR</label>
+                    <input class="form-control" name="npr" id="form-npr" type="number" min="0" maxlength="2" />
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div>
+                <button class="btn btn-primary" onclick="createActivity()"> CRIAR </button>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="../lib/jquery.min.js"></script>
+    <script src="../lib/jquery-ui.min.js"></script>
+    <script src="../lib/bootstrap.min.js"></script>
+    <script src="../lib/toastr.min.js"></script>
+    <script src="../js/constants.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/NTGActivitie.js"></script>
+    <script src="../js/scripts.js"></script>
+
+    <script>
+
+        var activity = new NTGActivitie();
+
+        window.onload = function () {
+            generateOptions();
+        }
+
+        function generateOptions() {
+
+            OPTION_FIELDS.forEach(function (option) {
+                option.value.forEach(function (o) {
+                    var selection = document.getElementById('form-' + option.type);
+                    var el = document.createElement('option');
+                    el.value = o;
+                    el.textContent = o;
+                    selection.appendChild(el);
+                });
+            })
+        }
+
+        function createActivity() {
+
+            activity.type = document.querySelector('#form-type').value;
+            activity.line = document.querySelector('#form-line').value;
+            activity.functionArea = document.querySelector('#form-function-area').value;
+            activity.station = document.querySelector('#form-station').value;
+            activity.position = document.querySelector('#form-position').value;
+            activity.project = document.querySelector('#form-project').value;
+            activity.responsible = document.querySelector('#form-responsible').value;
+            activity.input = document.querySelector('#form-input').value;
+            activity.ncg = document.querySelector('#form-ncg').value;
+            activity.activity = document.querySelector('#form-activity').value;
+            activity.inputDate = generateDate(document.querySelector('#form-input-date').value);
+            activity.adAproval = document.querySelector('#form-ad-aproval-date').value;
+            activity.reqAlmox_OS = document.querySelector('#form-req-almox-os').value;
+            activity.statusReq_OS = document.querySelector('#form-status-almox-os').value;
+            activity.rcNumber = document.querySelector('#form-rc-number').value;
+            activity.rcStatus = document.querySelector('#form-rc-status').value;
+            activity.orderNumber = document.querySelector('#form-order-number').value;
+            activity.infra_Layout = document.querySelector('#form-layout-infra').value;
+            activity.installation_TryOut = generateDate(document.querySelector('#form-install-tryout-date').value);
+            activity.handover = generateDate(document.querySelector('#form-handover-date').value);
+            activity.phase = document.querySelector('#form-phase').value;
+            activity.projectPercent = document.querySelector('#form-percentage').value;
+            activity.projectStatus = document.querySelector('#form-project-status').value;
+            activity.comments = document.querySelector('#form-comments').value;
+            activity.priority = document.querySelector('#form-priority').value;
+            activity.npr = document.querySelector('#form-npr').value;
+
+            $.post(SERVER + 'api/dashboard/', activity)
+                .done(function (data) { toastr.success("ATIVIDADE SALVA COM SUCESSO"); })
+                .fail(function (err) { toastr.error("ERRO AO CRIAR REQUISIÇÃO"); console.error(err) });
+
+        }
+
+
+    </script>
+</body>
+
+</html>
