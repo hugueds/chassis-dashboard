@@ -12,18 +12,20 @@
     <link rel="stylesheet" href="css/lib/bootstrap-grid.min.css" />
     <link rel="stylesheet" href="css/lib/toastr.min.css" />
     <link rel="stylesheet" href="css/followup.css" />
+    <link rel="shortcut icon" type="image/ico" href="favicon.ico" />
     <title>DASHBOARD</title>
 </head>
 
 <body>
 
     <div class="navbar">
-        <a href="http://chassis/dashboard/prioridades/">PRIORIDADES</a>
-        <a href="http://chassis/dashboard/cadastrar/">CADASTRAR</a>
+        <a href="http://chassis/ifup/responsaveis/">RESPONSÁVEIS</a>
+        <a href="http://chassis/ifup/prioridades/">PRIORIDADES</a>
+        <a href="http://chassis/ifup/cadastrar/">CADASTRAR</a>
     </div>
 
     <div class="text-center">
-        <h1>CHASSIS DASHBOARD</h1>
+        <h1>iFUP</h1>
     </div>
 
     <!-- FILTROS -->
@@ -47,7 +49,7 @@
 
     <!-- TABELA -->
     <div class="table-wrapper" style="display: none;">
-        <table class="table table-striped">
+        <table class="table table-striped table-sorter" id="activity-table">
             <thead class="thead-dark"></thead>
             <tbody></tbody>
         </table>
@@ -104,12 +106,40 @@
                                 <select name="responsible" class="form-control" id="form-responsible" disabled> </select>
                             </div>
                             <div class="">
+                                <label for="type">ENVOLVIDO 1</label>
+                                <select name="involved-1" class="form-control" id="form-involved-1" disabled>
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="">
+                                <label for="type">ENVOLVIDO 2</label>
+                                <select name="involved-2" class="form-control" id="form-involved-2" disabled>
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="">
+                                <label for="type">ENVOLVIDO 3</label>
+                                <select name="involved-3" class="form-control" id="form-involved-3" disabled>
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="">
                                 <label for="type">INPUT</label>
                                 <select name="input" class="form-control" id="form-input" disabled> </select>
                             </div>
                             <div class="">
                                 <label for="type">NCG</label>
                                 <select name="ncg" class="form-control" id="form-ncg" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="type"> MAQUINA TIPO </label>
+                                <select name="machine-type" class="form-control" id="form-machine-type" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="type"> MAQUINA EXISTENTE? </label>
+                                <select name="existing-tool" class="form-control" id="form-existing-tool" disabled> </select>
                             </div>
                         </div>
                         <div class="row">
@@ -128,6 +158,14 @@
                             <div class="">
                                 <label for="type">AD APROVAL</label>
                                 <input name="ad-aproval" class="form-control" id="form-ad-aproval-date" type="text" disabled/>
+                            </div>
+                            <div class="">
+                                <label for="type">Nº PROJETO</label>
+                                <input name="project-number" class="form-control" id="form-project-number" type="text" disabled/>
+                            </div>
+                            <div class="">
+                                <label for="type">VALOR($)</label>
+                                <input name="ad-aproval" class="form-control" id="form-project-budget" type="text" disabled/>
                             </div>
                         </div>
                         <div class="row text-center">
@@ -206,34 +244,37 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">FECHAR</button>
                     <button onclick="enableEdit()" type="button" class="btn btn-warning">EDITAR</button>
+                    <button onclick="deleteActivitie()" type="button" class="btn btn-danger" style="display: none;">EXCLUIR</button>
                     <button data-dismiss="modal" onclick="updateActivity()" type="button" class="btn btn-primary">SALVAR</button>
                 </div>
             </div>
         </div>
     </div>
 
-
-    <script src="lib/jquery.min.js"></script>
-    <script src="lib/jquery-ui.min.js"></script>
-    <script src="lib/bootstrap.min.js"></script>
-    <script src="lib/toastr.min.js"></script>
-    <script src="js/constants.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/NTGActivitie.js"></script>
-    <script src="js/scripts.js"></script>
+    <!-- SCRIPTS -->
+    <div>
+        <script src="lib/jquery.min.js"></script>
+        <script src="lib/jquery-ui.min.js"></script>
+        <script src="lib/bootstrap.min.js"></script>
+        <script src="lib/toastr.min.js"></script>
+        <script src="js/constants.js"></script>
+        <script src="js/utils.js"></script>
+        <script src="js/NTGActivitie.js"></script>
+        <script src="js/scripts.js"></script>
+    </div>
 
     <script>
+
+        var statusEdit = false;
+        var activities = [];
+        var filteredActivities = [];
+        var activity = new NTGActivitie();
 
         window.onload = function () {
             getActivities(generateTable);
             generateFilters();
             generateOptions();
         }
-
-        var statusEdit = false;
-        var activities = [];
-        var filteredActivities = [];
-        var activity = new NTGActivitie();
 
         function generateFilters() {
             var filters = [LINES, STATUS, TYPES];
@@ -266,30 +307,35 @@
             document.querySelector('.table-wrapper').style.display = 'flex';
             $('thead').empty();
             $('tbody').empty();
-            TABLE_CONTENT.forEach(function (tc) {
+            TABLE_CONTENT.forEach(function (tc, index) {
                 var th = document.createElement('th');
+                th.className = 'theader';
                 th.textContent = tc.header;
                 thead.appendChild(th);
             });
             data.map(function (d) {
-                var tr = document.createElement('tr');
+                var row = document.createElement('tr');
                 TABLE_CONTENT.map(function (tc) {
                     var td = document.createElement('td');
                     td.textContent = d[tc.field];
                     if (tc.field == "handover") {
                         td.textContent = dateFormatter(td.textContent);
                     }
-                    if (tc.field)
-                        tr.appendChild(td);
+                    if (tc.field == 'details') {
+                        var btn = document.createElement('button');
+                        btn.setAttribute('data-toggle', 'modal');
+                        btn.setAttribute('data-target', '#activity-modal');
+                        btn.className = 'btn btn-primary';
+                        btn.textContent = 'VER';
+                        btn.onclick = function () { openActivityDetails(d) };
+                        td.appendChild(btn);
+                    }
+                    if (tc.field == 'projectPercent') {
+                        updatePercentage2(td, d[tc.field])
+                    }
+                    row.appendChild(td);
                 });
-                var btn = document.createElement('button');
-                btn.textContent = 'VER';
-                btn.setAttribute('data-target', '#activity-modal')
-                btn.setAttribute('data-toggle', 'modal')
-                btn.className = 'btn btn-info details-button';
-                btn.onclick = function () { openActivityDetails(d) };
-                tr.appendChild(btn);
-                tbody.appendChild(tr);
+                tbody.appendChild(row);
             });
         }
 
@@ -327,11 +373,18 @@
             document.querySelector('#form-position').value = data.position;
             document.querySelector('#form-project').value = data.project;
             document.querySelector('#form-responsible').value = data.responsible;
+            document.querySelector('#form-involved-1').value = data.involved_1;
+            document.querySelector('#form-involved-2').value = data.involved_2;
+            document.querySelector('#form-involved-3').value = data.involved_3;
             document.querySelector('#form-input').value = data.input;
             document.querySelector('#form-ncg').value = data.ncg;
+            document.querySelector('#form-machine-type').value = data.machineType;
+            document.querySelector('#form-existing-tool').value = data.isExistingTool;
             document.querySelector('#form-activity').value = data.activity;
             document.querySelector('#form-input-date').value = dateFormatter(data.inputDate);
-            document.querySelector('#form-ad-aproval-date').value = dateFormatter(data.adAproval);
+            document.querySelector('#form-ad-aproval-date').value = dateFormatter(data.adAproval);            
+            document.querySelector('#form-project-number').value = data.projectNumber;
+            document.querySelector('#form-project-budget').value = data.projectBudget;
             document.querySelector('#form-req-almox-os').value = data.reqAlmox_OS;
             document.querySelector('#form-status-almox-os').value = data.statusReq_OS;
             document.querySelector('#form-rc-number').value = data.rcNumber;
@@ -346,9 +399,9 @@
             document.querySelector('#form-priority').value = data.priority;
             document.querySelector('#form-npr').value = data.npr;
             document.querySelector('#form-percentage').value = data.projectPercent;
-            updatePercentage();
-            
 
+            var el = document.querySelector('#form-percentage');
+            updatePercentage2(el, el.value);
         }
 
         function updateActivity() {
@@ -361,11 +414,18 @@
             activity.position = document.querySelector('#form-position').value;
             activity.project = document.querySelector('#form-project').value;
             activity.responsible = document.querySelector('#form-responsible').value;
+            activity.involved_1 = document.querySelector('#form-involved-1').value;
+            activity.involved_2 = document.querySelector('#form-involved-2').value;
+            activity.involved_3 = document.querySelector('#form-involved-3').value;
             activity.input = document.querySelector('#form-input').value;
             activity.ncg = document.querySelector('#form-ncg').value;
+            activity.machineType = document.querySelector('#form-machine-type').value;
+            activity.isExistingTool = document.querySelector('#form-existing-tool').value;
             activity.activity = document.querySelector('#form-activity').value;
             activity.inputDate = generateDate(document.querySelector('#form-input-date').value);
-            activity.adAproval = document.querySelector('#form-ad-aproval-date').value;
+            activity.adAproval = document.querySelector('#form-ad-aproval-date').value;            
+            activity.projectNumber = document.querySelector('#form-project-number').value;
+            activity.projectBudget = document.querySelector('#form-project-budget').value;
             activity.reqAlmox_OS = document.querySelector('#form-req-almox-os').value;
             activity.statusReq_OS = document.querySelector('#form-status-almox-os').value;
             activity.rcNumber = document.querySelector('#form-rc-number').value;
@@ -380,8 +440,6 @@
             activity.comments = document.querySelector('#form-comments').value;
             activity.priority = document.querySelector('#form-priority').value;
             activity.npr = document.querySelector('#form-npr').value;
-
-            console.log(activity);
 
             $.post(SERVER + 'api/dashboard/' + activity.id, activity)
                 .done(function (data) {
@@ -405,10 +463,17 @@
             document.querySelector('#form-station').disabled = false;
             document.querySelector('#form-position').disabled = false;
             document.querySelector('#form-responsible').disabled = false;
+            document.querySelector('#form-involved-1').disabled = false;
+            document.querySelector('#form-involved-2').disabled = false;
+            document.querySelector('#form-involved-3').disabled = false;
             document.querySelector('#form-input').disabled = false;
             document.querySelector('#form-ncg').disabled = false;
+            document.querySelector('#form-machine-type').disabled = false;
+            document.querySelector('#form-existing-tool').disabled = false;                        
             document.querySelector('#form-activity').disabled = false;
             document.querySelector('#form-ad-aproval-date').disabled = false;
+            document.querySelector('#form-project-number').disabled = false;
+            document.querySelector('#form-project-budget').disabled = false;            
             document.querySelector('#form-req-almox-os').disabled = false;
             document.querySelector('#form-status-almox-os').disabled = false;
             document.querySelector('#form-rc-number').disabled = false;
@@ -418,18 +483,33 @@
             document.querySelector('#form-install-tryout-date').disabled = false;
             document.querySelector('#form-handover-date').disabled = false;
             document.querySelector('#form-phase').disabled = false;
-            // document.querySelector('#form-percentage').disabled = false;
             document.querySelector('#form-project-status').disabled = false;
             document.querySelector('#form-comments').disabled = false;
             document.querySelector('#form-npr').disabled = false;
+            document.querySelector('.btn-warning').style.display = 'none';
+            document.querySelector('.btn-danger').style.display = 'block';
 
         }
+
         function disableEdit() {
 
+            document.querySelector('#form-type').disabled = true;
+            document.querySelector('#form-project').disabled = true;
+            document.querySelector('#form-line').disabled = true;
+            document.querySelector('#form-function-area').disabled = true;
+            document.querySelector('#form-station').disabled = true;
+            document.querySelector('#form-position').disabled = true;
             document.querySelector('#form-responsible').disabled = true;
+            document.querySelector('#form-involved-1').value = true;
+            document.querySelector('#form-involved-2').value = true;
+            document.querySelector('#form-involved-3').value = true;
             document.querySelector('#form-ncg').disabled = true;
+            document.querySelector('#form-machine-type').disabled = true;
+            document.querySelector('#form-existing-tool').disabled = true;
             document.querySelector('#form-activity').disabled = true;
             document.querySelector('#form-ad-aproval-date').disabled = true;
+            document.querySelector('#form-project-number').disabled = true;
+            document.querySelector('#form-project-budget').disabled = true;            
             document.querySelector('#form-req-almox-os').disabled = true;
             document.querySelector('#form-status-almox-os').disabled = true;
             document.querySelector('#form-rc-number').disabled = true;
@@ -443,7 +523,24 @@
             document.querySelector('#form-project-status').disabled = true;
             document.querySelector('#form-comments').disabled = true;
             document.querySelector('#form-npr').disabled = true;
+            document.querySelector('.btn-warning').style.display = 'block';
+            document.querySelector('.btn-danger').style.display = 'none';
 
+        }
+
+        function deleteActivitie() {
+            // $.get(SERVER + 'api/')
+            var actv = document.querySelector('#form-id');
+            console.log(actv);
+            $.ajax(SERVER + 'api/dashboard/' + actv.value, {
+                type: 'DELETE',
+                success: function () {
+                    console.log('Deletado')
+                },
+                fail: function (err) {
+                    console.error(err);
+                }
+            });
         }
 
         function generateOptions() {
@@ -460,8 +557,8 @@
 
         function updatePercentage() {
             var inputPercent = document.querySelector('#form-percentage');
-            var phase = document.querySelector('#form-phase').value;            
-            var newPhase = PHASES.filter(function(ph) { return ph.name == phase})[0];
+            var phase = document.querySelector('#form-phase').value;
+            var newPhase = PHASES.filter(function (ph) { return ph.name == phase })[0];
             if (!newPhase) return;
             if (newPhase.percentage >= 0 && newPhase.percentage <= 30) {
                 inputPercent.style.background = 'yellow';
@@ -471,10 +568,25 @@
                 inputPercent.style.background = 'lightgrey';
             }
             inputPercent.value = newPhase.percentage;
-            
         }
 
-        
+        function updatePercentage2(element, percentage) {
+            if (percentage > 0 && percentage <= 30) {
+                element.style.backgroundColor = 'gold';
+            } else if (percentage > 30 && percentage <= 60) {
+                element.style.backgroundColor = 'lightgrey';
+            } else if (percentage > 60) {
+                element.style.backgroundColor = 'limegreen';
+            } else {
+                element.style.backgroundColor = 'bisque';
+            }
+        }
+
+        function createDetailButton() {
+
+        }
+
+
 
 
 

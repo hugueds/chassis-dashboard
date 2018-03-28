@@ -89,5 +89,16 @@ td {
 tr:hover{
     background-color: slateblue !important;
     color: white;
-    font-weight: 400;
+    font-weight: 400;    
+}
+
+th {
+    cursor: pointer !important;
+}
+
+table.sortable thead {
+    background-color:#eee;
+    color:#666666;
+    font-weight: bold;
+    cursor: default;
 }

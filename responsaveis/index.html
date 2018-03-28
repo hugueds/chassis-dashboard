@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta key="author" value="SSBHPE">
+    <link rel="stylesheet" href="../css/lib/jquery-ui.css" />
+    <link rel="stylesheet" href="../css/lib/jquery-ui.theme.min.css" />
+    <link rel="stylesheet" href="../css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/lib/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="../css/lib/toastr.min.css" />
+    <link rel="stylesheet" href="../css/responsaveis.css" />
+    <link rel="shortcut icon" type="image/ico" href="../favicon.ico" />
+    <title>RESPONSÁVEIS</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="navbar">
+            <a href="http://chassis/ifup/">FOLLOW UP</a>
+        </div>
+
+        <div class="text-center">
+            <h1>RESPONSÁVEIS</h1>
+        </div>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="container">
+        <div class="filters">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">TIPO</span>
+                </div>
+                <select class="form-control" name="filter-line" id="filter-type" onchange="filterActivities()"></select>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CARDS -->
+    <div class="container">
+        <div class="row card-wrapper"></div>
+    </div>
+
+
+    <!-- MODAL -->
+    <div class="modal fade" id="activity-modal" tabindex="-1" role="dialog" aria-labelledby="activity-modal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="modalTitle">ATIVIDADES</h5>
+                    <h5 class="modal-title text-center" id="modalTitle">EM ANDAMENTO</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="container activity-row"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">FECHAR</button>
+                        <button data-dismiss="modal" onclick="saveChanges()" type="button" class="btn btn-primary">SALVAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- SCRIPTS -->
+    <div style="display: none">
+        <script src="../lib/jquery.min.js"></script>
+        <script src="../lib/jquery-ui.min.js"></script>
+        <script src="../lib/bootstrap.min.js"></script>
+        <script src="../lib/toastr.min.js"></script>
+        <script src="../js/constants.js"></script>
+        <script src="../js/utils.js"></script>
+        <script src="../js/NTGActivitie.js"></script>
+        <script src="../js/scripts.js"></script>
+    </div>
+
+    <script>
+
+        var activities = [];
+
+
+        window.onload = function () {
+            getActivities(generateCards);
+            generateFilters();
+            // Reagrupar atividade por responsável
+            // Criar um card para cada responsável
+            // Card contem uma foto e um botão que abre um modal com as atividades onde ele é responsável e um para atividades que ele está envolvido
+        }
+
+        function getActivities(callback) {
+            $.get(SERVER + '/api/dashboard', function (data) {
+                data.map(function (d) { activities.push(new NTGActivitie(d)); });
+                console.log('Atividades carregadas com sucesso');
+                callback(activities);
+            });
+        }
+
+        function generateCards(actvs) {
+            var responsibles = Object.values(actvs.groupBy('responsible'));
+            var cardWrapper = document.querySelector('.card-wrapper');
+            cardWrapper.innerHTML = "";
+            responsibles.map(function (resp, index) {
+                var card = Card(resp);
+                if (card) {
+                    cardWrapper.appendChild(card);
+                }
+            });
+
+        }
+
+        function Card(responsible) {
+            var resp = responsible[0].responsible;
+            if (!resp)
+                return false;
+            var card = document.createElement('div');
+            card.className = 'card responsible-card bg-warning mb-3';
+            card.id = resp;
+            card.innerHTML = `
+            <img class="card-img-top " src="../images/colaboradores/${resp}.jpg" alt="${resp}" />
+                <div class="card-header">${resp}</div>
+                <div class="card-body">                     
+                    <button class="btn btn-success" data-toggle="modal" data-target="#activity-modal" onclick="openActivityDetails(${resp}, true)" > RESP </button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#activity-modal" onclick="openActivityDetails(${resp}, false)" > ENVOL </button>
+                </div>`;
+            return card;
+        }
+
+        function filterActivities() {
+            var selectedType = document.querySelector('#filter-type').value;
+            var filteredActivities = [];
+            filteredActivities = activities;
+            filteredActivities = filteredActivities.filter(function (a) { return a.projectStatus != 'COMPLETED' });
+            if (selectedType != 'ALL')
+                filteredActivities = filteredActivities.filter(function (a) { return a.type == selectedType });
+            generateCards(filteredActivities);
+        }
+
+        function generateFilters() {
+            var filterType = document.querySelector('#filter-type');
+            TYPES.forEach(function (type) {
+                var option = document.createElement('option');
+                option.value = type;
+                option.textContent = type;
+                filterType.appendChild(option);
+            });
+        }
+
+        function openActivityDetails(user, isResposible) {
+            console.log(user);
+            // Carregar status da atividade baseado em um tabela do banco            
+            var filteredActivities = activities;
+            filteredActivities = filteredActivities.filter(function (a) { return a.projectStatus != 'COMPLETED' });
+            if (!isResposible) {
+                filteredActivities = filteredActivities.filter(function (a) {
+                    return (a.involved_1 == user) || (a.involved_2 == user) || (a.involved_3 == user);
+                });
+            }
+            else
+                filteredActivities = filteredActivities.filter(function (a) { return a.responsible == user });
+
+            var activityRow = document.querySelector('.activity-row');
+            activityRow.innerHTML = "";
+
+            filteredActivities.map(function (a) {
+                var div = document.createElement('div');
+                div.innerHTML = `    
+                <div class="input-group activity-description">
+                    <input name="id" class="form-control" id="form-id" type="hidden" value="${a.id}"  />
+                    <input name="user" class="form-control" id="form-user" type="hidden" value="${user}"  />
+                    <input name="is-responsible" class="form-control" id="form-is-responsible" type="hidden" value="${isResposible}"  />
+                    <input name="activity" class="form-control" id="form-activity" type="text" disabled value='${a.project}'/>
+                    <div class="input-group-text">
+                        <input name="ongoing-cb" type="checkbox" aria-label="checkbox" value="${a.id}" >
+                    </div>
+                </div>`;
+                activityRow.appendChild(div);
+            });
+        }
+
+        function saveChanges() {
+            var actvs = [];
+            var user = $('#form-user').val();
+            var isResponsible = $('#form-is-responsible').val();
+            $('input[name=ongoing-cb]').each(function () {
+                var as = new ActivityStatus();
+                as.activityId = parseInt($(this).val());
+                as.user = user;
+                as.isResponsible = isResponsible == "true" ? true : false;
+                as.status = $(this).is(':checked');
+                actvs.push(as);
+            });
+
+            console.log(actvs);
+
+            // var url = SERVER + 'api/dashboard'
+            var url = 'http://localhost:59450/api/dashboard/update'
+
+            var b = JSON.stringify(actvs)
+            // $.post(url,  { activities : actvs } )
+            $.post(url, { "" : b })
+
+
+        }
+
+        // $.get('http://localhost:59450/api/dashboard/activities/SSBFCI?isResponsible=true')
+        //     .done(function (data) {
+        //         console.log(data);
+        //     })
+
+
+
+
+    </script>
+
+</body>
+
+</html>

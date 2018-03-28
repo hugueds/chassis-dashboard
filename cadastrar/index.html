@@ -11,13 +11,14 @@
     <link rel="stylesheet" href="../css/lib/bootstrap-grid.min.css" />
     <link rel="stylesheet" href="../css/lib/toastr.min.css" />
     <link rel="stylesheet" href="../css/cadastro.css" />
+    <link rel="shortcut icon" type="image/ico" href="../favicon.ico" />
     <title>Cadastrar Atividade</title>
 </head>
 
 <body>
 
     <div class="navbar">
-        <a href="http://chassis/dashboard/">FOLLOW UP</a>
+        <a href="http://chassis/ifup/">FOLLOW UP</a>
     </div>
 
     <div class="header text-center">
@@ -29,7 +30,7 @@
             <div class="row">
                 <div class="field">
                     <label for="type">NOME DO PROJETO</label>
-                    <input class="form-control" name="project" id="form-project" type="text" />
+                    <input maxlength="120" class="form-control" name="project" id="form-project" type="text" required/>
                 </div>
             </div>
             <div class="row">
@@ -54,34 +55,79 @@
                     <select class="form-control" name="position" id="form-position"> </select>
                 </div>
             </div>
-            <div class="row">
+            <div class="row text-center">
                 <div class="">
                     <label for="type">RESPONSÁVEL</label>
-                    <select class="form-control" name="responsible" id="form-responsible"> </select>                    
+                    <select name="responsible" class="form-control" id="form-responsible">
+                        <option value="" selected> </option>
+                    </select>
+
                 </div>
                 <div class="">
+                    <label for="type">ENVOLVIDO 1</label>
+                    <select name="involved-1" class="form-control" id="form-involved-1">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="">
+                    <label for="type">ENVOLVIDO 2</label>
+                    <select name="involved-2" class="form-control" id="form-involved-2">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="">
+                    <label for="type">ENVOLVIDO 3</label>
+                    <select name="involved-3" class="form-control" id="form-involved-3">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="">
                     <label for="type">INPUT</label>
-                    <select class="form-control" name="input" id="form-input"> </select>
+                    <select name="input" class="form-control" id="form-input"> </select>
                 </div>
                 <div class="">
                     <label for="type">NCG</label>
-                    <select class="form-control" name="ncg" id="form-ncg"> </select>
+                    <select name="ncg" class="form-control" id="form-ncg"> </select>
+                </div>
+                <div class="">
+                    <label for="type"> MAQUINA TIPO </label>
+                    <select name="machine-type" class="form-control" id="form-machine-type"> 
+                        <option value="" selected></option>
+                    </select>
+                </div>
+                <div class="">
+                    <label for="type"> MAQUINA EXISTENTE? </label>
+                    <select name="existing-tool" class="form-control" id="form-existing-tool"> 
+                        <option value=""></option>                        
+                        <option value="true">SIM</option>
+                        <option value="false">NÃO</option>
+                    </select>
                 </div>
             </div>
             <div class="row">
                 <div class="field">
                     <label for="type">ATIVIDADE</label>
-                    <input class="form-control" name="activity" id="form-activity" type="text" />
+                    <input maxlenght="145" class="form-control" name="activity" id="form-activity" type="text" />
                 </div>
             </div>
-            <div class="row">
+            <div class="row text-center">
                 <div class="">
                     <label for="type">INPUT-DATE</label>
-                    <input class="form-control" name="input-date" id="form-input-date" type="text" />
+                    <input name="input-date" class="form-control" id="form-input-date" type="text" />
                 </div>
                 <div class="">
                     <label for="type">AD APROVAL</label>
-                    <input class="form-control" name="ad-aproval" id="form-ad-aproval-date" type="text" />
+                    <input name="ad-aproval" class="form-control" id="form-ad-aproval-date" type="text" />
+                </div>
+                <div class="">
+                    <label for="type">Nº PROJETO</label>
+                    <input name="project-number" class="form-control" id="form-project-number" type="text" />
+                </div>
+                <div class="">
+                    <label for="type">VALOR($)</label>
+                    <input name="ad-aproval" class="form-control" id="form-project-budget" type="text"  />
                 </div>
             </div>
             <div class="row">
@@ -101,7 +147,7 @@
                 </div>
                 <div class="">
                     <label for="type">RC STATUS</label>
-                    <select class="form-control" name="rc-status" id="form-rc-status"></select>                    
+                    <select class="form-control" name="rc-status" id="form-rc-status"></select>
                 </div>
                 <div class="">
                     <label for="type">ORDER</label>
@@ -139,14 +185,10 @@
             <div class="row">
                 <div class="field">
                     <label for="type">COMENTÁRIOS</label>
-                    <input class="form-control" name="comments" id="form-comments" type="text" />
+                    <input maxlenght="145" class="form-control" name="comments" id="form-comments" type="text" />
                 </div>
             </div>
             <div class="row">
-                <div class="">
-                    <label for="type">PRIORIDADE</label>
-                    <input class="form-control" name="priority" id="form-priority" type="number" min="0" maxlength="2" />
-                </div>
                 <div class="">
                     <label for="type">NPR</label>
                     <input class="form-control" name="npr" id="form-npr" type="number" min="0" maxlength="2" />
@@ -180,12 +222,14 @@
 
         window.onload = function () {
             generateOptions();
+            document.getElementById('form-handover-date').innerHTML = ""
         }
 
         function generateOptions() {
 
             OPTION_FIELDS.forEach(function (option) {
                 option.value.forEach(function (o) {
+                    if (o == 'ALL') return;
                     var selection = document.getElementById('form-' + option.type);
                     var el = document.createElement('option');
                     el.value = o;
@@ -204,11 +248,18 @@
             activity.position = document.querySelector('#form-position').value;
             activity.project = document.querySelector('#form-project').value;
             activity.responsible = document.querySelector('#form-responsible').value;
+            activity.involved_1 = document.querySelector('#form-involved-1').value;
+            activity.involved_2 = document.querySelector('#form-involved-2').value;
+            activity.involved_3 = document.querySelector('#form-involved-3').value;
             activity.input = document.querySelector('#form-input').value;
             activity.ncg = document.querySelector('#form-ncg').value;
+            activity.machineType = document.querySelector('#form-machine-type').value;
+            activity.isExistingTool = document.querySelector('#form-existing-tool').value;
             activity.activity = document.querySelector('#form-activity').value;
             activity.inputDate = generateDate(document.querySelector('#form-input-date').value);
             activity.adAproval = document.querySelector('#form-ad-aproval-date').value;
+            activity.projectNumber = document.querySelector('#form-project-number').value;
+            activity.projectBudget = document.querySelector('#form-project-budget').value;
             activity.reqAlmox_OS = document.querySelector('#form-req-almox-os').value;
             activity.statusReq_OS = document.querySelector('#form-status-almox-os').value;
             activity.rcNumber = document.querySelector('#form-rc-number').value;
@@ -218,16 +269,28 @@
             activity.installation_TryOut = generateDate(document.querySelector('#form-install-tryout-date').value);
             activity.handover = generateDate(document.querySelector('#form-handover-date').value);
             activity.phase = document.querySelector('#form-phase').value;
-            activity.projectPercent = document.querySelector('#form-percentage').value;
+            activity.projectPercent = getPercentage();
             activity.projectStatus = document.querySelector('#form-project-status').value;
             activity.comments = document.querySelector('#form-comments').value;
-            activity.priority = document.querySelector('#form-priority').value;
             activity.npr = document.querySelector('#form-npr').value;
 
+
+
             $.post(SERVER + 'api/dashboard/', activity)
-                .done(function (data) { toastr.success("ATIVIDADE SALVA COM SUCESSO"); })
+                // $.post('http://localhost:59450/api/dashboard/', activity)
+                .done(function (data) {
+                    toastr.success("ATIVIDADE SALVA COM SUCESSO");
+                    window.location = '../';
+                })
                 .fail(function (err) { toastr.error("ERRO AO CRIAR REQUISIÇÃO"); console.error(err) });
 
+        }
+
+        function getPercentage() {
+            var percent = 0;
+            var phase = document.querySelector('#form-phase').value;
+            var newPhase = PHASES.filter(function (ph) { return ph.name == phase })[0];
+            return newPhase.percentage;
         }
 
 

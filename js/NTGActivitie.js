@@ -1,18 +1,25 @@
 function NTGActivitie(data) {    
   if (!data) return;
-  this["id"] = data.Id | null,
+  this["id"] = data.Id | null;
   this["type"] = data.Type || null;
-  this["line"] = data.Line || null ;
+  this["line"] = data.Line || null;
   this["functionArea"] = data.FunctionArea || null;
   this["station"] = data.Station || null;
   this["position"] = data.Position || null;
   this["project"] = data.Project || null;
   this["responsible"] = data.Responsible || null;
+  this["involved_1"] = data.Involved_1 || null;
+  this["involved_2"] = data.Involved_2 || null;
+  this["involved_3"] = data.Involved_3 || null;  
   this["input"] = data.Input || null;
   this["ncg"] = data.NCG || null;
+  this["isExistingTool"] = data.IsExistingTool || false;  
+  this["machineType"] = data.MachineType || false;  
   this["activity"] = data.Activity || null;
   this["inputDate"] = data.InputDate || null;
   this["adAproval"] = data.AdAproval || null;
+  this["projectNumber"] = data.ProjectNumber || null;
+  this["projectBudget"] = data.ProjectBudget || null;
   this["reqAlmox_OS"] = data.ReqAlmox_OS || null;
   this["statusReq_OS"] = data.StatusReq_OS || null;
   this["rcNumber"] = data.RcNumber || null;
@@ -28,4 +35,12 @@ function NTGActivitie(data) {
   this["priority"] = data.Priority || 0;
   this["npr"] = data.Npr || null;
   return this;
+}
+
+function ActivityStatus(data) {
+  if (!data) return;
+  this["activityId"] = data.activityId;
+  this["user"] = data.user;
+  this["status"] = data.status;
+  this["isResponsible"] = data.isResponsible;
 }

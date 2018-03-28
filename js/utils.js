@@ -1,7 +1,7 @@
 function request(url, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         var DONE = 4;
         var OK = 200;
         if (xhr.readyState === DONE) {
@@ -16,10 +16,10 @@ function request(url, callback) {
 }
 
 function post(url, data, callback) {
-    var xhr = new XMLHttpRequest();    
-    xhr.open('POST', url);    
-    xhr.setRequestHeader('Content-Type', 'application/json');    
-    xhr.onreadystatechange = function() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', url);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function () {
         var DONE = 4;
         var OK = 200;
         if (xhr.readyState === DONE) {
@@ -29,7 +29,7 @@ function post(url, data, callback) {
                 callback(new Error("Erro na requisição"));
             }
         }
-    }    
+    }
     xhr.send(data);
 }
 
@@ -59,5 +59,17 @@ $(function () {
 
     $("[id$=date]").datepicker(dateConfig).datepicker("setDate", new Date);
 });
+
+Array.prototype.groupBy = function (prop) {
+    return this.reduce(function (groups, item) {
+        const val = item[prop]
+        groups[val] = groups[val] || []
+        groups[val].push(item)
+        return groups
+    }, {})
+}
+
+
+
 
 toastr.options["positionClass"] = "toast-top-center";
