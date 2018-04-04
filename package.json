@@ -1,0 +1,32 @@
+{
+  "name": "ifup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bs-config.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/hugueds/chassis-dashboard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hugueds/chassis-dashboard/issues"
+  },
+  "homepage": "https://github.com/hugueds/chassis-dashboard#readme",
+  "devDependencies": {
+    "ts-loader": "^4.1.0",
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13"
+  },
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "typescript": "^2.8.1"
+  }
+}
