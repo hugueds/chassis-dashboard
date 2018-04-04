@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta key="author" value="SSBHPE">
+    <meta http-equiv="cache-control" content="max-age=0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+    <meta http-equiv="pragma" content="no-cache" />
     <link rel="stylesheet" href="css/lib/jquery-ui.css" />
     <link rel="stylesheet" href="css/lib/jquery-ui.theme.min.css" />
     <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
@@ -139,7 +144,10 @@
                             </div>
                             <div class="">
                                 <label for="type"> MAQUINA EXISTENTE? </label>
-                                <select name="existing-tool" class="form-control" id="form-existing-tool" disabled> </select>
+                                <select name="existing-tool" class="form-control" id="form-existing-tool" disabled>
+                                    <option value="true"> SIM </option>
+                                    <option value="false"> NÃO </option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
@@ -244,7 +252,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">FECHAR</button>
                     <button onclick="enableEdit()" type="button" class="btn btn-warning">EDITAR</button>
-                    <button onclick="deleteActivitie()" type="button" class="btn btn-danger" style="display: none;">EXCLUIR</button>
+                    <button data-dismiss="modal" onclick="deleteActivity()" type="button" class="btn btn-danger" style="display: none;">EXCLUIR</button>
                     <button data-dismiss="modal" onclick="updateActivity()" type="button" class="btn btn-primary">SALVAR</button>
                 </div>
             </div>
@@ -261,6 +269,7 @@
         <script src="js/utils.js"></script>
         <script src="js/NTGActivitie.js"></script>
         <script src="js/scripts.js"></script>
+        <script src="js/dist/bundle.js"></script>
     </div>
 
     <script>
@@ -269,6 +278,7 @@
         var activities = [];
         var filteredActivities = [];
         var activity = new NTGActivitie();
+        var order = "desc";
 
         window.onload = function () {
             getActivities(generateTable);
@@ -310,6 +320,7 @@
             TABLE_CONTENT.forEach(function (tc, index) {
                 var th = document.createElement('th');
                 th.className = 'theader';
+                th.onclick = function () { orderBy(tc.field) }
                 th.textContent = tc.header;
                 thead.appendChild(th);
             });
@@ -355,8 +366,8 @@
 
         function getActivities(callback) {
             $.get(SERVER + '/api/dashboard', function (data) {
-                activities = [];
                 data.map(function (d) { activities.push(new NTGActivitie(d)); });
+                filteredActivities = activities;
                 console.log('Atividades carregadas com sucesso');
                 callback(activities);
             });
@@ -379,10 +390,10 @@
             document.querySelector('#form-input').value = data.input;
             document.querySelector('#form-ncg').value = data.ncg;
             document.querySelector('#form-machine-type').value = data.machineType;
-            document.querySelector('#form-existing-tool').value = data.isExistingTool;
+            document.querySelector('#form-existing-tool').value = data.isExistingTool ? 'SIM' : 'NÃO';
             document.querySelector('#form-activity').value = data.activity;
             document.querySelector('#form-input-date').value = dateFormatter(data.inputDate);
-            document.querySelector('#form-ad-aproval-date').value = dateFormatter(data.adAproval);            
+            document.querySelector('#form-ad-aproval-date').value = dateFormatter(data.adAproval);
             document.querySelector('#form-project-number').value = data.projectNumber;
             document.querySelector('#form-project-budget').value = data.projectBudget;
             document.querySelector('#form-req-almox-os').value = data.reqAlmox_OS;
@@ -420,10 +431,10 @@
             activity.input = document.querySelector('#form-input').value;
             activity.ncg = document.querySelector('#form-ncg').value;
             activity.machineType = document.querySelector('#form-machine-type').value;
-            activity.isExistingTool = document.querySelector('#form-existing-tool').value;
+            activity.isExistingTool = document.querySelector('#form-existing-tool').value == 'true' ? true : false;
             activity.activity = document.querySelector('#form-activity').value;
             activity.inputDate = generateDate(document.querySelector('#form-input-date').value);
-            activity.adAproval = document.querySelector('#form-ad-aproval-date').value;            
+            activity.adAproval = document.querySelector('#form-ad-aproval-date').value;
             activity.projectNumber = document.querySelector('#form-project-number').value;
             activity.projectBudget = document.querySelector('#form-project-budget').value;
             activity.reqAlmox_OS = document.querySelector('#form-req-almox-os').value;
@@ -443,13 +454,13 @@
 
             $.post(SERVER + 'api/dashboard/' + activity.id, activity)
                 .done(function (data) {
-                    toastr.success("ATIVIDADE SALVA COM SUCESSO");
                     getActivities(function (data) {
                         activities = data;
                         filterActivities();
                         generateTable(filteredActivities)
-                    });
-
+                        toastr.success("ATIVIDADE SALVA COM SUCESSO");
+                        window.location.reload();
+                    });                    
                 })
                 .fail(function (err) { toastr.error("ERRO AO CRIAR REQUISIÇÃO"); console.error(err) });
         }
@@ -469,11 +480,11 @@
             document.querySelector('#form-input').disabled = false;
             document.querySelector('#form-ncg').disabled = false;
             document.querySelector('#form-machine-type').disabled = false;
-            document.querySelector('#form-existing-tool').disabled = false;                        
+            document.querySelector('#form-existing-tool').disabled = false;
             document.querySelector('#form-activity').disabled = false;
             document.querySelector('#form-ad-aproval-date').disabled = false;
             document.querySelector('#form-project-number').disabled = false;
-            document.querySelector('#form-project-budget').disabled = false;            
+            document.querySelector('#form-project-budget').disabled = false;
             document.querySelector('#form-req-almox-os').disabled = false;
             document.querySelector('#form-status-almox-os').disabled = false;
             document.querySelector('#form-rc-number').disabled = false;
@@ -509,7 +520,7 @@
             document.querySelector('#form-activity').disabled = true;
             document.querySelector('#form-ad-aproval-date').disabled = true;
             document.querySelector('#form-project-number').disabled = true;
-            document.querySelector('#form-project-budget').disabled = true;            
+            document.querySelector('#form-project-budget').disabled = true;
             document.querySelector('#form-req-almox-os').disabled = true;
             document.querySelector('#form-status-almox-os').disabled = true;
             document.querySelector('#form-rc-number').disabled = true;
@@ -528,19 +539,23 @@
 
         }
 
-        function deleteActivitie() {
-            // $.get(SERVER + 'api/')
+        function deleteActivity() {
+            var response = window.confirm('DESEJA EXCLUIR ESTA ATIVIDADE?');
+            if (!response) return;
+
             var actv = document.querySelector('#form-id');
-            console.log(actv);
-            $.ajax(SERVER + 'api/dashboard/' + actv.value, {
-                type: 'DELETE',
-                success: function () {
-                    console.log('Deletado')
-                },
-                fail: function (err) {
-                    console.error(err);
+            $.get(SERVER + '/api/dashboard/delete/' + actv.value, function (data) {
+                if (data.Status == 'OK') {
+                    toastr.success(data.Message);
+                    getActivities(function (data) {
+                        activities = data;
+                        filterActivities();
+                        generateTable(filteredActivities)
+                    });
                 }
             });
+
+
         }
 
         function generateOptions() {
@@ -582,8 +597,33 @@
             }
         }
 
-        function createDetailButton() {
-
+        function orderBy(column) {
+            if (column == 'handover') {
+                filteredActivities = filteredActivities.sort((a, b) => {
+                    if (a[column] == null)
+                        return 1;
+                    if (b[column] == null)
+                        return -1;
+                    if (order == "asc") {
+                        return new Date(a[column]) > new Date(b[column]) ? 1 : -1;
+                    }
+                    return new Date(a[column]) < new Date(b[column]) ? 1 : -1;
+                });
+            } else {
+                filteredActivities = filteredActivities.sort((a, b) => {
+                    if (order == "asc")
+                        return (a[column] > b[column]) - (a[column] < b[column])
+                    else
+                        return (a[column] < b[column]) - (a[column] > b[column])
+                });
+            }
+            if (order == "asc") {
+                order = "desc";
+            } else {
+                order = "asc"
+            }
+            // filteredActivities = filteredActivities.sort((a, b) => (a[column] > b[column]) - (a[column] < b[column]))
+            generateTable(filteredActivities);
         }
 
 

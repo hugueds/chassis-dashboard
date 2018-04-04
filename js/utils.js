@@ -69,7 +69,13 @@ Array.prototype.groupBy = function (prop) {
     }, {})
 }
 
+toastr.options = {
+    "showDuration": "300",
+    "hideDuration": "300",
+    "timeOut": "300",
+    "extendedTimeOut": "1000",
+    "positionClass": "toast-top-center"
+}
 
 
 
-toastr.options["positionClass"] = "toast-top-center";

@@ -39,8 +39,8 @@ function NTGActivitie(data) {
 
 function ActivityStatus(data) {
   if (!data) return;
-  this["activityId"] = data.activityId;
-  this["user"] = data.user;
-  this["status"] = data.status;
-  this["isResponsible"] = data.isResponsible;
+  this["activityId"] = data.ActivityId;
+  this["user"] = data.User;
+  this["status"] = data.Status;
+  this["isResponsible"] = data.IsResponsible;
 }
