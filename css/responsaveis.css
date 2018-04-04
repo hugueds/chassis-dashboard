@@ -4,7 +4,7 @@
     margin-left: 2%;
 }
 
-.btn {
+.card-body .btn {
     width: 5.9rem;
     text-align: center;
     font-size: 14px;
@@ -34,4 +34,48 @@
 
 #form-activity {
     width: 90%;
+}
+
+.item-checked {
+    background-color: aquamarine !important;
+}
+
+.today-wrapper {
+    display: none;
+}
+
+.people-wrapper {
+    display: flex;
+}
+
+.today-card {
+    margin-left: 5%;
+    margin-top: 2%;
+    width: 45%;
+}
+
+.today-activity-desc {
+    font-size: 1rem;
+    font-weight: bold;
+    border: 1px solid black;
+    width: 20%;
+    float: left;
+    text-align: center;
+    background-color: white;
+}
+
+.today-activity-wrapper {
+    float: left;    
+    width: 75%;
+    margin-left: 5%;
+    text-align: center;
+}
+
+.today-activity-line {
+    background-color: wheat;
+    margin-top: 2%;
+}
+
+.today-card img{
+    width: 100%;
 }

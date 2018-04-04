@@ -30,6 +30,10 @@
 
     <!-- FILTROS -->
     <div class="container">
+        <div>
+            <button id="people-button" class="btn btn-primary active" active onclick="toggleView('people')"> VER PESSOAS </button>
+            <button id="today-button" class="btn btn-primary" onclick="toggleView('today')"> VER HOJE</button>
+        </div>
         <div class="filters">
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -43,7 +47,8 @@
 
     <!-- CARDS -->
     <div class="container">
-        <div class="row card-wrapper"></div>
+        <div class="row people-wrapper"></div>
+        <div class="row today-wrapper"></div>
     </div>
 
 
@@ -52,7 +57,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-center" id="modalTitle">ATIVIDADES</h5>
+                    <h5 class="modal-title text-center" id="modalTitle">ATIVIDADES ORDENADAS POR ENTREGA</h5>
                     <h5 class="modal-title text-center" id="modalTitle">EM ANDAMENTO</h5>
                 </div>
                 <div class="modal-body">
@@ -82,39 +87,51 @@
     <script>
 
         var activities = [];
-
+        var activitieStatus = [];
+        var lastView = 'people'; // people
 
         window.onload = function () {
-            getActivities(generateCards);
+            generateCards();
+            getActivities(function () {
+                generateTodayTable();
+            });
             generateFilters();
-            // Reagrupar atividade por responsável
-            // Criar um card para cada responsável
-            // Card contem uma foto e um botão que abre um modal com as atividades onde ele é responsável e um para atividades que ele está envolvido
         }
 
         function getActivities(callback) {
-            $.get(SERVER + '/api/dashboard', function (data) {
-                data.map(function (d) { activities.push(new NTGActivitie(d)); });
-                console.log('Atividades carregadas com sucesso');
-                callback(activities);
+            activities = [];
+            activitieStatus = [];
+            $.get(SERVER + '/api/dashboard', function (data1) {
+                data1.map(function (d) { activities.push(new NTGActivitie(d)); });
+                $.get(SERVER + '/api/dashboard/activities/', function (data2) {
+                    data2.map(function (d2) { activitieStatus.push(new ActivityStatus(d2)); });
+                    console.log('Atividades carregadas com sucesso');
+                    callback();
+                })
             });
         }
 
         function generateCards(actvs) {
-            var responsibles = Object.values(actvs.groupBy('responsible'));
-            var cardWrapper = document.querySelector('.card-wrapper');
-            cardWrapper.innerHTML = "";
+            var filter = false;
+            var responsibles = RESPONSIBLES;
+            if (actvs) {
+                filter = true;
+                responsibles = Object.values(actvs.groupBy('responsible'));
+            }
+            var peopleWrapper = document.querySelector('.people-wrapper');
+            peopleWrapper.innerHTML = "";
             responsibles.map(function (resp, index) {
-                var card = Card(resp);
+                var card = filter ? Card(resp[0].responsible) : Card(resp);
                 if (card) {
-                    cardWrapper.appendChild(card);
+                    peopleWrapper.appendChild(card);
                 }
             });
 
         }
 
         function Card(responsible) {
-            var resp = responsible[0].responsible;
+            var resp = responsible;
+
             if (!resp)
                 return false;
             var card = document.createElement('div');
@@ -122,7 +139,7 @@
             card.id = resp;
             card.innerHTML = `
             <img class="card-img-top " src="../images/colaboradores/${resp}.jpg" alt="${resp}" />
-                <div class="card-header">${resp}</div>
+                <div class="card-header"> ${resp} </div>
                 <div class="card-body">                     
                     <button class="btn btn-success" data-toggle="modal" data-target="#activity-modal" onclick="openActivityDetails(${resp}, true)" > RESP </button>
                     <button class="btn btn-primary" data-toggle="modal" data-target="#activity-modal" onclick="openActivityDetails(${resp}, false)" > ENVOL </button>
@@ -135,9 +152,12 @@
             var filteredActivities = [];
             filteredActivities = activities;
             filteredActivities = filteredActivities.filter(function (a) { return a.projectStatus != 'COMPLETED' });
-            if (selectedType != 'ALL')
+            if (selectedType != 'ALL') {
                 filteredActivities = filteredActivities.filter(function (a) { return a.type == selectedType });
-            generateCards(filteredActivities);
+                generateCards(filteredActivities);
+                return;
+            }
+            generateCards();
         }
 
         function generateFilters() {
@@ -151,10 +171,10 @@
         }
 
         function openActivityDetails(user, isResposible) {
-            console.log(user);
-            // Carregar status da atividade baseado em um tabela do banco            
+            var user = user.id;
             var filteredActivities = activities;
             filteredActivities = filteredActivities.filter(function (a) { return a.projectStatus != 'COMPLETED' });
+            filteredActivities = filteredActivities.sort(function (a, b) { return new Date(a['handover']) < new Date(b['handover']) ? 1 : -1; });
             if (!isResposible) {
                 filteredActivities = filteredActivities.filter(function (a) {
                     return (a.involved_1 == user) || (a.involved_2 == user) || (a.involved_3 == user);
@@ -166,26 +186,39 @@
             var activityRow = document.querySelector('.activity-row');
             activityRow.innerHTML = "";
 
-            filteredActivities.map(function (a) {
-                var div = document.createElement('div');
-                div.innerHTML = `    
-                <div class="input-group activity-description">
-                    <input name="id" class="form-control" id="form-id" type="hidden" value="${a.id}"  />
-                    <input name="user" class="form-control" id="form-user" type="hidden" value="${user}"  />
-                    <input name="is-responsible" class="form-control" id="form-is-responsible" type="hidden" value="${isResposible}"  />
-                    <input name="activity" class="form-control" id="form-activity" type="text" disabled value='${a.project}'/>
-                    <div class="input-group-text">
-                        <input name="ongoing-cb" type="checkbox" aria-label="checkbox" value="${a.id}" >
-                    </div>
-                </div>`;
-                activityRow.appendChild(div);
-            });
+            $.get(SERVER + 'api/dashboard/activities/' + user + '?isResponsible=' + isResposible)
+                .done(function (data) {
+                    var activitieList = [];
+                    filteredActivities.map(f => {
+                        data.map(d => {
+                            if (d.ActivityId == f.id)
+                                f.status = d.Status;
+                        });
+                    })
+                    filteredActivities.map(function (a) {
+                        var div = document.createElement('div');
+                        var checked = a.status == true ? "checked" : "not-checked";
+                        div.innerHTML = `    
+                            <div class="input-group activity-description  " >
+                                <input name="id" class="form-control" id="form-id" type="hidden" value="${a.id}"  />
+                                <input name="user" class="form-control" id="form-user" type="hidden" value="${user}"  />
+                                <input name="is-responsible" class="form-control" id="form-is-responsible" type="hidden" value="${isResposible}"  />
+                                <input name="activity" class="form-control item-${checked}" id="form-activity" type="text" disabled value='${a.project}'/>
+                                <div class="input-group-text item-${checked}">
+                                    <input class="" name="ongoing-cb" type="checkbox" aria-label="checkbox" value="${a.id}" ${checked} onclick="updateColor(this)" />
+                                </div>
+                            </div>`;
+                        activityRow.appendChild(div);
+                    });
+
+                });
         }
 
         function saveChanges() {
             var actvs = [];
             var user = $('#form-user').val();
             var isResponsible = $('#form-is-responsible').val();
+
             $('input[name=ongoing-cb]').each(function () {
                 var as = new ActivityStatus();
                 as.activityId = parseInt($(this).val());
@@ -195,22 +228,71 @@
                 actvs.push(as);
             });
 
-            console.log(actvs);
+            var serializedActivities = JSON.stringify(actvs);
+            var url = SERVER + 'api/dashboard/update';
 
-            // var url = SERVER + 'api/dashboard'
-            var url = 'http://localhost:59450/api/dashboard/update'
-
-            var b = JSON.stringify(actvs)
-            // $.post(url,  { activities : actvs } )
-            $.post(url, { "" : b })
-
+            $.post(url, { "": serializedActivities })
+                .done(function (data) {
+                    toastr.success("ATIVIDADE ATUALIZADA COM SUCESSO!");
+                })
+                .fail(function (err) {
+                    console.error(err);
+                });
+            
+            window.location.reload();
 
         }
 
-        // $.get('http://localhost:59450/api/dashboard/activities/SSBFCI?isResponsible=true')
-        //     .done(function (data) {
-        //         console.log(data);
-        //     })
+        function updateColor(checkbox) {
+            var checked = checkbox.checked;
+            var className = checked == true ? "item-checked" : "item-not-checked";
+            checkbox.parentNode.className = 'input-group-text ' + className;
+            var activity = checkbox.parentNode.parentNode.querySelector('#form-activity');
+            activity.className = 'form-control ' + className;
+        }
+
+        function toggleView(view) {
+            if (view == 'today') {
+                lastView = 'people';
+                document.querySelector('.filters').style.display = 'none';
+            } else {
+                lastView = 'today';
+                document.querySelector('.filters').style.display = 'flex';
+            }
+            $('#' + view + '-button').addClass('active');
+            $('#' + lastView + '-button').removeClass('active');
+            document.querySelector('.' + view + '-wrapper').style.display = 'flex';
+            document.querySelector('.' + lastView + '-wrapper').style.display = 'none';            
+        }
+
+        function generateTodayTable() {
+            var todayWrapper = document.querySelector('.today-wrapper');
+            todayWrapper.innerHTML = "";
+            RESPONSIBLES.map(function (resp) {
+                var responsiblePanel = document.createElement('div');
+                responsiblePanel.className = 'card today-card bg-info mb-3';
+                responsiblePanel.innerHTML = `
+                <div class="card-body">      
+                    <div class="today-activity-desc" >
+                        <img class="card-img-top " src="../images/colaboradores/${resp}.jpg" alt="${resp}" />
+                        <div class=""> ${resp} </div>
+                    </div>
+                    <div class="today-activity-wrapper" id="panel-${resp}" >
+                    </div>
+                </div>`;
+                todayWrapper.appendChild(responsiblePanel);
+                activitieStatus.map(function (act) {
+                    if (act.status && act.user == resp) {
+                        var panel = document.querySelector('#panel-' + resp);
+                        var line = document.createElement('div');
+                        actName = activities.filter(function (a) { return a.id == act.activityId })[0];
+                        line.className = 'today-activity-line';
+                        line.innerHTML = actName.project;
+                        panel.appendChild(line);
+                    }
+                });
+            });
+        }
 
 
 
