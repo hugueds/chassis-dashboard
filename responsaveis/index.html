@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta key="author" value="SSBHPE">
-    <link rel="stylesheet" href="../css/lib/jquery-ui.css" />
-    <link rel="stylesheet" href="../css/lib/jquery-ui.theme.min.css" />
-    <link rel="stylesheet" href="../css/lib/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/lib/bootstrap-grid.min.css" />
-    <link rel="stylesheet" href="../css/lib/toastr.min.css" />
-    <link rel="stylesheet" href="../css/responsaveis.css" />
-    <link rel="shortcut icon" type="image/ico" href="../favicon.ico" />
+    <link rel="stylesheet" href="/ifup/css/lib/jquery-ui.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/jquery-ui.theme.min.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/toastr.min.css" />
+    <link rel="stylesheet" href="/ifup/css/responsaveis.css" />
+    <link rel="shortcut icon" type="image/ico" href="/ifup/favicon.ico" />
     <title>RESPONSÁVEIS</title>
 </head>
 
@@ -20,7 +20,7 @@
 
     <div class="container">
         <div class="navbar">
-            <a href="http://chassis/ifup/">FOLLOW UP</a>
+            <a href="/ifup/">FOLLOW UP</a>
         </div>
 
         <div class="text-center">
@@ -74,14 +74,14 @@
 
     <!-- SCRIPTS -->
     <div style="display: none">
-        <script src="../lib/jquery.min.js"></script>
-        <script src="../lib/jquery-ui.min.js"></script>
-        <script src="../lib/bootstrap.min.js"></script>
-        <script src="../lib/toastr.min.js"></script>
-        <script src="../js/constants.js"></script>
-        <script src="../js/utils.js"></script>
-        <script src="../js/NTGActivitie.js"></script>
-        <script src="../js/scripts.js"></script>
+        <script src="/ifup/lib/jquery.min.js"></script>
+        <script src="/ifup/lib/jquery-ui.min.js"></script>
+        <script src="/ifup/lib/bootstrap.min.js"></script>
+        <script src="/ifup/lib/toastr.min.js"></script>
+        <script src="/ifup/js/constants.js"></script>
+        <script src="/ifup/js/utils.js"></script>
+        <script src="/ifup/js/NTGActivitie.js"></script>
+        <script src="/ifup/js/scripts.js"></script>
     </div>
 
     <script>
@@ -91,11 +91,16 @@
         var lastView = 'people'; // people
 
         window.onload = function () {
-            generateCards();
-            getActivities(function () {
-                generateTodayTable();
+            ping(SERVER + '/api/dashboard', function (result) {
+                if (!result) {
+                    SERVER = SERVER_DOWN;
+                }
+                generateCards();
+                getActivities(function () {
+                    generateTodayTable();
+                });
+                generateFilters();
             });
-            generateFilters();
         }
 
         function getActivities(callback) {
@@ -137,13 +142,13 @@
             var card = document.createElement('div');
             card.className = 'card responsible-card bg-warning mb-3';
             card.id = resp;
-            card.innerHTML = `
-            <img class="card-img-top " src="../images/colaboradores/${resp}.jpg" alt="${resp}" />
-                <div class="card-header"> ${resp} </div>
-                <div class="card-body">                     
-                    <button class="btn btn-success" data-toggle="modal" data-target="#activity-modal" onclick="openActivityDetails(${resp}, true)" > RESP </button>
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#activity-modal" onclick="openActivityDetails(${resp}, false)" > ENVOL </button>
-                </div>`;
+            card.innerHTML = '' +
+                '<img class="card-img-top " src="../images/colaboradores/' + resp + '.jpg" alt="' + resp + '" />' +
+                '<div class="card-header"> ' + resp + ' </div>' +
+                '<div class="card-body">' +
+                '<button class="btn btn-success" data-toggle="modal" data-target="#activity-modal" onclick="openActivityDetails(' + resp + ', true)" > RESP </button>' +
+                '<button class="btn btn-primary" data-toggle="modal" data-target="#activity-modal" onclick="openActivityDetails(' + resp + ', false)" > ENVOL </button>' +
+                '</div>';
             return card;
         }
 
@@ -171,6 +176,8 @@
         }
 
         function openActivityDetails(user, isResposible) {
+            console.log(user);
+
             var user = user.id;
             var filteredActivities = activities;
             filteredActivities = filteredActivities.filter(function (a) { return a.projectStatus != 'COMPLETED' });
@@ -186,28 +193,27 @@
             var activityRow = document.querySelector('.activity-row');
             activityRow.innerHTML = "";
 
-            $.get(SERVER + 'api/dashboard/activities/' + user + '?isResponsible=' + isResposible)
-                .done(function (data) {
+            $.get(SERVER + '/api/dashboard/activities/' + user + '?isResponsible=' + isResposible)
+                .done((data) => {
                     var activitieList = [];
-                    filteredActivities.map(f => {
-                        data.map(d => {
+                    filteredActivities.map((f) => {
+                        data.map((d) => {
                             if (d.ActivityId == f.id)
                                 f.status = d.Status;
                         });
                     })
-                    filteredActivities.map(function (a) {
+                    filteredActivities.map((a) => {
                         var div = document.createElement('div');
                         var checked = a.status == true ? "checked" : "not-checked";
-                        div.innerHTML = `    
-                            <div class="input-group activity-description  " >
-                                <input name="id" class="form-control" id="form-id" type="hidden" value="${a.id}"  />
-                                <input name="user" class="form-control" id="form-user" type="hidden" value="${user}"  />
-                                <input name="is-responsible" class="form-control" id="form-is-responsible" type="hidden" value="${isResposible}"  />
-                                <input name="activity" class="form-control item-${checked}" id="form-activity" type="text" disabled value='${a.project}'/>
-                                <div class="input-group-text item-${checked}">
-                                    <input class="" name="ongoing-cb" type="checkbox" aria-label="checkbox" value="${a.id}" ${checked} onclick="updateColor(this)" />
-                                </div>
-                            </div>`;
+                        div.innerHTML = '' +
+                            '<div class="input-group activity-description " > ' +
+                            '<input name="id" class="form-control" id="form-id" type="hidden" value="' + a.id + '"  />' +
+                            '<input name="user" class="form-control" id="form-user" type="hidden" value="' + user + '" />' +
+                            '<input name="is-responsible" class="form-control" id="form-is-responsible" type="hidden" value="' + isResposible + '" />' +
+                            "<input name='activity' class='form-control item-" + checked + " id='form-activity' type='text' disabled value='{project}'/>".replace('{project}', a.project) +
+                            '<div class="input-group-text item-' + checked + '"> ' +
+                            '<input class="" name="ongoing-cb" type="checkbox" aria-label="checkbox" value="' + a.id + '" ' + checked + ' onclick="updateColor(this)" />' +
+                            '</div></div>';
                         activityRow.appendChild(div);
                     });
 
@@ -229,7 +235,7 @@
             });
 
             var serializedActivities = JSON.stringify(actvs);
-            var url = SERVER + 'api/dashboard/update';
+            var url = SERVER + '/api/dashboard/update';
 
             $.post(url, { "": serializedActivities })
                 .done(function (data) {
@@ -238,7 +244,7 @@
                 .fail(function (err) {
                     console.error(err);
                 });
-            
+
             window.location.reload();
 
         }
@@ -262,7 +268,7 @@
             $('#' + view + '-button').addClass('active');
             $('#' + lastView + '-button').removeClass('active');
             document.querySelector('.' + view + '-wrapper').style.display = 'flex';
-            document.querySelector('.' + lastView + '-wrapper').style.display = 'none';            
+            document.querySelector('.' + lastView + '-wrapper').style.display = 'none';
         }
 
         function generateTodayTable() {

@@ -18,15 +18,15 @@
     <link rel="stylesheet" href="css/lib/toastr.min.css" />
     <link rel="stylesheet" href="css/followup.css" />
     <link rel="shortcut icon" type="image/ico" href="favicon.ico" />
-    <title>DASHBOARD</title>
+    <title>iFUP</title>
 </head>
 
 <body>
 
     <div class="navbar">
-        <a href="http://chassis/ifup/responsaveis/">RESPONSÁVEIS</a>
-        <a href="http://chassis/ifup/prioridades/">PRIORIDADES</a>
-        <a href="http://chassis/ifup/cadastrar/">CADASTRAR</a>
+        <a href="/ifup/responsaveis">RESPONSÁVEIS</a>
+        <a href="/ifup/prioridades">PRIORIDADES</a>
+        <a href="/ifup/cadastrar">CADASTRAR</a>
     </div>
 
     <div class="text-center">
@@ -269,7 +269,6 @@
         <script src="js/utils.js"></script>
         <script src="js/NTGActivitie.js"></script>
         <script src="js/scripts.js"></script>
-        <script src="js/dist/bundle.js"></script>
     </div>
 
     <script>
@@ -281,9 +280,14 @@
         var order = "desc";
 
         window.onload = function () {
-            getActivities(generateTable);
-            generateFilters();
-            generateOptions();
+            ping(SERVER + '/api/dashboard', function (result) {
+                if (!result) {
+                    SERVER = SERVER_DOWN;
+                }
+                getActivities(generateTable);
+                generateFilters();
+                generateOptions();
+            });            
         }
 
         function generateFilters() {
@@ -328,11 +332,11 @@
                 var row = document.createElement('tr');
                 TABLE_CONTENT.map(function (tc) {
                     var td = document.createElement('td');
-                    td.textContent = d[tc.field];
+                    td.textContent = d[tc.field] != undefined ? d[tc.field] : '';
                     if (tc.field == "handover") {
                         td.textContent = dateFormatter(td.textContent);
                     }
-                    if (tc.field == 'details') {
+                    else if (tc.field == 'details') {
                         var btn = document.createElement('button');
                         btn.setAttribute('data-toggle', 'modal');
                         btn.setAttribute('data-target', '#activity-modal');
@@ -341,7 +345,7 @@
                         btn.onclick = function () { openActivityDetails(d) };
                         td.appendChild(btn);
                     }
-                    if (tc.field == 'projectPercent') {
+                    else if (tc.field == 'projectPercent') {
                         updatePercentage2(td, d[tc.field])
                     }
                     row.appendChild(td);
@@ -365,6 +369,7 @@
         }
 
         function getActivities(callback) {
+            activities = [];
             $.get(SERVER + '/api/dashboard', function (data) {
                 data.map(function (d) { activities.push(new NTGActivitie(d)); });
                 filteredActivities = activities;
@@ -374,6 +379,7 @@
         }
 
         function openActivityDetails(data) {
+
             statusEdit = false;
             disableEdit();
             document.querySelector('#form-id').value = data.id;
@@ -452,15 +458,13 @@
             activity.priority = document.querySelector('#form-priority').value;
             activity.npr = document.querySelector('#form-npr').value;
 
-            $.post(SERVER + 'api/dashboard/' + activity.id, activity)
+            $.post(SERVER + '/api/dashboard/' + activity.id, activity)
                 .done(function (data) {
                     getActivities(function (data) {
-                        activities = data;
                         filterActivities();
                         generateTable(filteredActivities)
                         toastr.success("ATIVIDADE SALVA COM SUCESSO");
-                        window.location.reload();
-                    });                    
+                    });
                 })
                 .fail(function (err) { toastr.error("ERRO AO CRIAR REQUISIÇÃO"); console.error(err) });
         }
@@ -548,14 +552,11 @@
                 if (data.Status == 'OK') {
                     toastr.success(data.Message);
                     getActivities(function (data) {
-                        activities = data;
                         filterActivities();
                         generateTable(filteredActivities)
                     });
                 }
             });
-
-
         }
 
         function generateOptions() {
@@ -599,7 +600,7 @@
 
         function orderBy(column) {
             if (column == 'handover') {
-                filteredActivities = filteredActivities.sort((a, b) => {
+                filteredActivities = filteredActivities.sort(function (a, b) {
                     if (a[column] == null)
                         return 1;
                     if (b[column] == null)
@@ -610,7 +611,7 @@
                     return new Date(a[column]) < new Date(b[column]) ? 1 : -1;
                 });
             } else {
-                filteredActivities = filteredActivities.sort((a, b) => {
+                filteredActivities = filteredActivities.sort(function (a, b) {
                     if (order == "asc")
                         return (a[column] > b[column]) - (a[column] < b[column])
                     else

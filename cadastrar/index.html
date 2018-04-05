@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../css/lib/jquery-ui.css" />
-    <link rel="stylesheet" href="../css/lib/jquery-ui.theme.min.css" />
-    <link rel="stylesheet" href="../css/lib/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/lib/bootstrap-grid.min.css" />
-    <link rel="stylesheet" href="../css/lib/toastr.min.css" />
-    <link rel="stylesheet" href="../css/cadastro.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/jquery-ui.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/jquery-ui.theme.min.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/toastr.min.css" />
+    <link rel="stylesheet" href="/ifup/css/cadastro.css" />
     <link rel="shortcut icon" type="image/ico" href="../favicon.ico" />
     <title>Cadastrar Atividade</title>
 </head>
@@ -18,7 +18,7 @@
 <body>
 
     <div class="navbar">
-        <a href="http://chassis/ifup/">FOLLOW UP</a>
+        <a href="/ifup/">FOLLOW UP</a>
     </div>
 
     <div class="header text-center">
@@ -93,14 +93,14 @@
                 </div>
                 <div class="">
                     <label for="type"> MAQUINA TIPO </label>
-                    <select name="machine-type" class="form-control" id="form-machine-type"> 
+                    <select name="machine-type" class="form-control" id="form-machine-type">
                         <option value="" selected></option>
                     </select>
                 </div>
                 <div class="">
                     <label for="type"> MAQUINA EXISTENTE? </label>
-                    <select name="existing-tool" class="form-control" id="form-existing-tool"> 
-                        <option value=""></option>                        
+                    <select name="existing-tool" class="form-control" id="form-existing-tool">
+                        <option value=""></option>
                         <option value="true">SIM</option>
                         <option value="false">NÃO</option>
                     </select>
@@ -127,7 +127,7 @@
                 </div>
                 <div class="">
                     <label for="type">VALOR($)</label>
-                    <input name="ad-aproval" class="form-control" id="form-project-budget" type="text"  />
+                    <input name="ad-aproval" class="form-control" id="form-project-budget" type="text" />
                 </div>
             </div>
             <div class="row">
@@ -207,14 +207,14 @@
 
 
 
-    <script src="../lib/jquery.min.js"></script>
-    <script src="../lib/jquery-ui.min.js"></script>
-    <script src="../lib/bootstrap.min.js"></script>
-    <script src="../lib/toastr.min.js"></script>
-    <script src="../js/constants.js"></script>
-    <script src="../js/utils.js"></script>
-    <script src="../js/NTGActivitie.js"></script>
-    <script src="../js/scripts.js"></script>
+    <script src="/ifup/lib/jquery.min.js"></script>
+    <script src="/ifup/lib/jquery-ui.min.js"></script>
+    <script src="/ifup/lib/bootstrap.min.js"></script>
+    <script src="/ifup/lib/toastr.min.js"></script>
+    <script src="/ifup/js/constants.js"></script>
+    <script src="/ifup/js/utils.js"></script>
+    <script src="/ifup/js/NTGActivitie.js"></script>
+    <script src="/ifup/js/scripts.js"></script>
 
     <script>
 
@@ -276,8 +276,8 @@
 
 
 
-            $.post(SERVER + 'api/dashboard/', activity)
-                // $.post('http://localhost:59450/api/dashboard/', activity)
+            $.post(SERVER + '/api/dashboard/', activity)
+                // $.post('http://localhost:59450//api/dashboard/', activity)
                 .done(function (data) {
                     toastr.success("ATIVIDADE SALVA COM SUCESSO");
                     window.location = '../';

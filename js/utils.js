@@ -43,6 +43,15 @@ function dateFormatter(date) {
     return 'SEM DATA';
 }
 
+function ping(server, callback) {
+    request(server, function(err) {
+        if (err) {
+            callback(false);
+        }
+        callback(true);
+    });    
+}
+
 $(function () {
 
     var dateConfig = {
@@ -60,15 +69,6 @@ $(function () {
     $("[id$=date]").datepicker(dateConfig).datepicker("setDate", new Date);
 });
 
-Array.prototype.groupBy = function (prop) {
-    return this.reduce(function (groups, item) {
-        const val = item[prop]
-        groups[val] = groups[val] || []
-        groups[val].push(item)
-        return groups
-    }, {})
-}
-
 toastr.options = {
     "showDuration": "300",
     "hideDuration": "300",
@@ -77,5 +77,12 @@ toastr.options = {
     "positionClass": "toast-top-center"
 }
 
-
+Array.prototype.groupBy = function (prop) {
+    return this.reduce(function (groups, item) {
+        const val = item[prop]
+        groups[val] = groups[val] || []
+        groups[val].push(item)
+        return groups
+    }, {})
+}
 

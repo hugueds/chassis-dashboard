@@ -290,7 +290,7 @@
                 var row = document.createElement('tr');
                 PRIORITY_TABLE.map(function (pt) {
                     var td = document.createElement('td');
-                    td.textContent = d[pt.field];
+                    td.textContent = d[pt.field] != undefined ? d[pt.field] : '';
                     if (pt.field == 'commands') {
                         // createCommandButtons(row, tbody, d);
                         var addButton = document.createElement('button');
@@ -321,8 +321,8 @@
 
         function increasePriority(activity) {
             if (activity.priority > 0) {
-                // $.get('http://localhost:59450/api/dashboard/increase/' + activity.id)
-                $.get(SERVER + 'api/dashboard/increase/' + activity.id)
+                // $.get('http://localhost:59450//api/dashboard/increase/' + activity.id)
+                $.get(SERVER + '/api/dashboard/increase/' + activity.id)
                     .done(function (response) {
                         toastr.success("ATIVIDADE ATUALIZADA COM SUCESSO");
                         getActivities(function (data) {
@@ -337,8 +337,8 @@
         }
 
         function decreasePriority(activity) {
-            // $.get('http://localhost:59450/api/dashboard/decrease/' + activity.id)
-            $.get(SERVER + 'api/dashboard/decrease/' + activity.id)
+            // $.get('http://localhost:59450//api/dashboard/decrease/' + activity.id)
+            $.get(SERVER + '/api/dashboard/decrease/' + activity.id)
                 .done(function (response) {
                     toastr.success("ATIVIDADE ATUALIZADA COM SUCESSO");
                     getActivities(function (data) {

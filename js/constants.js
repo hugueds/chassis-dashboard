@@ -1,9 +1,9 @@
-var LINES = ['ALL', 'BUS', 'ML0', 'ML1', 'ML2', 'QUAL', 'LOG'];
+var LINES = ['ALL', 'BUS', 'FA0', 'ML0', 'ML1', 'ML2', 'QUAL', 'LOG'];
 var FUNCTION_AREAS = ['FA0', 'FA1.1', 'FA1.2', 'FA2', 'FA3.1', 'FA3.2', 'FA4', 'FA5', 'FA6', 'MO1', 'MO2', 'MO3', 'MO4', 'N.A'];
 var STATIONS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 'PM', 'N.A'];
-var POSITIONS = [1, 2, 3, 4, 5, 6, 'PM', 'N.A'];
+var POSITIONS = [1, 2, 3, 4, 5, 6];
 
-var TYPES = ['ALL', 'PY', 'LTS', 'LBS', 'AGV', 'TORQUE', 'APERT'];
+var TYPES = ['ALL', 'PY', 'LTS', 'LBS', 'AGV', 'TORQUE', 'APERT','SUP. PY','SUP. LTS','SUP. LBS', 'SUP. AGV', 'SUP. TORQUE'];
 
 var REQUEST_STATUS = ['N.A', 'DRAFT', 'EM APROVAÇÃO', 'APROVADO', 'ATENDIDA', 'PENDENTE', 'CANCELADA'];
 
@@ -75,4 +75,8 @@ var OPTION_FIELDS = [
     { value: MACHINE_TYPES, type: 'machine-type' }
 ];
 
-var SERVER = 'http://10.8.66.4/ltsapi/';
+var SERVER = 'http://10.8.66.4/ltsapi';
+var SERVER_DOWN = 'http://192.27.1.150/ltsapi';
+
+// var SERVER_DOWN = 'http://10.8.66.4/ltsapi';
+// var SERVER = 'http://192.27.1.150/ltsapi';
