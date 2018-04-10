@@ -5,20 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../css/lib/jquery-ui.css" />
-    <link rel="stylesheet" href="../css/lib/jquery-ui.theme.min.css" />
-    <link rel="stylesheet" href="../css/lib/bootstrap.min.css" />
-    <link rel="stylesheet" href="../css/lib/bootstrap-grid.min.css" />
-    <link rel="stylesheet" href="../css/lib/toastr.min.css" />
-    <link rel="stylesheet" href="../css/prioridades.css" />
-    <link rel="shortcut icon" type="image/ico" href="../favicon.ico" />
+    <link rel="stylesheet" href="/ifup/css/lib/jquery-ui.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/jquery-ui.theme.min.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/toastr.min.css" />
+    <link rel="stylesheet" href="/ifup/css/prioridades.css" />
+    <link rel="shortcut icon" type="image/ico" href="/ifup/favicon.ico" />
     <title>PRIORIDADES</title>
 </head>
 
 <body>
 
-    <div class="navbar">
-        <a href="http://chassis/ifup/">FOLLOW UP</a>
+    <!-- NAVIGATION -->
+    <div class='container-fluid'>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">
+                <img class="d-inline-block align-top" src="/ifup/images/scania.png" alt="" />
+            </a>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"></li>
+                <a class="nav-link" href="/ifup/">FOLLOW UP</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
     <div class="text-center">
@@ -54,178 +64,178 @@
                     <h5 class="modal-title" id="modalTitle">DETALHES DA ATIVIDADE</h5>
                 </div>
                 <div class="modal-body">
-                        <div class="container">
-                            <div class="row text-center">
-                                <div class="" style="display: none;">
-                                    <label for="type">ID</label>
-                                    <input name="id" id="form-id" type="hidden" />
-                                </div>
-                                <div class="input-group mb-5">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">NOME DO PROJETO</span>
-                                    </div>
-                                    <input type="text" class="form-control" id="form-project" disabled>
-                                </div>
+                    <div class="container">
+                        <div class="row text-center">
+                            <div class="" style="display: none;">
+                                <label for="type">ID</label>
+                                <input name="id" id="form-id" type="hidden" />
                             </div>
-                            <div class="row text-center">
-                                <div class="input-group">
-                                    <div class="">
-                                        <label for="type">TIPO</label>
-                                        <select name="type" class="form-control" id="form-type" disabled> </select>
-                                    </div>
-                                    <div class="">
-                                        <label for="line">LINHA</label>
-                                        <select name="line" class="form-control" id="form-line" disabled> </select>
-                                    </div>
-                                    <div class="">
-                                        <label for="type">FUNÇÃO</label>
-                                        <select name="function-area" class="form-control" id="form-function-area" disabled> </select>
-                                    </div>
-                                    <div class="">
-                                        <label for="type">POSTO</label>
-                                        <select name="station" class="form-control" id="form-station" disabled> </select>
-                                    </div>
-                                    <div class="">
-                                        <label for="type">POSIÇÃO</label>
-                                        <select name="position" class="form-control" id="form-position" disabled> </select>
-                                    </div>
+                            <div class="input-group mb-5">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">NOME DO PROJETO</span>
                                 </div>
+                                <input type="text" class="form-control" id="form-project" disabled>
                             </div>
-                            <div class="row text-center">
-                                <div class="">
-                                    <label for="type">RESPONSÁVEL</label>
-                                    <select name="responsible" class="form-control" id="form-responsible" disabled> </select>
-                                </div>
-                                <div class="">
-                                    <label for="type">ENVOLVIDO 1</label>
-                                    <select name="involved-1" class="form-control" id="form-involved-1" disabled> </select>
-                                </div>
-                                <div class="">
-                                    <label for="type">ENVOLVIDO 2</label>
-                                    <select name="involved-2" class="form-control" id="form-involved-2" disabled> </select>
-                                </div>
-                                <div class="">
-                                    <label for="type">ENVOLVIDO 3</label>
-                                    <select name="involved-3" class="form-control" id="form-involved-3" disabled> </select>
-                                </div>
-                            </div>
-                            <div class="row text-center">
-                                <div class="">
-                                    <label for="type">INPUT</label>
-                                    <select name="input" class="form-control" id="form-input" disabled> </select>
-                                </div>
-                                <div class="">
-                                    <label for="type">NCG</label>
-                                    <select name="ncg" class="form-control" id="form-ncg" disabled> </select>
-                                </div>
-                                <div class="">
-                                    <label for="type"> MAQUINA TIPO </label>
-                                    <select name="machine-type" class="form-control" id="form-machine-type" disabled> </select>
-                                </div>
-                                <div class="">
-                                    <label for="type"> MAQUINA EXISTENTE? </label>
-                                    <select name="existing-tool" class="form-control" id="form-existing-tool" disabled> </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">ATIVIDADE</span>
-                                    </div>
-                                    <input name="activity" class="form-control" id="form-activity" type="text" disabled/>
-                                </div>
-                            </div>
-                            <div class="row text-center">
-                                <div class="">
-                                    <label for="type">INPUT-DATE</label>
-                                    <input name="input-date" class="form-control" id="form-input-date" type="text" disabled/>
-                                </div>
-                                <div class="">
-                                    <label for="type">AD APROVAL</label>
-                                    <input name="ad-aproval" class="form-control" id="form-ad-aproval-date" type="text" disabled/>
-                                </div>
-                                <div class="">
-                                    <label for="type">Nº PROJETO</label>
-                                    <input name="project-number" class="form-control" id="form-project-number" type="text" disabled/>
-                                </div>
-                                <div class="">
-                                    <label for="type">VALOR($)</label>
-                                    <input name="ad-aproval" class="form-control" id="form-project-budget" type="text" disabled/>
-                                </div>
-                            </div>
-                            <div class="row text-center">
-                                <div class="">
-                                    <label for="type">REQUISIÇÃO ALMOXARIFADO / OS</label>
-                                    <input name="req-almox-os" class="form-control" id="form-req-almox-os" type="text" disabled/>
-                                </div>
-                                <div class="">
-                                    <label for="type">STATUS REQUISIÇÃO</label>
-                                    <select name="status-almox-os" class="form-control" id="form-status-almox-os" disabled> </select>
-                                </div>
-                            </div>
-                            <div class="row text-center">
-                                <div class="">
-                                    <label for="type">RC</label>
-                                    <input name="rc-number" class="form-control" id="form-rc-number" type="number" min="0" disabled/>
-                                </div>
-                                <div class="">
-                                    <label for="type">RC STATUS</label>
-                                    <select name="rc-status" class="form-control" id="form-rc-status" disabled> </select>
-                                </div>
-                                <div class="">
-                                    <label for="type">ORDER</label>
-                                    <input name="order-number" class="form-control" id="form-order-number" type="number" min="0" disabled/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="">
-                                    <label for="type">LAYOUT E INFRAESTRUTURA</label>
-                                    <input name="layout-infra" class="form-control" id="form-layout-infra" type="text" disabled/>
-                                </div>
-                                <div class="">
-                                    <label for="type">TRY-OUT / INSTALAÇÃO</label>
-                                    <input name="install-tryout" class="form-control" id="form-install-tryout-date" type="text" disabled/>
-                                </div>
-                            </div>
-                            <div class="row text-center">
-                                <div class="">
-                                    <label for="type">HANDOVER</label>
-                                    <input name="handover" class="form-control" id="form-handover-date" type="text" disabled />
-                                </div>
-                                <div class="">
-                                    <label for="type">STATUS</label>
-                                    <select name="project-status" class="form-control" id="form-project-status" disabled> </select>
-                                </div>
-                                <div class="">
-                                    <label for="type">FASE</label>
-                                    <select onchange="updatePercentage()" name="phase" class="form-control" id="form-phase" disabled> </select>
-                                </div>
-                                <div class="">
-                                    <label for="type">PORCENTAGEM (%) </label>
-                                    <input name="percentage" class="form-control" id="form-percentage" type="number" min="0" maxlength="2" disabled/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-group">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">COMENTÁRIOS</span>
-                                    </div>
-                                    <input name="comments" class="form-control" id="form-comments" type="text" disabled/>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="">
-                                    <label for="type">PRIORIDADE</label>
-                                    <input name="priority" class="form-control" id="form-priority" type="number" min="0" maxlength="2" disabled />
-                                </div>
-                                <div class="">
-                                    <label for="type">NPR</label>
-                                    <input name="npr" class="form-control" id="form-npr" type="number" min="0" maxlength="2" disabled/>
-                                </div>
-                            </div>
-    
                         </div>
+                        <div class="row text-center">
+                            <div class="input-group">
+                                <div class="">
+                                    <label for="type">TIPO</label>
+                                    <select name="type" class="form-control" id="form-type" disabled> </select>
+                                </div>
+                                <div class="">
+                                    <label for="line">LINHA</label>
+                                    <select name="line" class="form-control" id="form-line" disabled> </select>
+                                </div>
+                                <div class="">
+                                    <label for="type">FUNÇÃO</label>
+                                    <select name="function-area" class="form-control" id="form-function-area" disabled> </select>
+                                </div>
+                                <div class="">
+                                    <label for="type">POSTO</label>
+                                    <select name="station" class="form-control" id="form-station" disabled> </select>
+                                </div>
+                                <div class="">
+                                    <label for="type">POSIÇÃO</label>
+                                    <select name="position" class="form-control" id="form-position" disabled> </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="">
+                                <label for="type">RESPONSÁVEL</label>
+                                <select name="responsible" class="form-control" id="form-responsible" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="type">ENVOLVIDO 1</label>
+                                <select name="involved-1" class="form-control" id="form-involved-1" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="type">ENVOLVIDO 2</label>
+                                <select name="involved-2" class="form-control" id="form-involved-2" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="type">ENVOLVIDO 3</label>
+                                <select name="involved-3" class="form-control" id="form-involved-3" disabled> </select>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="">
+                                <label for="type">INPUT</label>
+                                <select name="input" class="form-control" id="form-input" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="type">NCG</label>
+                                <select name="ncg" class="form-control" id="form-ncg" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="type"> MAQUINA TIPO </label>
+                                <select name="machine-type" class="form-control" id="form-machine-type" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="type"> MAQUINA EXISTENTE? </label>
+                                <select name="existing-tool" class="form-control" id="form-existing-tool" disabled> </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">ATIVIDADE</span>
+                                </div>
+                                <input name="activity" class="form-control" id="form-activity" type="text" disabled/>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="">
+                                <label for="type">INPUT-DATE</label>
+                                <input name="input-date" class="form-control" id="form-input-date" type="text" disabled/>
+                            </div>
+                            <div class="">
+                                <label for="type">AD APROVAL</label>
+                                <input name="ad-aproval" class="form-control" id="form-ad-aproval-date" type="text" disabled/>
+                            </div>
+                            <div class="">
+                                <label for="type">Nº PROJETO</label>
+                                <input name="project-number" class="form-control" id="form-project-number" type="text" disabled/>
+                            </div>
+                            <div class="">
+                                <label for="type">VALOR($)</label>
+                                <input name="ad-aproval" class="form-control" id="form-project-budget" type="text" disabled/>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="">
+                                <label for="type">REQUISIÇÃO ALMOXARIFADO / OS</label>
+                                <input name="req-almox-os" class="form-control" id="form-req-almox-os" type="text" disabled/>
+                            </div>
+                            <div class="">
+                                <label for="type">STATUS REQUISIÇÃO</label>
+                                <select name="status-almox-os" class="form-control" id="form-status-almox-os" disabled> </select>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="">
+                                <label for="type">RC</label>
+                                <input name="rc-number" class="form-control" id="form-rc-number" type="number" min="0" disabled/>
+                            </div>
+                            <div class="">
+                                <label for="type">RC STATUS</label>
+                                <select name="rc-status" class="form-control" id="form-rc-status" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="type">ORDER</label>
+                                <input name="order-number" class="form-control" id="form-order-number" type="number" min="0" disabled/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="">
+                                <label for="type">LAYOUT E INFRAESTRUTURA</label>
+                                <input name="layout-infra" class="form-control" id="form-layout-infra" type="text" disabled/>
+                            </div>
+                            <div class="">
+                                <label for="type">TRY-OUT / INSTALAÇÃO</label>
+                                <input name="install-tryout" class="form-control" id="form-install-tryout-date" type="text" disabled/>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="">
+                                <label for="type">HANDOVER</label>
+                                <input name="handover" class="form-control" id="form-handover-date" type="text" disabled />
+                            </div>
+                            <div class="">
+                                <label for="type">STATUS</label>
+                                <select name="project-status" class="form-control" id="form-project-status" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="type">FASE</label>
+                                <select onchange="updatePercentage()" name="phase" class="form-control" id="form-phase" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="type">PORCENTAGEM (%) </label>
+                                <input name="percentage" class="form-control" id="form-percentage" type="number" min="0" maxlength="2" disabled/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">COMENTÁRIOS</span>
+                                </div>
+                                <input name="comments" class="form-control" id="form-comments" type="text" disabled/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="">
+                                <label for="type">PRIORIDADE</label>
+                                <input name="priority" class="form-control" id="form-priority" type="number" min="0" maxlength="2" disabled />
+                            </div>
+                            <div class="">
+                                <label for="type">NPR</label>
+                                <input name="npr" class="form-control" id="form-npr" type="number" min="0" maxlength="2" disabled/>
+                            </div>
+                        </div>
+
                     </div>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">FECHAR</button>
                     <!-- <button onclick="enableEdit()" type="button" class="btn btn-warning">EDITAR</button> -->
@@ -237,14 +247,14 @@
 
     <!-- IMPORTS -->
     <div>
-        <script src="../lib/jquery.min.js"></script>
-        <script src="../lib/jquery-ui.min.js"></script>
-        <script src="../lib/bootstrap.min.js"></script>
-        <script src="../lib/toastr.min.js"></script>
-        <script src="../js/constants.js"></script>
-        <script src="../js/utils.js"></script>
-        <script src="../js/NTGActivitie.js"></script>
-        <script src="../js/scripts.js"></script>
+        <script src="/ifup/lib/jquery.min.js"></script>
+        <script src="/ifup/lib/jquery-ui.min.js"></script>
+        <script src="/ifup/lib/bootstrap.min.js"></script>
+        <script src="/ifup/lib/toastr.min.js"></script>
+        <script src="/ifup/js/constants.js"></script>
+        <script src="/ifup/js/utils.js"></script>
+        <script src="/ifup/js/Activities.js"></script>
+        <script src="/ifup/js/scripts.js"></script>
     </div>
 
 
@@ -379,7 +389,7 @@
             $.get(SERVER + '/api/dashboard', function (data) {
                 var actv = [];
                 data.map(function (d) {
-                    actv.push(new NTGActivitie(d));
+                    actv.push(new Activity(d));
                 });
                 callback(actv);
             });

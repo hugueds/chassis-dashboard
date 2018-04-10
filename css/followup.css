@@ -1,10 +1,26 @@
 *, body  {    
-    margin: 0 auto;
+    margin: 0 auto;    
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+.navbar-brand {
+    margin-left: 1%;
+}
+
+.title {
+    font-style: italic;    
+}
+
+.container-fluid > nav {
+    margin-bottom: 1%;
 }
 
 input {
     text-align: center;
-    }
+}
 
 .filters {
     margin-top: 2.5%;
@@ -48,9 +64,9 @@ th {
     border: 1px solid black;
 }
 
-td {
+/* td {
     
-}
+} */
 
 .details-button {
     width: 100%;
@@ -74,13 +90,13 @@ td {
     margin-top: 2%;
     margin-bottom: 2%;
 }
-.project-row {
+/* .project-row {
     
 }
 
 #form-project {
     
-}
+} */
 
 .project-row input {
     width: 100%;

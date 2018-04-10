@@ -11,15 +11,26 @@
     <link rel="stylesheet" href="/ifup/css/lib/bootstrap-grid.min.css" />
     <link rel="stylesheet" href="/ifup/css/lib/toastr.min.css" />
     <link rel="stylesheet" href="/ifup/css/cadastro.css" />
-    <link rel="shortcut icon" type="image/ico" href="../favicon.ico" />
-    <title>Cadastrar Atividade</title>
+    <link rel="shortcut icon" type="image/ico" href="/ifup/favicon.ico" />
+    <title>iFUP - Cadastrar Atividade</title>
 </head>
 
 <body>
 
-    <div class="navbar">
-        <a href="/ifup/">FOLLOW UP</a>
+    <!-- NAVIGATION -->
+    <div class='container-fluid'>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">
+                <img class="d-inline-block align-top" src="/ifup/images/scania.png" alt="" />
+            </a>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"></li>
+                <a class="nav-link" href="/ifup/">FOLLOW UP</a>
+                </li>
+            </ul>
+        </nav>
     </div>
+
 
     <div class="header text-center">
         <h1>CADASTRO DE ATIVIDADES</h1>
@@ -29,13 +40,13 @@
         <form id="form" onsubmit="return false">
             <div class="row">
                 <div class="field">
-                    <label for="type">NOME DO PROJETO</label>
+                    <label>NOME DO PROJETO</label>
                     <input maxlength="120" class="form-control" name="project" id="form-project" type="text" required/>
                 </div>
             </div>
             <div class="row">
                 <div class="">
-                    <label for="type">TIPO</label>
+                    <label>TIPO</label>
                     <select class="form-control" name="type" id="form-type"> </select>
                 </div>
                 <div class="">
@@ -43,40 +54,40 @@
                     <select class="form-control" name="line" id="form-line"> </select>
                 </div>
                 <div class="">
-                    <label for="type">FUNÇÃO</label>
+                    <label>FUNÇÃO</label>
                     <select class="form-control" name="function-area" id="form-function-area"> </select>
                 </div>
                 <div class="">
-                    <label for="type">POSTO</label>
+                    <label>POSTO</label>
                     <select class="form-control" name="station" id="form-station"> </select>
                 </div>
                 <div class="">
-                    <label for="type">POSIÇÃO</label>
+                    <label>POSIÇÃO</label>
                     <select class="form-control" name="position" id="form-position"> </select>
                 </div>
             </div>
             <div class="row text-center">
                 <div class="">
-                    <label for="type">RESPONSÁVEL</label>
+                    <label>RESPONSÁVEL</label>
                     <select name="responsible" class="form-control" id="form-responsible">
                         <option value="" selected> </option>
                     </select>
 
                 </div>
                 <div class="">
-                    <label for="type">ENVOLVIDO 1</label>
+                    <label>ENVOLVIDO 1</label>
                     <select name="involved-1" class="form-control" id="form-involved-1">
                         <option value=""></option>
                     </select>
                 </div>
                 <div class="">
-                    <label for="type">ENVOLVIDO 2</label>
+                    <label>ENVOLVIDO 2</label>
                     <select name="involved-2" class="form-control" id="form-involved-2">
                         <option value=""></option>
                     </select>
                 </div>
                 <div class="">
-                    <label for="type">ENVOLVIDO 3</label>
+                    <label>ENVOLVIDO 3</label>
                     <select name="involved-3" class="form-control" id="form-involved-3">
                         <option value=""></option>
                     </select>
@@ -84,21 +95,21 @@
             </div>
             <div class="row text-center">
                 <div class="">
-                    <label for="type">INPUT</label>
+                    <label>INPUT</label>
                     <select name="input" class="form-control" id="form-input"> </select>
                 </div>
                 <div class="">
-                    <label for="type">NCG</label>
+                    <label>NCG</label>
                     <select name="ncg" class="form-control" id="form-ncg"> </select>
                 </div>
                 <div class="">
-                    <label for="type"> MAQUINA TIPO </label>
+                    <label> MAQUINA TIPO </label>
                     <select name="machine-type" class="form-control" id="form-machine-type">
                         <option value="" selected></option>
                     </select>
                 </div>
                 <div class="">
-                    <label for="type"> MAQUINA EXISTENTE? </label>
+                    <label> MAQUINA EXISTENTE? </label>
                     <select name="existing-tool" class="form-control" id="form-existing-tool">
                         <option value=""></option>
                         <option value="true">SIM</option>
@@ -108,89 +119,89 @@
             </div>
             <div class="row">
                 <div class="field">
-                    <label for="type">ATIVIDADE</label>
+                    <label>ATIVIDADE</label>
                     <input maxlenght="145" class="form-control" name="activity" id="form-activity" type="text" />
                 </div>
             </div>
             <div class="row text-center">
                 <div class="">
-                    <label for="type">INPUT-DATE</label>
+                    <label>INPUT-DATE</label>
                     <input name="input-date" class="form-control" id="form-input-date" type="text" />
                 </div>
                 <div class="">
-                    <label for="type">AD APROVAL</label>
+                    <label>AD APROVAL</label>
                     <input name="ad-aproval" class="form-control" id="form-ad-aproval-date" type="text" />
                 </div>
                 <div class="">
-                    <label for="type">Nº PROJETO</label>
+                    <label>Nº PROJETO</label>
                     <input name="project-number" class="form-control" id="form-project-number" type="text" />
                 </div>
                 <div class="">
-                    <label for="type">VALOR($)</label>
+                    <label>VALOR(x $1000)</label>
                     <input name="ad-aproval" class="form-control" id="form-project-budget" type="text" />
                 </div>
             </div>
             <div class="row">
                 <div class="">
-                    <label for="type">REQUISIÇÃO ALMOXARIFADO / OS</label>
+                    <label>REQUISIÇÃO ALMOXARIFADO / OS</label>
                     <input class="form-control" name="req-almox-os" id="form-req-almox-os" type="text" />
                 </div>
                 <div class="">
-                    <label for="type">STATUS REQUISIÇÃO</label>
+                    <label>STATUS REQUISIÇÃO</label>
                     <select class="form-control" name="status-almox-os" id="form-status-almox-os"> </select>
                 </div>
             </div>
             <div class="row">
                 <div class="">
-                    <label for="type">NUMERO DE RC</label>
+                    <label>NUMERO DE RC</label>
                     <input class="form-control" name="rc-number" id="form-rc-number" type="number" min="0" />
                 </div>
                 <div class="">
-                    <label for="type">RC STATUS</label>
+                    <label>RC STATUS</label>
                     <select class="form-control" name="rc-status" id="form-rc-status"></select>
                 </div>
                 <div class="">
-                    <label for="type">ORDER</label>
+                    <label>ORDER</label>
                     <input class="form-control" name="order-number" id="form-order-number" type="number" min="0" />
                 </div>
             </div>
             <div class="row">
                 <div class="">
-                    <label for="type">LAYOUT E INFRAESTRUTURA</label>
+                    <label>LAYOUT E INFRAESTRUTURA</label>
                     <input class="form-control" name="layout-infra" id="form-layout-infra" type="text" />
                 </div>
                 <div class="">
-                    <label for="type">TRY-OUT / INSTALAÇÃO</label>
+                    <label>TRY-OUT / INSTALAÇÃO</label>
                     <input class="form-control" name="install-tryout" id="form-install-tryout-date" type="text" />
                 </div>
             </div>
             <div class="row">
                 <div class="">
-                    <label for="type">HANDOVER</label>
+                    <label>HANDOVER</label>
                     <input class="form-control" name="handover" id="form-handover-date" type="text" />
                 </div>
                 <div class="">
-                    <label for="type">FASE</label>
+                    <label>FASE</label>
                     <select class="form-control" name="phase" id="form-phase"> </select>
                 </div>
                 <div class="">
-                    <label for="type">STATUS DO PROJETO</label>
+                    <label>STATUS DO PROJETO</label>
                     <select class="form-control" name="project-status" id="form-project-status"> </select>
                 </div>
                 <div class="" style="display: none;">
-                    <label for="type">PORCENTAGEM (%)</label>
+                    <label>PORCENTAGEM (%)</label>
                     <input class="form-control" name="percentage" id="form-percentage" type="number" min="0" maxlength="2" />
                 </div>
             </div>
             <div class="row">
                 <div class="field">
-                    <label for="type">COMENTÁRIOS</label>
+                    <label>COMENTÁRIOS</label>
                     <input maxlenght="145" class="form-control" name="comments" id="form-comments" type="text" />
                 </div>
             </div>
             <div class="row">
                 <div class="">
-                    <label for="type">NPR</label>
+                    <label>NPR</label>
                     <input class="form-control" name="npr" id="form-npr" type="number" min="0" maxlength="2" />
                 </div>
             </div>
@@ -213,12 +224,12 @@
     <script src="/ifup/lib/toastr.min.js"></script>
     <script src="/ifup/js/constants.js"></script>
     <script src="/ifup/js/utils.js"></script>
-    <script src="/ifup/js/NTGActivitie.js"></script>
+    <script src="/ifup/js/Activities.js"></script>
     <script src="/ifup/js/scripts.js"></script>
 
     <script>
 
-        var activity = new NTGActivitie();
+        var activity = new Activity();
 
         window.onload = function () {
             generateOptions();
@@ -240,6 +251,10 @@
         }
 
         function createActivity() {
+
+            if (!validateFields()) {                
+                return;
+            }
 
             activity.type = document.querySelector('#form-type').value;
             activity.line = document.querySelector('#form-line').value;
@@ -276,8 +291,7 @@
 
 
 
-            $.post(SERVER + '/api/dashboard/', activity)
-                // $.post('http://localhost:59450//api/dashboard/', activity)
+            $.post(SERVER + '/api/dashboard/', activity)                
                 .done(function (data) {
                     toastr.success("ATIVIDADE SALVA COM SUCESSO");
                     window.location = '../';
@@ -291,6 +305,19 @@
             var phase = document.querySelector('#form-phase').value;
             var newPhase = PHASES.filter(function (ph) { return ph.name == phase })[0];
             return newPhase.percentage;
+        }
+
+        function validateFields() {
+            var fields = [{name: 'project', value: 'Projeto'} , {name: 'responsible', value: 'Responsável'}];
+            var response = true;
+            fields.map(function(field) {                  
+                var f = document.querySelector('#form-' + field.name).value;                                
+                if (!f) {
+                    toastr.error('Campo ' + field.value+ ' não pode ser vazio!');
+                    response = false;
+                }                
+            });
+            return response;
         }
 
 

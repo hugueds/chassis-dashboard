@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/ifup/css/lib/jquery-ui.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/jquery-ui.theme.min.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/toastr.min.css" />
+    <link rel="stylesheet" href="/ifup/css/cadastro.css" />
+    <link rel="shortcut icon" type="image/ico" href="/ifup/favicon.ico" />
+    <title>iFUP - CADASTRAR DESVIO</title>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <div class='container-fluid'>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">
+                <img class="d-inline-block align-top" src="/ifup/images/scania.png" alt="" />
+            </a>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"></li>
+                <a class="nav-link" href="/ifup/vdt">DESVIOS</a>
+                </li>
+            </ul>            
+        </nav>
+    </div>
+
+
+    <div class="header text-center">
+        <h1>CADASTRO DE DESVIO</h1>
+    </div>
+
+    <div class="container activity-form">
+        <form id="form" onsubmit="return false">
+            <div class="row">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">DESVIO</span>
+                    </div>
+                    <input maxlength="120" class="form-control" name="deviation" id="form-deviation" type="text" required />
+                </div>
+            </div>
+            <div class="row">
+                <div class="">
+                    <label>TIPO</label>
+                    <select class="form-control" name="type" id="form-type"></select>
+                </div>
+                <div class="">
+                    <label for="line">LINHA</label>
+                    <select class="form-control" name="line" id="form-line"> </select>
+                </div>
+                <div class="">
+                    <label>FUNÇÃO</label>
+                    <select class="form-control" name="function-area" id="form-function-area"> </select>
+                </div>
+                <div class="">
+                    <label>POSTO</label>
+                    <select class="form-control" name="station" id="form-station"> </select>
+                </div>
+                <div class="">
+                    <label>POSIÇÃO</label>
+                    <select class="form-control" name="position" id="form-position"> </select>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="">
+                    <label>RESPONSÁVEL</label>
+                    <select name="responsible" class="form-control" id="form-responsible">
+                        <option value="" selected> </option>
+                    </select>
+                </div>
+                <div class="">
+                    <label>INPUT</label>
+                    <select name="input" class="form-control" id="form-input"> </select>
+                </div>
+                <div class="">
+                    <label> MAQUINA TIPO </label>
+                    <select name="machine-type" class="form-control" id="form-machine-type">
+                        <option value="" selected></option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">ATIVIDADE</span>
+                    </div>
+                    <input maxlength="120" class="form-control" name="activity" id="form-activity" type="text" />
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="">
+                    <label>INPUT-DATE</label>
+                    <input name="input-date" class="form-control" id="form-input-date" type="text" />
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">SHOT THERM ACTION (STA)</span>
+                    </div>
+                    <input maxlength="120" class="form-control" name="sta" id="form-sta" type="text" />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">STA DATE</span>
+                    </div>
+                    <input name="sta-date" class="form-control" id="form-sta-date" type="text" />
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">LONG THERM ACTION (LTA)</span>
+                    </div>
+                    <input maxlength="120" class="form-control" name="lta" id="form-lta" type="text" />
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">LTA DATE</span>
+                    </div>
+                    <input name="lta-date" class="form-control" id="form-lta-date" type="text" />
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div>
+                <button class="btn btn-primary" onclick="createDeviation()"> CRIAR </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <div>
+        <script src="/ifup/lib/jquery.min.js"></script>
+        <script src="/ifup/lib/jquery-ui.min.js"></script>
+        <script src="/ifup/lib/bootstrap.min.js"></script>
+        <script src="/ifup/lib/toastr.min.js"></script>
+        <script src="/ifup/js/constants.js"></script>
+        <script src="/ifup/js/utils.js"></script>
+        <script src="/ifup/js/Activities.js"></script>
+        <script src="/ifup/js/scripts.js"></script>
+    </div>
+
+    <script>
+
+        var deviation = new VDTActivity();
+
+        window.onload = function () {
+            generateOptions();
+        }
+
+        function generateOptions() {
+            DEV_OPTION_FIELDS.forEach(function (option) {
+                option.value.forEach(function (o) {
+                    if (o == 'ALL') return;
+                    var selection = document.getElementById('form-' + option.type);
+                    var el = document.createElement('option');
+                    el.value = o;
+                    el.textContent = o;
+                    selection.appendChild(el);
+                });
+            })
+        }
+
+        function createDeviation() {
+
+            deviation.deviation = document.querySelector('#form-deviation').value;
+            deviation.type = document.querySelector('#form-type').value;
+            deviation.line = document.querySelector('#form-line').value;
+            deviation.functionArea = document.querySelector('#form-function-area').value;
+            deviation.station = document.querySelector('#form-station').value;
+            deviation.position = document.querySelector('#form-position').value;
+            deviation.responsible = document.querySelector('#form-responsible').value;
+            deviation.input = document.querySelector('#form-input').value;
+            deviation.machineType = document.querySelector('#form-machine-type').value;
+            deviation.activity = document.querySelector('#form-activity').value;
+            deviation.inputDate = generateDate(document.querySelector('#form-input-date').value);
+            deviation.sta = document.querySelector('#form-sta').value;
+            deviation.staDate = generateDate(document.querySelector('#form-sta-date').value);
+            deviation.lta = document.querySelector('#form-lta').value;
+            deviation.ltaDate = generateDate(document.querySelector('#form-lta-date').value);
+
+            $.post(SERVER + '/api/vdt', deviation)
+                .done(function (data) {
+                    console.log(data);
+                    toastr.success("DESVIO SALVO COM SUCESSO");
+                    window.location = '../';
+                })
+                .fail(function (err) { toastr.error("ERRO AO CRIAR REQUISIÇÃO"); console.error(err) });
+
+        }
+
+
+    </script>
+</body>
+
+</html>

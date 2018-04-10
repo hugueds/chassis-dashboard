@@ -11,6 +11,7 @@
     <meta http-equiv="expires" content="0" />
     <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
     <meta http-equiv="pragma" content="no-cache" />
+    <link rel='manifest' href='manifest.json' />
     <link rel="stylesheet" href="css/lib/jquery-ui.css" />
     <link rel="stylesheet" href="css/lib/jquery-ui.theme.min.css" />
     <link rel="stylesheet" href="css/lib/bootstrap.min.css" />
@@ -23,13 +24,38 @@
 
 <body>
 
-    <div class="navbar">
-        <a href="/ifup/responsaveis">RESPONSÁVEIS</a>
-        <a href="/ifup/prioridades">PRIORIDADES</a>
-        <a href="/ifup/cadastrar">CADASTRAR</a>
+
+    <!-- NAVIGATION -->
+    <div class='container-fluid'>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">
+                <img class="d-inline-block align-top" src="/ifup/images/scania.png" alt="" />                 
+            </a>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"></li>
+                <a class="nav-link" href="/ifup/responsaveis">RESPONSÁVEIS</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/ifup/prioridades">PRIORIDADES</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/ifup/cadastrar">CADASTRAR</a>
+
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/ifup/vdt">VDT</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 
-    <div class="text-center">
+    <div class="text-center title">
         <h1>iFUP</h1>
     </div>
 
@@ -71,7 +97,7 @@
                     <div class="container">
                         <div class="row text-center">
                             <div class="" style="display: none;">
-                                <label for="type">ID</label>
+                                <label for="">ID</label>
                                 <input name="id" id="form-id" type="hidden" />
                             </div>
                             <div class="input-group mb-5">
@@ -84,7 +110,7 @@
                         <div class="row text-center">
                             <div class="input-group">
                                 <div class="">
-                                    <label for="type">TIPO</label>
+                                    <label for="">TIPO</label>
                                     <select name="type" class="form-control" id="form-type" disabled> </select>
                                 </div>
                                 <div class="">
@@ -92,38 +118,38 @@
                                     <select name="line" class="form-control" id="form-line" disabled> </select>
                                 </div>
                                 <div class="">
-                                    <label for="type">FUNÇÃO</label>
+                                    <label for="">FUNÇÃO</label>
                                     <select name="function-area" class="form-control" id="form-function-area" disabled> </select>
                                 </div>
                                 <div class="">
-                                    <label for="type">POSTO</label>
+                                    <label for="">POSTO</label>
                                     <select name="station" class="form-control" id="form-station" disabled> </select>
                                 </div>
                                 <div class="">
-                                    <label for="type">POSIÇÃO</label>
+                                    <label for="">POSIÇÃO</label>
                                     <select name="position" class="form-control" id="form-position" disabled> </select>
                                 </div>
                             </div>
                         </div>
                         <div class="row text-center">
                             <div class="">
-                                <label for="type">RESPONSÁVEL</label>
+                                <label for="">RESPONSÁVEL</label>
                                 <select name="responsible" class="form-control" id="form-responsible" disabled> </select>
                             </div>
                             <div class="">
-                                <label for="type">ENVOLVIDO 1</label>
+                                <label for="">ENVOLVIDO 1</label>
                                 <select name="involved-1" class="form-control" id="form-involved-1" disabled>
                                     <option value=""></option>
                                 </select>
                             </div>
                             <div class="">
-                                <label for="type">ENVOLVIDO 2</label>
+                                <label for="">ENVOLVIDO 2</label>
                                 <select name="involved-2" class="form-control" id="form-involved-2" disabled>
                                     <option value=""></option>
                                 </select>
                             </div>
                             <div class="">
-                                <label for="type">ENVOLVIDO 3</label>
+                                <label for="">ENVOLVIDO 3</label>
                                 <select name="involved-3" class="form-control" id="form-involved-3" disabled>
                                     <option value=""></option>
                                 </select>
@@ -131,19 +157,19 @@
                         </div>
                         <div class="row text-center">
                             <div class="">
-                                <label for="type">INPUT</label>
+                                <label for="">INPUT</label>
                                 <select name="input" class="form-control" id="form-input" disabled> </select>
                             </div>
                             <div class="">
-                                <label for="type">NCG</label>
+                                <label for="">NCG</label>
                                 <select name="ncg" class="form-control" id="form-ncg" disabled> </select>
                             </div>
                             <div class="">
-                                <label for="type"> MAQUINA TIPO </label>
+                                <label for=""> MAQUINA TIPO </label>
                                 <select name="machine-type" class="form-control" id="form-machine-type" disabled> </select>
                             </div>
                             <div class="">
-                                <label for="type"> MAQUINA EXISTENTE? </label>
+                                <label for=""> MAQUINA EXISTENTE? </label>
                                 <select name="existing-tool" class="form-control" id="form-existing-tool" disabled>
                                     <option value="true"> SIM </option>
                                     <option value="false"> NÃO </option>
@@ -160,71 +186,71 @@
                         </div>
                         <div class="row text-center">
                             <div class="">
-                                <label for="type">INPUT-DATE</label>
+                                <label for="">INPUT-DATE</label>
                                 <input name="input-date" class="form-control" id="form-input-date" type="text" disabled/>
                             </div>
                             <div class="">
-                                <label for="type">AD APROVAL</label>
+                                <label for="">AD APROVAL</label>
                                 <input name="ad-aproval" class="form-control" id="form-ad-aproval-date" type="text" disabled/>
                             </div>
                             <div class="">
-                                <label for="type">Nº PROJETO</label>
+                                <label for="">Nº PROJETO</label>
                                 <input name="project-number" class="form-control" id="form-project-number" type="text" disabled/>
                             </div>
                             <div class="">
-                                <label for="type">VALOR($)</label>
+                                <label for="">VALOR(x $1000)</label>
                                 <input name="ad-aproval" class="form-control" id="form-project-budget" type="text" disabled/>
                             </div>
                         </div>
                         <div class="row text-center">
                             <div class="">
-                                <label for="type">REQUISIÇÃO ALMOXARIFADO / OS</label>
+                                <label for="">REQUISIÇÃO ALMOXARIFADO / OS</label>
                                 <input name="req-almox-os" class="form-control" id="form-req-almox-os" type="text" disabled/>
                             </div>
                             <div class="">
-                                <label for="type">STATUS REQUISIÇÃO</label>
+                                <label for="">STATUS REQUISIÇÃO</label>
                                 <select name="status-almox-os" class="form-control" id="form-status-almox-os" disabled> </select>
                             </div>
                         </div>
                         <div class="row text-center">
                             <div class="">
-                                <label for="type">RC</label>
+                                <label for="">RC</label>
                                 <input name="rc-number" class="form-control" id="form-rc-number" type="number" min="0" disabled/>
                             </div>
                             <div class="">
-                                <label for="type">RC STATUS</label>
+                                <label for="">RC STATUS</label>
                                 <select name="rc-status" class="form-control" id="form-rc-status" disabled> </select>
                             </div>
                             <div class="">
-                                <label for="type">ORDER</label>
+                                <label for="">ORDER</label>
                                 <input name="order-number" class="form-control" id="form-order-number" type="number" min="0" disabled/>
                             </div>
                         </div>
                         <div class="row">
                             <div class="">
-                                <label for="type">LAYOUT E INFRAESTRUTURA</label>
+                                <label for="">LAYOUT E INFRAESTRUTURA</label>
                                 <input name="layout-infra" class="form-control" id="form-layout-infra" type="text" disabled/>
                             </div>
                             <div class="">
-                                <label for="type">TRY-OUT / INSTALAÇÃO</label>
+                                <label for="">TRY-OUT / INSTALAÇÃO</label>
                                 <input name="install-tryout" class="form-control" id="form-install-tryout-date" type="text" disabled/>
                             </div>
                         </div>
                         <div class="row text-center">
                             <div class="">
-                                <label for="type">HANDOVER</label>
+                                <label for="">HANDOVER</label>
                                 <input name="handover" class="form-control" id="form-handover-date" type="text" disabled />
                             </div>
                             <div class="">
-                                <label for="type">STATUS</label>
+                                <label for="">STATUS</label>
                                 <select name="project-status" class="form-control" id="form-project-status" disabled> </select>
                             </div>
                             <div class="">
-                                <label for="type">FASE</label>
+                                <label for="">FASE</label>
                                 <select onchange="updatePercentage()" name="phase" class="form-control" id="form-phase" disabled> </select>
                             </div>
                             <div class="">
-                                <label for="type">PORCENTAGEM (%) </label>
+                                <label for="">PORCENTAGEM (%) </label>
                                 <input name="percentage" class="form-control" id="form-percentage" type="number" min="0" maxlength="2" disabled/>
                             </div>
                         </div>
@@ -238,11 +264,11 @@
                         </div>
                         <div class="row">
                             <div class="">
-                                <label for="type">PRIORIDADE</label>
+                                <label for="">PRIORIDADE</label>
                                 <input name="priority" class="form-control" id="form-priority" type="number" min="0" maxlength="2" disabled />
                             </div>
                             <div class="">
-                                <label for="type">NPR</label>
+                                <label for="">NPR</label>
                                 <input name="npr" class="form-control" id="form-npr" type="number" min="0" maxlength="2" disabled/>
                             </div>
                         </div>
@@ -267,7 +293,7 @@
         <script src="lib/toastr.min.js"></script>
         <script src="js/constants.js"></script>
         <script src="js/utils.js"></script>
-        <script src="js/NTGActivitie.js"></script>
+        <script src="js/Activities.js"></script>
         <script src="js/scripts.js"></script>
     </div>
 
@@ -276,7 +302,7 @@
         var statusEdit = false;
         var activities = [];
         var filteredActivities = [];
-        var activity = new NTGActivitie();
+        var activity = new Activity();
         var order = "desc";
 
         window.onload = function () {
@@ -287,7 +313,7 @@
                 getActivities(generateTable);
                 generateFilters();
                 generateOptions();
-            });            
+            });
         }
 
         function generateFilters() {
@@ -371,7 +397,7 @@
         function getActivities(callback) {
             activities = [];
             $.get(SERVER + '/api/dashboard', function (data) {
-                data.map(function (d) { activities.push(new NTGActivitie(d)); });
+                data.map(function (d) { activities.push(new Activity(d)); });
                 filteredActivities = activities;
                 console.log('Atividades carregadas com sucesso');
                 callback(activities);
@@ -396,7 +422,7 @@
             document.querySelector('#form-input').value = data.input;
             document.querySelector('#form-ncg').value = data.ncg;
             document.querySelector('#form-machine-type').value = data.machineType;
-            document.querySelector('#form-existing-tool').value = data.isExistingTool ? 'SIM' : 'NÃO';
+            document.querySelector('#form-existing-tool').value = data.isExistingTool ? 'true' : 'false';
             document.querySelector('#form-activity').value = data.activity;
             document.querySelector('#form-input-date').value = dateFormatter(data.inputDate);
             document.querySelector('#form-ad-aproval-date').value = dateFormatter(data.adAproval);
@@ -471,36 +497,18 @@
 
         function enableEdit() {
 
-            document.querySelector('#form-type').disabled = false;
-            document.querySelector('#form-project').disabled = false;
-            document.querySelector('#form-line').disabled = false;
-            document.querySelector('#form-function-area').disabled = false;
-            document.querySelector('#form-station').disabled = false;
-            document.querySelector('#form-position').disabled = false;
-            document.querySelector('#form-responsible').disabled = false;
-            document.querySelector('#form-involved-1').disabled = false;
-            document.querySelector('#form-involved-2').disabled = false;
-            document.querySelector('#form-involved-3').disabled = false;
-            document.querySelector('#form-input').disabled = false;
-            document.querySelector('#form-ncg').disabled = false;
-            document.querySelector('#form-machine-type').disabled = false;
-            document.querySelector('#form-existing-tool').disabled = false;
-            document.querySelector('#form-activity').disabled = false;
-            document.querySelector('#form-ad-aproval-date').disabled = false;
-            document.querySelector('#form-project-number').disabled = false;
-            document.querySelector('#form-project-budget').disabled = false;
-            document.querySelector('#form-req-almox-os').disabled = false;
-            document.querySelector('#form-status-almox-os').disabled = false;
-            document.querySelector('#form-rc-number').disabled = false;
-            document.querySelector('#form-rc-status').disabled = false;
-            document.querySelector('#form-order-number').disabled = false;
-            document.querySelector('#form-layout-infra').disabled = false;
-            document.querySelector('#form-install-tryout-date').disabled = false;
-            document.querySelector('#form-handover-date').disabled = false;
-            document.querySelector('#form-phase').disabled = false;
-            document.querySelector('#form-project-status').disabled = false;
-            document.querySelector('#form-comments').disabled = false;
-            document.querySelector('#form-npr').disabled = false;
+            var fields = [
+                'type', 'project', 'line', 'function-area', 'station', 'position', 'responsible',
+                'involved-1', 'involved-2', 'involved-3', 'ncg', 'machine-type', 'existing-tool', 'activity',
+                'ad-aproval-date', 'project-number', 'project-budget', 'req-almox-os', 'status-almox-os', 'rc-status',
+                'rc-status', 'order-number', 'layout-infra', 'install-tryout-date', 'priority', 'handover-date', 'phase', 'percentage',
+                'project-status', 'comments', 'npr'
+            ];
+
+            fields.map(function (field, index) {
+                document.querySelector('#form-' + field).disabled = false;
+            });
+
             document.querySelector('.btn-warning').style.display = 'none';
             document.querySelector('.btn-danger').style.display = 'block';
 
@@ -508,36 +516,17 @@
 
         function disableEdit() {
 
-            document.querySelector('#form-type').disabled = true;
-            document.querySelector('#form-project').disabled = true;
-            document.querySelector('#form-line').disabled = true;
-            document.querySelector('#form-function-area').disabled = true;
-            document.querySelector('#form-station').disabled = true;
-            document.querySelector('#form-position').disabled = true;
-            document.querySelector('#form-responsible').disabled = true;
-            document.querySelector('#form-involved-1').value = true;
-            document.querySelector('#form-involved-2').value = true;
-            document.querySelector('#form-involved-3').value = true;
-            document.querySelector('#form-ncg').disabled = true;
-            document.querySelector('#form-machine-type').disabled = true;
-            document.querySelector('#form-existing-tool').disabled = true;
-            document.querySelector('#form-activity').disabled = true;
-            document.querySelector('#form-ad-aproval-date').disabled = true;
-            document.querySelector('#form-project-number').disabled = true;
-            document.querySelector('#form-project-budget').disabled = true;
-            document.querySelector('#form-req-almox-os').disabled = true;
-            document.querySelector('#form-status-almox-os').disabled = true;
-            document.querySelector('#form-rc-number').disabled = true;
-            document.querySelector('#form-rc-status').disabled = true;
-            document.querySelector('#form-order-number').disabled = true;
-            document.querySelector('#form-layout-infra').disabled = true;
-            document.querySelector('#form-install-tryout-date').disabled = true;
-            document.querySelector('#form-handover-date').disabled = true;
-            document.querySelector('#form-phase').disabled = true;
-            document.querySelector('#form-percentage').disabled = true;
-            document.querySelector('#form-project-status').disabled = true;
-            document.querySelector('#form-comments').disabled = true;
-            document.querySelector('#form-npr').disabled = true;
+            var fields = [
+                'type', 'project', 'line', 'function-area', 'station', 'position', 'responsible',
+                'involved-1', 'involved-2', 'involved-3', 'ncg', 'machine-type', 'existing-tool', 'activity',
+                'ad-aproval-date', 'project-number', 'project-budget', 'req-almox-os', 'status-almox-os', 'rc-status',
+                'rc-status', 'order-number', 'layout-infra', 'install-tryout-date', 'priority', 'handover-date', 'phase', 'percentage',
+                'project-status', 'comments', 'npr'
+            ];
+
+            fields.map(function (field, index) {
+                document.querySelector('#form-' + field).disabled = true;
+            });
             document.querySelector('.btn-warning').style.display = 'block';
             document.querySelector('.btn-danger').style.display = 'none';
 

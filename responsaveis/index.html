@@ -13,19 +13,27 @@
     <link rel="stylesheet" href="/ifup/css/lib/toastr.min.css" />
     <link rel="stylesheet" href="/ifup/css/responsaveis.css" />
     <link rel="shortcut icon" type="image/ico" href="/ifup/favicon.ico" />
-    <title>RESPONSÁVEIS</title>
+    <title>iFUP - RESPONSÁVEIS</title>
 </head>
 
 <body>
 
-    <div class="container">
-        <div class="navbar">
-            <a href="/ifup/">FOLLOW UP</a>
-        </div>
+    <!-- NAVIGATION -->
+    <div class='container-fluid'>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">
+                <img class="d-inline-block align-top" src="/ifup/images/scania.png" alt="" />
+            </a>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"></li>
+                <a class="nav-link" href="/ifup/">FOLLOW UP</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 
-        <div class="text-center">
-            <h1>RESPONSÁVEIS</h1>
-        </div>
+    <div class="text-center">
+        <h1>RESPONSÁVEIS</h1>
     </div>
 
     <!-- FILTROS -->
@@ -80,7 +88,7 @@
         <script src="/ifup/lib/toastr.min.js"></script>
         <script src="/ifup/js/constants.js"></script>
         <script src="/ifup/js/utils.js"></script>
-        <script src="/ifup/js/NTGActivitie.js"></script>
+        <script src="/ifup/js/Activities.js"></script>
         <script src="/ifup/js/scripts.js"></script>
     </div>
 
@@ -107,7 +115,7 @@
             activities = [];
             activitieStatus = [];
             $.get(SERVER + '/api/dashboard', function (data1) {
-                data1.map(function (d) { activities.push(new NTGActivitie(d)); });
+                data1.map(function (d) { activities.push(new Activity(d)); });
                 $.get(SERVER + '/api/dashboard/activities/', function (data2) {
                     data2.map(function (d2) { activitieStatus.push(new ActivityStatus(d2)); });
                     console.log('Atividades carregadas com sucesso');
@@ -176,8 +184,6 @@
         }
 
         function openActivityDetails(user, isResposible) {
-            console.log(user);
-
             var user = user.id;
             var filteredActivities = activities;
             filteredActivities = filteredActivities.filter(function (a) { return a.projectStatus != 'COMPLETED' });
@@ -206,14 +212,15 @@
                         var div = document.createElement('div');
                         var checked = a.status == true ? "checked" : "not-checked";
                         div.innerHTML = '' +
-                            '<div class="input-group activity-description " > ' +
+                            '<div class="input-group activity-description" > ' +
                             '<input name="id" class="form-control" id="form-id" type="hidden" value="' + a.id + '"  />' +
                             '<input name="user" class="form-control" id="form-user" type="hidden" value="' + user + '" />' +
                             '<input name="is-responsible" class="form-control" id="form-is-responsible" type="hidden" value="' + isResposible + '" />' +
-                            "<input name='activity' class='form-control item-" + checked + " id='form-activity' type='text' disabled value='{project}'/>".replace('{project}', a.project) +
+                            "<input name='activity' class='form-control item-" + checked + "' id='form-activity' type='text' disabled value='{project}' />".replace('{project}', a.project) +
                             '<div class="input-group-text item-' + checked + '"> ' +
-                            '<input class="" name="ongoing-cb" type="checkbox" aria-label="checkbox" value="' + a.id + '" ' + checked + ' onclick="updateColor(this)" />' +
-                            '</div></div>';
+                            '<input name="ongoing-cb" type="checkbox" aria-label="checkbox" value="' + a.id + '" ' + checked + ' onclick="updateColor(this)" />' +
+                            '</div>' +
+                            '</div>';
                         activityRow.appendChild(div);
                     });
 
@@ -277,21 +284,21 @@
             RESPONSIBLES.map(function (resp) {
                 var responsiblePanel = document.createElement('div');
                 responsiblePanel.className = 'card today-card bg-info mb-3';
-                responsiblePanel.innerHTML = `
-                <div class="card-body">      
-                    <div class="today-activity-desc" >
-                        <img class="card-img-top " src="../images/colaboradores/${resp}.jpg" alt="${resp}" />
-                        <div class=""> ${resp} </div>
-                    </div>
-                    <div class="today-activity-wrapper" id="panel-${resp}" >
-                    </div>
-                </div>`;
+                responsiblePanel.innerHTML = '' +
+                    '<div class="card-body">' +
+                    '<div class="today-activity-desc" > ' +
+                    '<img class="card-img-top " src="../images/colaboradores/{resp}.jpg" alt="{resp}" />'.replace(/{resp}/, resp) +
+                    '<div class=""> {resp} </div>'.replace(/{resp}/, resp) +
+                    '</div>' +
+                    '<div class="today-activity-wrapper" id="panel-{resp}" </div>'.replace(/{resp}/, resp) +
+                    '</div>';
                 todayWrapper.appendChild(responsiblePanel);
                 activitieStatus.map(function (act) {
                     if (act.status && act.user == resp) {
                         var panel = document.querySelector('#panel-' + resp);
                         var line = document.createElement('div');
                         actName = activities.filter(function (a) { return a.id == act.activityId })[0];
+                        if (!actName) return;
                         line.className = 'today-activity-line';
                         line.innerHTML = actName.project;
                         panel.appendChild(line);

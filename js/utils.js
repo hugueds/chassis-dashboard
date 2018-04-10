@@ -70,7 +70,7 @@ $(function () {
 });
 
 toastr.options = {
-    "showDuration": "300",
+    "showDuration": "2000",
     "hideDuration": "300",
     "timeOut": "300",
     "extendedTimeOut": "1000",

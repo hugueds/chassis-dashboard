@@ -9,8 +9,7 @@
             "request": "launch",
             "name": "Launch Chrome against localhost",
             "url": "http://chassis/ifup",
-            "webRoot": "${workspaceFolder}",
-            "file": "${workspaceFolder}/index.html"
+            "webRoot": "${workspaceFolder}"            
         }
     ]
 }

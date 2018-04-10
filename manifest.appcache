@@ -1,0 +1,15 @@
+CACHE MANIFEST
+# V1 - 2018-04-06
+
+css/lib/jquery-ui.css
+css/lib/jquery-ui.theme.min.css
+css/lib/bootstrap.min.css
+css/lib/bootstrap-grid.min.css
+css/lib/toastr.min.css
+lib/jquery.min.js
+lib/jquery-ui.min.js
+lib/bootstrap.min.js
+lib/toastr.min.js
+
+NETWORK:
+*
