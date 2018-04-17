@@ -40,6 +40,12 @@
                     <a class="nav-link" href="/ifup/vdt/cadastrar">CADASTRAR DESVIO</a>
                 </li>
             </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <button id="button-login" onclick="login()" class="btn btn-success">LOGIN</button>
+                    <button id="button-logoff" onclick="logoff()" class="btn btn-danger" style="display: none;">LOGOFF</button>
+                </li>
+            </ul>
         </nav>
     </div>
 
@@ -74,7 +80,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">DESVIO</span>
                                 </div>
-                                <input type="text" class="form-control" id="form-deviation" disabled>
+                                <textarea type="text" class="form-control" id="form-deviation" disabled> </textarea>
                             </div>
                         </div>
                         <div class="row text-center">
@@ -160,9 +166,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">FECHAR</button>
-                    <button onclick="enableEdit()" type="button" class="btn btn-warning">EDITAR</button>
-                    <button data-dismiss="modal" onclick="deleteActivity()" type="button" class="btn btn-danger" style="display: none;">EXCLUIR</button>
-                    <button data-dismiss="modal" onclick="updateActivity()" type="button" class="btn btn-primary">SALVAR</button>
+                    <button id="edit-button" onclick="enableEdit()" type="button" class="btn btn-warning">EDITAR</button>
+                    <button id="delete-button" data-dismiss="modal" onclick="deleteActivity()" type="button" class="btn btn-danger" style="display: none;">EXCLUIR</button>
+                    <button id="save-button" data-dismiss="modal" onclick="updateActivity()" type="button" class="btn btn-primary">SALVAR</button>
                 </div>
             </div>
         </div>
@@ -186,6 +192,7 @@
         var filteredActivities = [];
         var deviation = new VDTActivity();
         var order = "desc";
+        var logged = false;
 
         window.onload = function () {
             ping(SERVER + '/api/vdt', function (result) {
@@ -311,6 +318,10 @@
             document.querySelector('#form-lta').value = data.lta;
             document.querySelector('#form-lta-date').value = dateFormatter(data.ltaDate);
             document.querySelector('#form-status').value = data.status ? 'true' : 'false';
+
+            document.querySelector('#save-button').disabled = !logged;
+            document.querySelector('#edit-button').disabled = !logged;
+            document.querySelector('#delete-button').disabled = !logged;
         }
 
         function updateActivity() {
@@ -358,8 +369,8 @@
                 document.querySelector('#form-' + field).disabled = false;
             });
 
-            document.querySelector('.btn-warning').style.display = 'none';
-            document.querySelector('.btn-danger').style.display = 'block';
+            document.querySelector('#edit-button').style.display = 'none';
+            document.querySelector('#delete-button').style.display = 'block';
 
         }
 
@@ -373,8 +384,8 @@
             fields.map(function (field, index) {
                 document.querySelector('#form-' + field).disabled = true;
             });
-            document.querySelector('.btn-warning').style.display = 'block';
-            document.querySelector('.btn-danger').style.display = 'none';
+            document.querySelector('#edit-button').style.display = 'block';
+            document.querySelector('#delete-button').style.display = 'none';
 
         }
 
@@ -435,6 +446,22 @@
         }
 
 
+        function login() {
+            var pass = prompt('INSIRA A SENHA MAGICA');
+            if (parseInt(pass) == 0xDFF) {
+                logged = true;
+                document.querySelector('#button-login').style.display = 'none';
+                document.querySelector('#button-logoff').style.display = 'block';
+            } else {
+                alert('Senha incorreta!');
+            }
+        }
+
+        function logoff() {
+            logged = false;
+            document.querySelector('#button-login').style.display = 'block';
+            document.querySelector('#button-logoff').style.display = 'none';
+        }
 
 
 

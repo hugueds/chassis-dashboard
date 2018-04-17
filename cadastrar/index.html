@@ -217,15 +217,17 @@
     </div>
 
 
-
-    <script src="/ifup/lib/jquery.min.js"></script>
-    <script src="/ifup/lib/jquery-ui.min.js"></script>
-    <script src="/ifup/lib/bootstrap.min.js"></script>
-    <script src="/ifup/lib/toastr.min.js"></script>
-    <script src="/ifup/js/constants.js"></script>
-    <script src="/ifup/js/utils.js"></script>
-    <script src="/ifup/js/Activities.js"></script>
-    <script src="/ifup/js/scripts.js"></script>
+    <div>
+        <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+        <script src="/ifup/lib/jquery.min.js"></script>
+        <script src="/ifup/lib/jquery-ui.min.js"></script>
+        <script src="/ifup/lib/bootstrap.min.js"></script>
+        <script src="/ifup/lib/toastr.min.js"></script>
+        <script src="/ifup/js/constants.js"></script>
+        <script src="/ifup/js/utils.js"></script>
+        <script src="/ifup/js/Activities.js"></script>
+        <script src="/ifup/js/scripts.js"></script>
+    </div>
 
     <script>
 
@@ -252,7 +254,7 @@
 
         function createActivity() {
 
-            if (!validateFields()) {                
+            if (!validateFields()) {
                 return;
             }
 
@@ -291,7 +293,7 @@
 
 
 
-            $.post(SERVER + '/api/dashboard/', activity)                
+            $.post(SERVER + '/api/dashboard/', activity)
                 .done(function (data) {
                     toastr.success("ATIVIDADE SALVA COM SUCESSO");
                     window.location = '../';
@@ -308,14 +310,14 @@
         }
 
         function validateFields() {
-            var fields = [{name: 'project', value: 'Projeto'} , {name: 'responsible', value: 'Responsável'}];
+            var fields = [{ name: 'project', value: 'Projeto' }, { name: 'responsible', value: 'Responsável' }];
             var response = true;
-            fields.map(function(field) {                  
-                var f = document.querySelector('#form-' + field.name).value;                                
+            fields.map(function (field) {
+                var f = document.querySelector('#form-' + field.name).value;
                 if (!f) {
-                    toastr.error('Campo ' + field.value+ ' não pode ser vazio!');
+                    toastr.error('Campo ' + field.value + ' não pode ser vazio!');
                     response = false;
-                }                
+                }
             });
             return response;
         }
