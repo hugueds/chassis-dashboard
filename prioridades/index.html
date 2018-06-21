@@ -271,6 +271,7 @@
         var logged = false;
 
         window.onload = function () {
+            checkLogin();
             generateFilters();
             generateOptions();
             getActivities(function (data) {
@@ -489,6 +490,7 @@
             var pass = prompt('INSIRA A SENHA MAGICA');
             if (parseInt(pass) == 0xDFF) {
                 logged = true;
+                localStorage.setItem('logged', logged);
                 document.querySelector('#button-login').style.display = 'none';
                 document.querySelector('#button-logoff').style.display = 'block';
                 var buttons = document.querySelectorAll('.command-button');
@@ -502,12 +504,26 @@
 
         function logoff() {
             logged = false;
+            localStorage.setItem('logged', logged);
             document.querySelector('#button-login').style.display = 'block';
             document.querySelector('#button-logoff').style.display = 'none';
             var buttons = document.querySelectorAll('.command-button');
             buttons.forEach(btn => {
                 btn.disabled = !logged;
             });
+        }
+
+        function checkLogin() {
+            if (localStorage.getItem('logged')) {
+                logged = localStorage.getItem('logged') == "true" ? true : false;
+            } 
+            if (logged) {
+                document.querySelector('#button-login').style.display = 'none';
+                document.querySelector('#button-logoff').style.display = 'block';
+            } else {
+                document.querySelector('#button-login').style.display = 'block';
+                document.querySelector('#button-logoff').style.display = 'none';
+            }
         }
 
 

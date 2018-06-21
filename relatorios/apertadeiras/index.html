@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/ifup/css/lib/jquery-ui.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/jquery-ui.theme.min.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/toastr.min.css" />
+    <link rel="stylesheet" href="/ifup/css/cadastro.css" />
+    <link rel="shortcut icon" type="image/ico" href="/ifup/favicon.ico" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="/ifup/js/utils.js"></script>
+    
+
+
+    <style>
+        #customers {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #customers td{
+            background-color: #ddd;
+        }
+        #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: rgb(76, 36, 128);
+            color: white;
+        }
+
+        a {
+            border: 1px solid none;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            margin-right: 1px;
+            margin-left: 80px;
+            background-color: lightblue;
+        }
+
+        table {
+            border: 1px solid black;
+            margin-top: 2px;
+            margin-bottom: 20px;
+            margin-right: 2000px;
+            margin-left: 20px;
+            background-color: blue;
+        }
+    </style>
+    <link rel="shortcut icon" type="image/ico" href="favicon.ico" />
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quality and Assembly System - Reports</title>
+
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
+    <!--<link rel="stylesheet" type="text/css" href="css/local.css" /> -->
+
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- you need to include the shieldui css and js assets in order for the charts to work -->
+    <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css"
+    />
+    <link id="gridcss" rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/dark-bootstrap/all.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+    <script type="text/javascript" src="http://www.prepbootstrap.com/Content/js/gridData.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+    
+    
+    
+
+
+
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawChart);
+        
+        function drawChart() {
+            var atividades = [];
+            var instaladas = [];
+            
+
+            $.get("http://10.8.66.4/ltsapi/api/dashboard/").done(data => {
+                atividades = data;
+                console.log(atividades.length);
+                retrabalho = atividades.filter(t => t.NCG == "REWORK" && t.ProjectStatus !== "COMPLETED");//aqui pego todas apertadeiras
+                apertadeiras1 = atividades.filter(t => t.Input == "NTG" || t.NCG == "OK" && t.ProjectStatus !== "COMPLETED");//aqui pego todas apertadeiras
+                apertadeiras = atividades.filter(t => t.Type == "APERT");//aqui pego todas apertadeiras
+                instalacao = apertadeiras.filter(t => t.Phase == "INSTALLATION" && t.ProjectStatus !== "COMPLETED");//aqui pego apertadeiras em fase de instalação
+                instaladas = apertadeiras.filter(t => t.ProjectStatus == "COMPLETED");//aqui pego apertadeiras em fase de instalação
+                compras = apertadeiras.filter(t => t.Phase == "ORDER APPENDIX" || t.Phase == "SUP COMPARASION" && t.ProjectStatus !== "COMPLETED");//aqui pego apertadeiras em fase de instalação
+                aproval = apertadeiras.filter(t => t.Phase == "RFQ APPROVAL" && t.ProjectStatus !== "COMPLETED");//aqui pego apertadeiras em fase de instalação
+                construction = apertadeiras.filter(t => t.Phase == "CONSTRUCTION" || t.Phase == "PROJ. DEVELOP" || t.Phase == "SUP. TRYOUT" || t.Phase == "KICK OFF" && t.ProjectStatus !== "COMPLETED");//aqui pego apertadeiras em fase de instalação
+                outras2 = apertadeiras.filter(t => t.Phase !== "CONSTRUCTION");//aqui pego apertadeiras em fase de instalação
+                outras3 = outras2.filter(t => t.Phase !== "INSTALLATION");//aqui pego apertadeiras em fase de instalação
+                outras4 = outras3.filter(t => t.ProjectStatus !== "COMPLETED");//aqui pego apertadeiras em fase de instalação
+                outras5 = outras4.filter(t => t.Phase !== "ORDER APPENDIX");//aqui pego apertadeiras em fase de instalação
+                outras6 = outras5.filter(t => t.Phase !== "SUP COMPARASION");//aqui pego apertadeiras em fase de instalação
+                outras7 = outras6.filter(t => t.Phase !== "RFQ APPROVAL");//aqui pego apertadeiras em fase de instalação
+                outras8 = outras7.filter(t => t.Phase !== "PROJ. DEVELOP");//aqui pego apertadeiras em fase de instalação
+                outras9 = outras8.filter(t => t.Phase !== "SUP. TRYOUT");//aqui pego apertadeiras em fase de instalação
+                outras10 = outras9.filter(t => t.Phase !== "KICK OFF").filter(t => t.Input == "NTG");//aqui pego apertadeiras em fase de instalação    
+                var obj, dbParam, xmlhttp, myObj, x, txt = "";
+                txt += "<table class='table table-bordered' border='1'><thead id='customers'><tr><th>Local</th><th>Apertadeiras em Fase de cotação</th><th>Fase</th><th>Entrega Fase</th><th>Handover</th></th></tr></thead>"
+                for (x in compras) {
+                    txt += "<tbody><tr><th>" + compras[x].FunctionArea + "</th><th>" + compras[x].Project + "</th><th>" + compras[x].Phase + "</th><th>" + dateFormatter(compras[x].Installation_TryOut) + "</th><th>" + dateFormatter(compras[x].Handover) + "</th></tr>";
+                }
+                txt += "<table class='table table-bordered' border='1'><thead id='customers'><tr><th>Local</th><th>Apertadeiras em Fase de construção</th><th>Fase</th><th>Entrega Fase</th><th>Handover</th></th></tr></thead>"
+                for (x in construction) {
+                    txt += "<tbody><tr><th>" + construction[x].FunctionArea + "</th><th>" + construction[x].Project + "</th><th>" + construction[x].Phase + "</th><th>" + dateFormatter(construction[x].Installation_TryOut) + "</th><th>" + dateFormatter(construction[x].Handover) + "</th></tr>";
+                }
+                txt += "<table class='table table-bordered' border='1'><thead id='customers'><tr><th>Local</th><th>Apertadeiras em Fase de Instalação</th><th>Fase</th><th>Entrega Fase</th><th>Handover</th></th></tr></thead>"
+                for (x in instalacao) {
+                    txt += "<tbody><tr><th>" + instalacao[x].FunctionArea + "</th><th>" + instalacao[x].Project + "</th><th>" + instalacao[x].Phase + "</th><th>" + dateFormatter(instalacao[x].Installation_TryOut) + "</th><th>" + dateFormatter(instalacao[x].Handover) + "</th></tr>";
+                }
+                txt += "<table class='table table-bordered' border='1'><thead id='customers'><tr><th>Local</th><th>Apertadeiras em outras fases</th><th>Fase</th><th>Entrega Fase</th><th>Handover</th></th></tr></thead>"
+                for (x in outras10) {
+                    txt += "<tbody><tr><th>" + outras10[x].FunctionArea + "</th><th>" + outras10[x].Project + "</th><th>" + outras10[x].Phase + "</th><th>" + dateFormatter(outras10[x].Installation_TryOut) + "</th><th>" + dateFormatter(outras10[x].Handover) + "</th></tr>";
+                }
+                txt += "<table class='table table-bordered' border='1'><thead id='customers'><tr><th>Local</th><th>Apertadeiras para remanejar</th><th>Fase</th><th>Entrega Fase</th><th>Handover</th></th></tr></thead>"
+                for (x in retrabalho) {
+                    txt += "<tbody><tr><th>" + retrabalho[x].FunctionArea + "</th><th>" + retrabalho[x].Project + "</th><th>" + retrabalho[x].Phase + "</th><th>" + dateFormatter(retrabalho[x].Installation_TryOut) + "</th><th>" + dateFormatter(retrabalho[x].Handover) + "</th></tr>";
+                }
+                txt += "<table class='table table-bordered' border='1'><thead id='customers'><tr><th>Local</th><th>Apertadeiras instaladas</th><th>Fase</th><th>Entrega Fase</th><th>Handover</th></th></tr></thead>"
+                for (x in instaladas) {
+                    txt += "<tbody><tr><th>" + instaladas[x].FunctionArea + "</th><th>" + instaladas[x].Project + "</th><th>" + instaladas[x].Phase + "</th><th>" + dateFormatter(instaladas[x].Installation_TryOut) + "</th><th>" + dateFormatter(instaladas[x].Handover) + "</th></tr>";
+                }
+                txt += "</tbody></table>"
+
+                document.getElementById("total").innerHTML = apertadeiras.length;
+                document.getElementById("instalacao").innerHTML = instalacao.length;
+                document.getElementById("instalada").innerHTML = instaladas.length;
+                document.getElementById("compras").innerHTML = compras.length;
+                document.getElementById("aproval").innerHTML = aproval.length;
+                construcao = apertadeiras.length - (instalacao.length + instaladas.length + compras.length + aproval.length)
+                document.getElementById("construcao").innerHTML = construction.length;
+                document.getElementById("outras").innerHTML = outras10.length;
+                document.getElementById("demais").innerHTML = txt;
+                document.getElementById("retrabalho").innerHTML = retrabalho.length;
+
+
+                google.charts.load("current", { packages: ["corechart"] });
+                google.charts.setOnLoadCallback(drawChart);
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Task', 'Hours per Day'],
+                        ['Instaladas ', instaladas.length],
+                        ['Em instalação', instalacao.length],
+                        ['Em cotação', compras.length],
+                        ['Em fluxo de aprovação', aproval.length],
+                        ['Em construção', construction.length],
+                        ['Remanejo', retrabalho.length],
+                        ['Outros', outras7.length]
+                    ]);
+
+                    var options = {
+                        title: 'Status dos projetos de Apertadeiras',
+                        is3D: true,
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+                    chart.draw(data, options);
+                }
+
+
+
+            });
+        }
+    </script>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <div class='container-fluid'>
+            <nav class="navbar navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">
+                    <img class="d-inline-block align-top" src="/ifup/images/scania.png" alt="" />
+                </a>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"></li>
+                    <a class="nav-link" href="/ifup/">FOLLOW UP</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ifup/relatorios/agv">AGV</a>
+    
+                    </li>
+                </ul>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ifup/relatorios/poka">POKA YOKE</a>
+                    </li>
+                </ul>
+                
+            </nav>
+        </div>
+
+
+
+      
+                        <div id="piechart_3d" style="width: 600px; height: 400px;" align="center"></div>
+         
+                    <table id="customers">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%;">Apertadeiras em fluxo de aprovação</th>
+                                <th style="width: 10%;">Apertadeiras fase de cotação</th>
+                                <th style="width: 10%;">Apertadeiras em fase de construção</th>
+                                <th style="width: 10%;">Apertadeiras em fase de instalação</th>
+                                <th style="width: 10%;">Apertadeiras instaladas</th>
+                                <th style="width: 10%;">Apertadeiras para remanejo</th>
+                                <th style="width:  10%;">Apertadeiras em outras fases</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="width: 80px;">
+                                    <small id="aproval"></small>
+                                </td>
+                                <td style="width: 80px;">
+                                    <small id="compras"></small>
+                                </td>
+                                <td style="width: 80px;">
+                                    <small id="construcao"></small>
+                                </td>
+                                <td style="width: 80px;">
+                                    <small id="instalacao"></small>
+                                </td>
+                                <td style="width: 80px;">
+                                    <small id="instalada"></small>
+                                </td>
+                                <td style="width: 80px;">
+                                    <small id="retrabalho"></small>
+                                </td>
+                                <td style="width: 80px;">
+                                    <small id="outras"></small>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>                    
+    
+        <table style="width:100%">
+            <tr>
+                <th>Total de apertadeiras</th>
+            </tr>
+            <tr>
+                <th>
+                    </small>
+                    <small id="total"></small>
+                </th>
+            </tr>
+        </table>
+
+
+
+        <p id="demais"></p>
+
+
+    </div>
+
+
+
+</body>
+
+</html>

@@ -29,6 +29,12 @@
                 <a class="nav-link" href="/ifup/">FOLLOW UP</a>
                 </li>
             </ul>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <button id="button-login" onclick="login()" class="btn btn-success">LOGIN</button>
+                    <button id="button-logoff" onclick="logoff()" class="btn btn-danger" style="display: none;">LOGOFF</button>
+                </li>
+            </ul>
         </nav>
     </div>
 
@@ -60,7 +66,7 @@
     </div>
 
 
-    <!-- MODAL -->
+    <!-- MODAL ACTIVITIES-->
     <div class="modal fade" id="activity-modal" tabindex="-1" role="dialog" aria-labelledby="activity-modal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -74,6 +80,206 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">FECHAR</button>
                         <button data-dismiss="modal" onclick="saveChanges()" type="button" class="btn btn-primary">SALVAR</button>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ACTIVITY-->
+    <div class="modal fade" id="activity-details-modal" tabindex="-1" role="dialog" aria-labelledby="activity-details-modal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalTitle">DETALHES DA ATIVIDADE</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row text-center">
+                            <div class="" style="display: none;">
+                                <label for="">ID</label>
+                                <input name="id" id="form-id" type="hidden" />
+                            </div>
+                            <div class="input-group mb-5">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">NOME DO PROJETO</span>
+                                </div>
+                                <input type="text" class="form-control" id="form-project" disabled>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="input-group">
+                                <div class="">
+                                    <label for="">TIPO</label>
+                                    <select name="type" class="form-control" id="form-type" disabled> </select>
+                                </div>
+                                <div class="">
+                                    <label for="line">LINHA</label>
+                                    <select name="line" class="form-control" id="form-line" disabled> </select>
+                                </div>
+                                <div class="">
+                                    <label for="">FUNÇÃO</label>
+                                    <select name="function-area" class="form-control" id="form-function-area" disabled> </select>
+                                </div>
+                                <div class="">
+                                    <label for="">POSTO</label>
+                                    <select name="station" class="form-control" id="form-station" disabled> </select>
+                                </div>
+                                <div class="">
+                                    <label for="">POSIÇÃO</label>
+                                    <select name="position" class="form-control" id="form-position" disabled> </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="">
+                                <label for="">RESPONSÁVEL</label>
+                                <select name="responsible" class="form-control" id="form-responsible" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="">ENVOLVIDO 1</label>
+                                <select name="involved-1" class="form-control" id="form-involved-1" disabled>
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="">
+                                <label for="">ENVOLVIDO 2</label>
+                                <select name="involved-2" class="form-control" id="form-involved-2" disabled>
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                            <div class="">
+                                <label for="">ENVOLVIDO 3</label>
+                                <select name="involved-3" class="form-control" id="form-involved-3" disabled>
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="">
+                                <label for="">INPUT</label>
+                                <select name="input" class="form-control" id="form-input" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="">NCG</label>
+                                <select name="ncg" class="form-control" id="form-ncg" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for=""> MAQUINA TIPO </label>
+                                <select name="machine-type" class="form-control" id="form-machine-type" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for=""> MAQUINA EXISTENTE? </label>
+                                <select name="existing-tool" class="form-control" id="form-existing-tool" disabled>
+                                    <option value="true"> SIM </option>
+                                    <option value="false"> NÃO </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">ATIVIDADE</span>
+                                </div>
+                                <input name="activity" class="form-control" id="form-activity" type="text" disabled/>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="">
+                                <label for="">INPUT-DATE</label>
+                                <input name="input-date" class="form-control" id="form-input-date" type="text" disabled/>
+                            </div>
+                            <div class="">
+                                <label for="">AD APROVAL</label>
+                                <input name="ad-aproval" class="form-control" id="form-ad-aproval-date" type="text" disabled/>
+                            </div>
+                            <div class="">
+                                <label for="">Nº PROJETO</label>
+                                <input name="project-number" class="form-control" id="form-project-number" type="text" disabled/>
+                            </div>
+                            <div class="">
+                                <label for="">VALOR(x $1000)</label>
+                                <input name="ad-aproval" class="form-control" id="form-project-budget" type="text" disabled/>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="">
+                                <label for="">REQUISIÇÃO ALMOXARIFADO / OS</label>
+                                <input name="req-almox-os" class="form-control" id="form-req-almox-os" type="text" disabled/>
+                            </div>
+                            <div class="">
+                                <label for="">STATUS REQUISIÇÃO</label>
+                                <select name="status-almox-os" class="form-control" id="form-status-almox-os" disabled> </select>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="">
+                                <label for="">RC</label>
+                                <input name="rc-number" class="form-control" id="form-rc-number" type="number" min="0" disabled/>
+                            </div>
+                            <div class="">
+                                <label for="">RC STATUS</label>
+                                <select name="rc-status" class="form-control" id="form-rc-status" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="">ORDER</label>
+                                <input name="order-number" class="form-control" id="form-order-number" type="number" min="0" disabled/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="">
+                                <label for="">LAYOUT E INFRAESTRUTURA</label>
+                                <input name="layout-infra" class="form-control" id="form-layout-infra" type="text" disabled/>
+                            </div>
+                            <div class="">
+                                <label for="">TRY-OUT / INSTALAÇÃO</label>
+                                <input name="install-tryout" class="form-control" id="form-install-tryout-date" type="text" disabled/>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="">
+                                <label for="">HANDOVER</label>
+                                <input name="handover" class="form-control" id="form-handover-date" type="text" disabled />
+                            </div>
+                            <div class="">
+                                <label for="">STATUS</label>
+                                <select name="project-status" class="form-control" id="form-project-status" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="">FASE</label>
+                                <select onchange="updatePercentage()" name="phase" class="form-control" id="form-phase" disabled> </select>
+                            </div>
+                            <div class="">
+                                <label for="">PORCENTAGEM (%) </label>
+                                <input name="percentage" class="form-control" id="form-percentage" type="number" min="0" maxlength="2" disabled/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">COMENTÁRIOS</span>
+                                </div>
+                                <input name="comments" class="form-control" id="form-comments" type="text" disabled/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="">
+                                <label for="">PRIORIDADE</label>
+                                <input name="priority" class="form-control" id="form-priority" type="number" min="0" maxlength="2" disabled />
+                            </div>
+                            <div class="">
+                                <label for="">NPR</label>
+                                <input name="npr" class="form-control" id="form-npr" type="number" min="0" maxlength="2" disabled/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">FECHAR</button>
+                    <button id="edit-button" onclick="enableEdit()" type="button" class="btn btn-warning">EDITAR</button>
+                    <button id="delete-button" data-dismiss="modal" onclick="deleteActivity()" type="button" class="btn btn-danger" style="display: none;">EXCLUIR</button>
+                    <button id="save-button" data-dismiss="modal" onclick="updateActivity()" type="button" class="btn btn-primary">SALVAR</button>
                 </div>
             </div>
         </div>
@@ -98,12 +304,16 @@
         var activities = [];
         var activitieStatus = [];
         var lastView = 'people'; // people
+        var logged = false;
+        var activity = new Activity();
 
         window.onload = function () {
+            checkLogin();
             ping(SERVER + '/api/dashboard', function (result) {
                 if (!result) {
                     SERVER = SERVER_DOWN;
                 }
+                generateOptions();
                 generateCards();
                 getActivities(function () {
                     generateTodayTable();
@@ -151,13 +361,13 @@
             var card = document.createElement('div');
             card.className = 'card responsible-card bg-warning mb-3';
             card.id = resp;
-            card.innerHTML = '' +
-                '<img class="card-img-top " src="../images/colaboradores/' + resp + '.jpg" alt="' + resp + '" />' +
-                '<div class="card-header"> ' + resp + ' </div>' +
-                '<div class="card-body">' +
-                '<button class="btn btn-success" data-toggle="modal" data-target="#activity-modal" onclick="openActivityDetails(' + resp + ', true)" > RESP </button>' +
-                '<button class="btn btn-primary" data-toggle="modal" data-target="#activity-modal" onclick="openActivityDetails(' + resp + ', false)" > ENVOL </button>' +
-                '</div>';
+            card.innerHTML =
+                '<img class="card-img-top " src="../images/colaboradores/' + resp + '.jpg" alt="' + resp + '" /> \
+                <div class="card-header"> ' + resp + ' </div> \
+                <div class="card-body"> \
+                    <button class="btn btn-success" data-toggle="modal" data-target="#activity-modal" onclick="openActivityDetails(' + resp + ', true)" > RESP </button> \
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#activity-modal" onclick="openActivityDetails(' + resp + ', false)" > ENVOL </button> \
+                </div>';
             return card;
         }
 
@@ -211,22 +421,25 @@
                     })
                     filteredActivities.map((a) => {
                         var div = document.createElement('div');
+                        var stringData = JSON.stringify(a);
                         var checked = a.status == true ? "checked" : "not-checked";
-                        div.innerHTML = '' +
-                            '<div class="input-group activity-description" > ' +
-                            '<input name="id" class="form-control" id="form-id" type="hidden" value="' + a.id + '"  />' +
-                            '<input name="user" class="form-control" id="form-user" type="hidden" value="' + user + '" />' +
-                            '<input name="is-responsible" class="form-control" id="form-is-responsible" type="hidden" value="' + isResposible + '" />' +
-                            "<input name='activity' class='form-control item-" + checked + "' id='form-activity' type='text' disabled value='{project}' />".replace('{project}', a.project) +
-                            '<div class="input-group-text item-' + checked + '"> ' +
-                            '<input name="ongoing-cb" type="checkbox" aria-label="checkbox" value="' + a.id + '" ' + checked + ' onclick="updateColor(this)" />' +
-                            '</div>' +
-                            '</div>';
+                        div.innerHTML =
+                            '<div class="input-group activity-description" > \
+                                <input name="id" class="form-control" id="form-id" type="hidden" value="' + a.id + '"  /> \
+                                <input name="user" class="form-control" id="form-user" type="hidden" value="' + user + '" /> \
+                                <input name="is-responsible" class="form-control" id="form-is-responsible" type="hidden" value="' + isResposible + '" /> \
+                                <input name="activity" class="form-control item-' + checked + '" id="form-activity-' + a.id + '" type="text" disabled value="' + a.project + '" /> \
+                                <div class="input-group-text item-' + checked + '"> \
+                                    <input name="ongoing-cb" type="checkbox" aria-label="checkbox" value="' + a.id + '" ' + checked + ' onclick="updateColor(this)" /> \
+                                </div>' +
+                            " <button class='btn btn-primary' onclick='openModal(" + stringData + ")'> VER </button> "
+                            + '</div>';
                         activityRow.appendChild(div);
                     });
 
                 });
         }
+
 
         function saveChanges() {
             var actvs = [];
@@ -285,14 +498,14 @@
             RESPONSIBLES.map(function (resp) {
                 var responsiblePanel = document.createElement('div');
                 responsiblePanel.className = 'card today-card bg-info mb-3';
-                responsiblePanel.innerHTML = '' +
-                    '<div class="card-body">' +
-                    '<div class="today-activity-desc" > ' +
-                    '<img class="card-img-top " src="../images/colaboradores/{resp}.jpg" alt="{resp}" />'.replace(/{resp}/, resp) +
-                    '<div class=""> {resp} </div>'.replace(/{resp}/, resp) +
-                    '</div>' +
-                    '<div class="today-activity-wrapper" id="panel-{resp}" </div>'.replace(/{resp}/, resp) +
-                    '</div>';
+                responsiblePanel.innerHTML =
+                    '<div class="card-body"> \
+                        <div class="today-activity-desc" > \
+                            <img class="card-img-top " src="../images/colaboradores/'+ resp + '.jpg" alt="' + resp + '" /> \
+                            <div class=""> ' + resp + ' </div> \
+                        </div> \
+                        <div class="today-activity-wrapper" id="panel-' + resp + '"> </div> \
+                    </div>';
                 todayWrapper.appendChild(responsiblePanel);
                 activitieStatus.map(function (act) {
                     if (act.status && act.user == resp) {
@@ -308,7 +521,206 @@
             });
         }
 
+        function openModal(data) {
+            $('#activity-details-modal').modal();
+            statusEdit = false;
+            disableEdit();
+            document.querySelector('#form-id').value = data.id;
+            document.querySelector('#form-type').value = data.type;
+            document.querySelector('#form-line').value = data.line;
+            document.querySelector('#form-function-area').value = data.functionArea;
+            document.querySelector('#form-station').value = data.station;
+            document.querySelector('#form-position').value = data.position;
+            document.querySelector('#form-project').value = data.project;
+            document.querySelector('#form-responsible').value = data.responsible;
+            document.querySelector('#form-involved-1').value = data.involved_1;
+            document.querySelector('#form-involved-2').value = data.involved_2;
+            document.querySelector('#form-involved-3').value = data.involved_3;
+            document.querySelector('#form-input').value = data.input;
+            document.querySelector('#form-ncg').value = data.ncg;
+            document.querySelector('#form-machine-type').value = data.machineType;
+            document.querySelector('#form-existing-tool').value = data.isExistingTool ? 'true' : 'false';
+            document.querySelector('#form-activity').value = data.activity;
+            document.querySelector('#form-input-date').value = dateFormatter(data.inputDate);
+            document.querySelector('#form-ad-aproval-date').value = dateFormatter(data.adAproval);
+            document.querySelector('#form-project-number').value = data.projectNumber;
+            document.querySelector('#form-project-budget').value = data.projectBudget;
+            document.querySelector('#form-req-almox-os').value = data.reqAlmox_OS;
+            document.querySelector('#form-status-almox-os').value = data.statusReq_OS;
+            document.querySelector('#form-rc-number').value = data.rcNumber;
+            document.querySelector('#form-rc-status').value = data.rcStatus;
+            document.querySelector('#form-order-number').value = data.orderNumber;
+            document.querySelector('#form-layout-infra').value = data.infra_Layout;
+            document.querySelector('#form-install-tryout-date').value = dateFormatter(data.installation_TryOut);
+            document.querySelector('#form-handover-date').value = dateFormatter(data.handover);
+            document.querySelector('#form-phase').value = data.phase;
+            document.querySelector('#form-project-status').value = data.projectStatus;
+            document.querySelector('#form-comments').value = data.comments;
+            document.querySelector('#form-priority').value = data.priority;
+            document.querySelector('#form-npr').value = data.npr;
+            document.querySelector('#form-percentage').value = data.projectPercent;
 
+            var el = document.querySelector('#form-percentage');
+            updatePercentage2(el, el.value);
+
+
+            document.querySelector('#save-button').disabled = !logged;
+            document.querySelector('#edit-button').disabled = !logged;
+            document.querySelector('#delete-button').disabled = !logged;
+        }
+
+        function updateActivity() {
+
+            activity.id = document.querySelector('#form-id').value;
+            activity.type = document.querySelector('#form-type').value;
+            activity.line = document.querySelector('#form-line').value;
+            activity.functionArea = document.querySelector('#form-function-area').value;
+            activity.station = document.querySelector('#form-station').value;
+            activity.position = document.querySelector('#form-position').value;
+            activity.project = document.querySelector('#form-project').value;
+            activity.responsible = document.querySelector('#form-responsible').value;
+            activity.involved_1 = document.querySelector('#form-involved-1').value;
+            activity.involved_2 = document.querySelector('#form-involved-2').value;
+            activity.involved_3 = document.querySelector('#form-involved-3').value;
+            activity.input = document.querySelector('#form-input').value;
+            activity.ncg = document.querySelector('#form-ncg').value;
+            activity.machineType = document.querySelector('#form-machine-type').value;
+            activity.isExistingTool = document.querySelector('#form-existing-tool').value == 'true' ? true : false;
+            activity.activity = document.querySelector('#form-activity').value;
+            activity.inputDate = generateDate(document.querySelector('#form-input-date').value);
+            activity.adAproval = document.querySelector('#form-ad-aproval-date').value;
+            activity.projectNumber = document.querySelector('#form-project-number').value;
+            activity.projectBudget = document.querySelector('#form-project-budget').value;
+            activity.reqAlmox_OS = document.querySelector('#form-req-almox-os').value;
+            activity.statusReq_OS = document.querySelector('#form-status-almox-os').value;
+            activity.rcNumber = document.querySelector('#form-rc-number').value;
+            activity.rcStatus = document.querySelector('#form-rc-status').value;
+            activity.orderNumber = document.querySelector('#form-order-number').value;
+            activity.infra_Layout = document.querySelector('#form-layout-infra').value;
+            activity.installation_TryOut = generateDate(document.querySelector('#form-install-tryout-date').value);
+            activity.handover = generateDate(document.querySelector('#form-handover-date').value);
+            activity.phase = document.querySelector('#form-phase').value;
+            activity.projectPercent = document.querySelector('#form-percentage').value;
+            activity.projectStatus = document.querySelector('#form-project-status').value;
+            activity.comments = document.querySelector('#form-comments').value;
+            activity.priority = document.querySelector('#form-priority').value;
+            activity.npr = document.querySelector('#form-npr').value;
+
+            $.post(SERVER + '/api/dashboard/' + activity.id, activity)
+                .done(function (data) {                    
+                    toastr.success("ATIVIDADE SALVA COM SUCESSO");
+                })
+                .fail(function (err) { toastr.error("ERRO AO CRIAR REQUISIÇÃO"); console.error(err) });
+        }
+
+        function updatePercentage2(element, percentage) {
+            if (percentage > 0 && percentage <= 30) {
+                element.style.backgroundColor = 'gold';
+            } else if (percentage > 30 && percentage <= 60) {
+                element.style.backgroundColor = 'lightgrey';
+            } else if (percentage > 60) {
+                element.style.backgroundColor = 'limegreen';
+            } else {
+                element.style.backgroundColor = 'bisque';
+            }
+        }
+
+        function enableEdit() {
+
+            var fields = [
+                'type', 'project', 'line', 'function-area', 'station', 'position', 'responsible',
+                'involved-1', 'involved-2', 'involved-3', 'ncg', 'machine-type', 'existing-tool', 'activity',
+                'ad-aproval-date', 'project-number', 'project-budget', 'req-almox-os', 'status-almox-os', 'rc-status',
+                'rc-status', 'order-number', 'layout-infra', 'install-tryout-date', 'priority', 'handover-date', 'phase', 'percentage',
+                'project-status', 'comments', 'npr'
+            ];
+
+            fields.map(function (field, index) {
+                document.querySelector('#form-' + field).disabled = false;
+            });
+
+            document.querySelector('#edit-button').style.display = 'none';
+            document.querySelector('#delete-button').style.display = 'block';
+
+        }
+
+        function disableEdit() {
+
+            var fields = [
+                'type', 'project', 'line', 'function-area', 'station', 'position', 'responsible',
+                'involved-1', 'involved-2', 'involved-3', 'ncg', 'machine-type', 'existing-tool', 'activity',
+                'ad-aproval-date', 'project-number', 'project-budget', 'req-almox-os', 'status-almox-os', 'rc-status',
+                'rc-status', 'order-number', 'layout-infra', 'install-tryout-date', 'priority', 'handover-date', 'phase', 'percentage',
+                'project-status', 'comments', 'npr'
+            ];
+
+            fields.map(function (field, index) {
+                document.querySelector('#form-' + field).disabled = true;
+            });
+            document.querySelector('#edit-button').style.display = 'block';
+            document.querySelector('#delete-button').style.display = 'none';
+
+        }
+
+        function deleteActivity() {
+            var response = window.confirm('DESEJA EXCLUIR ESTA ATIVIDADE?');
+            if (!response) return;
+
+            var actv = document.querySelector('#form-id');
+            $.get(SERVER + '/api/dashboard/delete/' + actv.value, function (data) {
+                if (data.Status == 'OK') {
+                    toastr.success(data.Message);
+                    getActivities(function (data) {
+                        filterActivities();
+                        generateTable(filteredActivities)
+                    });
+                }
+            });
+        }
+
+         function login() {
+            var pass = prompt('INSIRA A SENHA MAGICA');
+            if (parseInt(pass) == 0xDFF) {
+                logged = true;
+                localStorage.setItem('logged', true);
+                document.querySelector('#button-login').style.display = 'none';
+                document.querySelector('#button-logoff').style.display = 'block';
+            } else {
+                alert('Senha incorreta!');
+            }
+        }
+
+        function logoff() {
+            logged = false;
+            localStorage.setItem('logged', false);
+            document.querySelector('#button-login').style.display = 'block';
+            document.querySelector('#button-logoff').style.display = 'none';
+        }
+
+        function checkLogin() {
+            if (localStorage.getItem('logged')) {
+                logged = localStorage.getItem('logged') == "true" ? true : false;
+            } 
+            if (logged) {
+                document.querySelector('#button-login').style.display = 'none';
+                document.querySelector('#button-logoff').style.display = 'block';
+            } else {
+                document.querySelector('#button-login').style.display = 'block';
+                document.querySelector('#button-logoff').style.display = 'none';
+            }
+        }
+
+        function generateOptions() {
+            OPTION_FIELDS.forEach(function (option) {
+                option.value.forEach(function (o) {
+                    var selection = document.getElementById('form-' + option.type);
+                    var el = document.createElement('option');
+                    el.value = o;
+                    el.textContent = o;
+                    selection.appendChild(el);
+                });
+            })
+        }
 
 
     </script>

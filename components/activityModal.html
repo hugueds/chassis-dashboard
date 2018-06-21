@@ -1,0 +1,195 @@
+<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modalTitle">DETALHES DA ATIVIDADE</h5>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="" style="display: none;">
+                        <label for="">ID</label>
+                        <input name="id" id="form-id" type="hidden" />
+                    </div>
+                    <div class="input-group mb-5">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">NOME DO PROJETO</span>
+                        </div>
+                        <input type="text" class="form-control" id="form-project" disabled>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="input-group">
+                        <div class="">
+                            <label for="">TIPO</label>
+                            <select name="type" class="form-control" id="form-type" disabled> </select>
+                        </div>
+                        <div class="">
+                            <label for="line">LINHA</label>
+                            <select name="line" class="form-control" id="form-line" disabled> </select>
+                        </div>
+                        <div class="">
+                            <label for="">FUNÇÃO</label>
+                            <select name="function-area" class="form-control" id="form-function-area" disabled> </select>
+                        </div>
+                        <div class="">
+                            <label for="">POSTO</label>
+                            <select name="station" class="form-control" id="form-station" disabled> </select>
+                        </div>
+                        <div class="">
+                            <label for="">POSIÇÃO</label>
+                            <select name="position" class="form-control" id="form-position" disabled> </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="">
+                        <label for="">RESPONSÁVEL</label>
+                        <select name="responsible" class="form-control" id="form-responsible" disabled> </select>
+                    </div>
+                    <div class="">
+                        <label for="">ENVOLVIDO 1</label>
+                        <select name="involved-1" class="form-control" id="form-involved-1" disabled>
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="">
+                        <label for="">ENVOLVIDO 2</label>
+                        <select name="involved-2" class="form-control" id="form-involved-2" disabled>
+                            <option value=""></option>
+                        </select>
+                    </div>
+                    <div class="">
+                        <label for="">ENVOLVIDO 3</label>
+                        <select name="involved-3" class="form-control" id="form-involved-3" disabled>
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="">
+                        <label for="">INPUT</label>
+                        <select name="input" class="form-control" id="form-input" disabled> </select>
+                    </div>
+                    <div class="">
+                        <label for="">NCG</label>
+                        <select name="ncg" class="form-control" id="form-ncg" disabled> </select>
+                    </div>
+                    <div class="">
+                        <label for=""> MAQUINA TIPO </label>
+                        <select name="machine-type" class="form-control" id="form-machine-type" disabled> </select>
+                    </div>
+                    <div class="">
+                        <label for=""> MAQUINA EXISTENTE? </label>
+                        <select name="existing-tool" class="form-control" id="form-existing-tool" disabled>
+                            <option value="true"> SIM </option>
+                            <option value="false"> NÃO </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">ATIVIDADE</span>
+                        </div>
+                        <input name="activity" class="form-control" id="form-activity" type="text" disabled/>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="">
+                        <label for="">INPUT-DATE</label>
+                        <input name="input-date" class="form-control" id="form-input-date" type="text" disabled/>
+                    </div>
+                    <div class="">
+                        <label for="">AD APROVAL</label>
+                        <input name="ad-aproval" class="form-control" id="form-ad-aproval-date" type="text" disabled/>
+                    </div>
+                    <div class="">
+                        <label for="">Nº PROJETO</label>
+                        <input name="project-number" class="form-control" id="form-project-number" type="text" disabled/>
+                    </div>
+                    <div class="">
+                        <label for="">VALOR(x $1000)</label>
+                        <input name="ad-aproval" class="form-control" id="form-project-budget" type="text" disabled/>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="">
+                        <label for="">REQUISIÇÃO ALMOXARIFADO / OS</label>
+                        <input name="req-almox-os" class="form-control" id="form-req-almox-os" type="text" disabled/>
+                    </div>
+                    <div class="">
+                        <label for="">STATUS REQUISIÇÃO</label>
+                        <select name="status-almox-os" class="form-control" id="form-status-almox-os" disabled> </select>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="">
+                        <label for="">RC</label>
+                        <input name="rc-number" class="form-control" id="form-rc-number" type="number" min="0" disabled/>
+                    </div>
+                    <div class="">
+                        <label for="">RC STATUS</label>
+                        <select name="rc-status" class="form-control" id="form-rc-status" disabled> </select>
+                    </div>
+                    <div class="">
+                        <label for="">ORDER</label>
+                        <input name="order-number" class="form-control" id="form-order-number" type="number" min="0" disabled/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="">
+                        <label for="">LAYOUT E INFRAESTRUTURA</label>
+                        <input name="layout-infra" class="form-control" id="form-layout-infra" type="text" disabled/>
+                    </div>
+                    <div class="">
+                        <label for="">TRY-OUT / INSTALAÇÃO</label>
+                        <input name="install-tryout" class="form-control" id="form-install-tryout-date" type="text" disabled/>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="">
+                        <label for="">HANDOVER</label>
+                        <input name="handover" class="form-control" id="form-handover-date" type="text" disabled />
+                    </div>
+                    <div class="">
+                        <label for="">STATUS</label>
+                        <select name="project-status" class="form-control" id="form-project-status" disabled> </select>
+                    </div>
+                    <div class="">
+                        <label for="">FASE</label>
+                        <select onchange="updatePercentage()" name="phase" class="form-control" id="form-phase" disabled> </select>
+                    </div>
+                    <div class="">
+                        <label for="">PORCENTAGEM (%) </label>
+                        <input name="percentage" class="form-control" id="form-percentage" type="number" min="0" maxlength="2" disabled/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-group">
+                        <div class="input-group-append">
+                            <span class="input-group-text">COMENTÁRIOS</span>
+                        </div>
+                        <input name="comments" class="form-control" id="form-comments" type="text" disabled/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="">
+                        <label for="">PRIORIDADE</label>
+                        <input name="priority" class="form-control" id="form-priority" type="number" min="0" maxlength="2" disabled />
+                    </div>
+                    <div class="">
+                        <label for="">NPR</label>
+                        <input name="npr" class="form-control" id="form-npr" type="number" min="0" maxlength="2" disabled/>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">FECHAR</button>
+            <button id="edit-button" onclick="enableEdit()" type="button" class="btn btn-warning">EDITAR</button>
+            <button id="delete-button" data-dismiss="modal" onclick="deleteActivity()" type="button" class="btn btn-danger" style="display: none;">EXCLUIR</button>
+            <button id="save-button" data-dismiss="modal" onclick="updateActivity()" type="button" class="btn btn-primary">SALVAR</button>
+        </div>
+    </div>
+</div>

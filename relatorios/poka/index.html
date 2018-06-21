@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/ifup/css/lib/jquery-ui.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/jquery-ui.theme.min.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="/ifup/css/lib/toastr.min.css" />
+    <link rel="stylesheet" href="/ifup/css/cadastro.css" />
+    <link rel="shortcut icon" type="image/ico" href="/ifup/favicon.ico" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="/ifup/js/utils.js"></script>
+
+
+
+    <style>
+        #customers {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #customers td {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: rgb(76, 36, 128);
+            color: white;
+        }
+
+        a {
+            border: 1px solid none;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            margin-right: 1px;
+            margin-left: 80px;
+            background-color: lightblue;
+        }
+
+        table {
+            border: 1px solid black;
+            margin-top: 2px;
+            margin-bottom: 20px;
+            margin-right: 2000px;
+            margin-left: 20px;
+            background-color: blue;
+        }
+    </style>
+    <link rel="shortcut icon" type="image/ico" href="favicon.ico" />
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quality and Assembly System - Reports</title>
+
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="font-awesome/css/font-awesome.min.css" />
+    <!--<link rel="stylesheet" type="text/css" href="css/local.css" /> -->
+
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- you need to include the shieldui css and js assets in order for the charts to work -->
+    <link rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/light-bootstrap/all.min.css"
+    />
+    <link id="gridcss" rel="stylesheet" type="text/css" href="http://www.shieldui.com/shared/components/latest/css/dark-bootstrap/all.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://www.shieldui.com/shared/components/latest/js/shieldui-all.min.js"></script>
+    <script type="text/javascript" src="http://www.prepbootstrap.com/Content/js/gridData.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+
+
+
+
+
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var atividades = [];
+            var instaladas = [];
+
+
+            $.get("http://10.8.66.4/ltsapi/api/dashboard/").done(data => {
+                atividades = data;
+                console.log(atividades.length);
+                poka = atividades.filter(t => t.Type == "PY");//aqui pego todas apertadeiras
+                poka1 = poka.filter(t => t.Input == "NTG" || t.NCG !== "NOT VALID").filter(t => t.FunctionArea !== "MO1" && "MO2" && "MO3" && "MO4");//aqui pego todas apertadeiras
+                estudo = poka1.filter(t => t.Phase == "SOL. ANALYSES" || t.Phase == "AD APPROVAL" || t.Phase == "DRAWING" || t.Phase == "REQ. ESPEC" || t.Phase == "TECH EVAL" || t.Phase == "AD");//aqui pego todas apertadeiras
+                aprovacao = poka.filter(t => t.Phase == "RS/OS APPROVAL" || t.Phase == "RFQ APPROVAL");//aqui pego todas apertadeiras
+                compras = poka.filter(t => t.Phase == "QUOTATION" || t.Phase == "AWARD PROPOSAL" || t.Phase == "ORDER APPENDIX");//aqui pego todas apertadeiras
+                construcao = poka.filter(t => t.Phase == "PROJ. DEVELOP" || t.Phase == "CONSTRUCTION");//aqui pego todas apertadeiras
+                instalacao = poka.filter(t => t.Phase == "SUP. TRYOUT" || t.Phase == "INSTALLATION" || t.Phase == "PROD TRYOUT" || t.Phase == "PROD APPROVAL");//aqui pego todas apertadeiras
+                concluido = poka.filter(t => t.ProjectStatus == "COMPLETED");//aqui pego apertadeiras em fase de instalação
+                document.getElementById("total").innerHTML = poka1.length;
+                document.getElementById("estudo").innerHTML = estudo.length;
+                document.getElementById("aprovacao").innerHTML = aprovacao.length;
+                document.getElementById("compras").innerHTML = compras.length;
+                document.getElementById("construcao").innerHTML = construcao.length;
+                document.getElementById("instalacao").innerHTML = instalacao.length;
+                document.getElementById("concluido").innerHTML = concluido.length;
+
+
+
+
+
+                var obj, dbParam, xmlhttp, myObj, x, txt = "";
+                txt += "<table class='table table-bordered' border='1'><thead id='customers'><tr><th>Local</th><th>Lista de Poka Yokes</th><th>Fase</th><th>Entrega Fase</th><th>Handover</th></th></tr></thead>"
+                for (x in poka1) {
+                    txt += "<tbody><tr><th>" + poka1[x].FunctionArea + "</th><th>" + poka1[x].Project + "</th><th>" + poka1[x].Phase + "</th><th>" + dateFormatter(poka1[x].Installation_TryOut) + "</th><th>" + dateFormatter(poka1[x].Handover) + "</th></tr>";
+                }
+
+                txt += "</tbody></table>"
+
+                document.getElementById("demais").innerHTML = txt;
+
+
+                google.charts.load("current", { packages: ["corechart"] });
+                google.charts.setOnLoadCallback(drawChart);
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Task', 'Hours per Day'],
+                        ['Estudo ', estudo.length],
+                        ['Em aprovação', aprovacao.length],
+                        ['Fluxo de compras', compras.length],
+                        ['Em construção', construcao.length],
+                        ['Em instalação', instalacao.length],
+                        ['Concluído', concluido.length]
+
+                    ]);
+
+                    var options = {
+                        title: 'Status dos projetos de Poka Yoke',
+                        is3D: true,
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+                    chart.draw(data, options);
+                }
+
+
+
+            });
+        }
+    </script>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <div class='container-fluid'>
+            <nav class="navbar navbar-dark bg-dark">
+
+                <a class="navbar-brand" href="#">
+                    <img class="d-inline-block align-top" src="/ifup/images/scania.png" alt="" />
+                </a>
+
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"></li>
+                    <a class="nav-link" href="/ifup/">FOLLOW UP</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ifup/relatorios/apertadeiras">APERTADEIRAS</a>
+                    </li>
+                </ul>
+
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/ifup/relatorios/agv">AGV</a>
+
+                    </li>
+                </ul>
+
+            </nav>
+        </div>
+
+
+        <div id="piechart_3d" style="width: 600px; height: 400px;" align="center"></div>
+
+        <table id="customers">
+            <thead>
+                <tr>
+                    <th style="width: 10%;">Poka Yoke em estudo</th>
+                    <th style="width: 10%;">Poka Yoke em aprovação</th>
+                    <th style="width: 10%;">Poka Yoke em fluxo de compras</th>
+                    <th style="width: 10%;">Poka Yoke em construção</th>
+                    <th style="width: 10%;">Poka Yoke em instalação</th>
+                    <th style="width: 10%;">Poka Yoke concluídos</th>
+                </tr>
+            </thead>
+
+
+
+            <tbody>
+                <tr>
+                    <td style="width: 80px;">
+                        <small id="aprovacao"></small>
+                    </td>
+                    <td style="width: 80px;">
+                        <small id="compras"></small>
+                    </td>
+                    <td style="width: 80px;">
+                        <small id="construcao"></small>
+                    </td>
+                    <td style="width: 80px;">
+                        <small id="instalacao"></small>
+                    </td>
+                    <td style="width: 80px;">
+                        <small id="estudo"></small>
+                    </td>
+                    <td style="width: 80px;">
+                        <small id="concluido"></small>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+
+        <table style="width:100%">
+            <tr>
+                <th>Total de AGV's</th>
+            </tr>
+            <tr>
+                <th>
+                    </small>
+                    <small id="total"></small>
+                </th>
+            </tr>
+        </table>
+
+
+
+        <p id="demais"></p>
+
+
+    </div>
+
+
+
+</body>
+
+</html>

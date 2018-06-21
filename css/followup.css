@@ -1,3 +1,10 @@
+@import 'lib/toastr.min.css';
+@import 'lib/bootstrap.min.css';
+@import 'lib/jquery-ui.css';
+@import 'lib/jquery-ui.theme.min.css';
+@import 'lib/bootstrap-grid.min.css';
+
+
 *, body  {    
     margin: 0 auto;    
 }
@@ -117,4 +124,8 @@ table.sortable thead {
     color:#666666;
     font-weight: bold;
     cursor: default;
+}
+
+@media (max-width: 700px){
+
 }

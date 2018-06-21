@@ -34,6 +34,7 @@ function Activity(data) {
   this["installation_TryOut"] = data.Installation_TryOut || null;
   this["handover"] = data.Handover || null;
   this["phase"] = data.Phase || null;
+  this["phaseDelivery"] = data.PhaseDelivery || null;
   this["projectPercent"] = data.ProjectPercent || 0;
   this["projectStatus"] = data.ProjectStatus || null;
   this["comments"] = data.Comments || null;

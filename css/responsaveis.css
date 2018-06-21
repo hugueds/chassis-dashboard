@@ -48,6 +48,10 @@ body {
     background-color: aquamarine !important;
 }
 
+#form-activity:hover {
+    background-color: yellow !important;
+}
+
 .today-wrapper {
     display: none;
 }
@@ -87,3 +91,4 @@ body {
 .today-card img{
     width: 100%;
 }
+
