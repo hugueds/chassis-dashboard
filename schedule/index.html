@@ -14,16 +14,50 @@
     <!-- NAVIGATION -->
     <div class='container-fluid'>
         <nav class="navbar navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="../">
                 <img class="d-inline-block align-top" src="/ifup/images/scania.png" alt="" />
             </a>
         </nav>
     </div>
 
+    <div class="title">
+        <div id="project-name"></div>
+    </div>
+
+
 
     <div class="schedule-wrapper">
         <div id="pit-scheduler"></div>
     </div>
+
+    <div class="peip-container">
+        <!-- <div id="peip" class="peip-wrapper">            
+        </div> -->
+        <select name="" id="select-peip" class="peip-wrapper"></select>
+        <select name="user-selection" id="select-user"></select>
+
+        <div class="peip-date-time-wrapper">
+            <div class="input-group date peip-date-time" id="dt1">
+                <div class="peip-date-title"> START </div>
+                <input name="init" type="text" class="form-control" id="peip-start-date">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+            <div class="input-group date peip-date-time" id="dt2">
+                <div class="peip-date-title"> END </div>
+                <input type="text" class="form-control" id="peip-end-date">
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+        <button id="save-peip-task" class="btn btn-success">ADICIONAR</button>
+
+    </div>
+
+
+
 
 
     <script src="lib/jquery.min.js"></script>

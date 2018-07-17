@@ -6,6 +6,10 @@ body {
     margin-left: 1%;
 }
 
+.navbar-brand img {
+    height: 50px;   
+}
+
 .responsible-card {
     width: 6.3rem;
     margin-top: 1%;

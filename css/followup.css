@@ -17,6 +17,10 @@ body {
     margin-left: 1%;
 }
 
+.navbar-brand img {
+    height: 50px;   
+}
+
 .title {
     font-style: italic;    
 }

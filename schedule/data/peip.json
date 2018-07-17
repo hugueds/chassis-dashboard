@@ -1,0 +1,232 @@
+[
+    {
+        "id": 65,
+        "projectId": 1609,
+        "name": "ASSIGN DIRECTIVE",
+        "description": null,
+        "tag": "01-peip",
+        "color": "#66CCFF",
+        "tagColor": "#66CCFF",
+        "lastUpdate": "2018-06-26T17:45:25.05"
+    },
+    {
+        "userTask": [],
+        "id": 66,
+        "projectId": 1609,
+        "name": "SOL. ANALISYS",
+        "description": null,
+        "tag": "02-peip",
+        "color": "#66CCFF",
+        "tagColor": "#66CCFF",
+        "lastUpdate": "2018-06-26T17:45:28.077"
+    },
+    {
+        "userTask": [],
+        "id": 67,
+        "projectId": 1609,
+        "name": "AD APROVAL",
+        "description": null,
+        "tag": "03-peip",
+        "color": "#6699FF",
+        "tagColor": "#6699FF",
+        "lastUpdate": "2018-06-26T17:45:30.387"
+    },
+    {
+        "userTask": [],
+        "id": 68,
+        "projectId": 1609,
+        "name": "TECHNICAL EVALUATION",
+        "description": null,
+        "tag": "04-peip",
+        "color": "#6699FF",
+        "tagColor": "#6699FF",
+        "lastUpdate": "2018-06-26T17:45:32.227"
+    },
+    {
+        "userTask": [],
+        "id": 69,
+        "projectId": 1609,
+        "name": "DRAWING",
+        "description": null,
+        "tag": "05-peip",
+        "color": "#FFFFCC",
+        "tagColor": "#FFFFCC",
+        "lastUpdate": "2018-06-26T17:45:34.193"
+    },
+    {
+        "userTask": [],
+        "id": 70,
+        "projectId": 1609,
+        "name": "REQ. ESPECIFICATION",
+        "description": null,
+        "tag": "06-peip",
+        "color": "#FFFFCC",
+        "tagColor": "#FFFFCC",
+        "lastUpdate": "2018-06-26T17:45:36.207"
+    },
+    {
+        "userTask": [],
+        "id": 71,
+        "projectId": 1609,
+        "name": "RC/OS APPROVAL",
+        "description": null,
+        "tag": "07-peip",
+        "color": "#FFFF99",
+        "tagColor": "#FFFF99",
+        "lastUpdate": "2018-06-26T17:45:39.483"
+    },
+    {
+        "userTask": [],
+        "id": 72,
+        "projectId": 1609,
+        "name": "RFQ APPROVAL",
+        "description": null,
+        "tag": "08-peip",
+        "color": "#FFFF99",
+        "tagColor": "#FFFF99",
+        "lastUpdate": "2018-06-26T17:45:40.68"
+    },
+    {
+        "userTask": [],
+        "id": 73,
+        "projectId": 1609,
+        "name": "TECH LEVELING",
+        "description": null,
+        "tag": "09-peip",
+        "color": "#FFFF00",
+        "tagColor": "#FFFF00",
+        "lastUpdate": "2018-06-26T17:45:41.92"
+    },
+    {
+        "userTask": [
+            {
+                "id": 52,
+                "taskId": 74,
+                "startDate": "2018-06-27T00:00:00",
+                "endDate": "2018-06-30T00:00:00",
+                "userId": 1,
+                "groupId": 4,
+                "lastUpdate": "2018-06-27T10:59:20.127",
+                "projectId": 43
+            }
+        ],
+        "id": 74,
+        "projectId": 1609,
+        "name": "QUOTATION",
+        "description": null,
+        "tag": "10-peip",
+        "color": "#FFFF00",
+        "tagColor": "#FFFF00",
+        "lastUpdate": "2018-06-26T17:45:43.013"
+    },
+    {
+        "userTask": [],
+        "id": 75,
+        "projectId": 1609,
+        "name": "SUP. COMPARASION",
+        "description": null,
+        "tag": "11-peip",
+        "color": "#00FF00",
+        "tagColor": "#00FF00",
+        "lastUpdate": "2018-06-26T17:45:44.22"
+    },
+    {
+        "userTask": [],
+        "id": 76,
+        "projectId": 1609,
+        "name": "AWARD PROPOSAL",
+        "description": null,
+        "tag": "12-peip",
+        "color": "#00FF00",
+        "tagColor": "#00FF00",
+        "lastUpdate": "2018-06-26T17:45:46.463"
+    },
+    {
+        "userTask": [],
+        "id": 77,
+        "projectId": 1609,
+        "name": "ORDER APPENDIX",
+        "description": null,
+        "tag": "13-peip",
+        "color": "#00CC00",
+        "tagColor": "#00CC00",
+        "lastUpdate": "2018-06-26T17:45:47.467"
+    },
+    {
+        "userTask": [],
+        "id": 78,
+        "projectId": 1609,
+        "name": "KICK OFF",
+        "description": null,
+        "tag": "14-peip",
+        "color": "#00CC00",
+        "tagColor": "#00CC00",
+        "lastUpdate": "2018-06-26T17:45:48.58"
+    },
+    {
+        "userTask": [],
+        "id": 79,
+        "projectId": 1609,
+        "name": "PROJ. DEVELOPMENT",
+        "description": null,
+        "tag": "15-peip",
+        "color": "#FF6666",
+        "tagColor": "#FF6666",
+        "lastUpdate": "2018-06-26T17:45:50.09"
+    },
+    {
+        "userTask": [],
+        "id": 80,
+        "projectId": 1609,
+        "name": "PROJ. APPROVAL",
+        "description": null,
+        "tag": "16-peip",
+        "color": "#FF6666",
+        "tagColor": "#FF6666",
+        "lastUpdate": "2018-06-26T17:46:00.137"
+    },
+    {
+        "userTask": [],
+        "id": 82,
+        "projectId": 1609,
+        "name": "SUP. TRYOUT",
+        "description": null,
+        "tag": "18-peip",
+        "color": "#FF9900",
+        "tagColor": "#FF9900",
+        "lastUpdate": "2018-06-26T17:46:03.623"
+    },
+    {
+        "userTask": [],
+        "id": 83,
+        "projectId": 1609,
+        "name": "INSTALLATION",
+        "description": null,
+        "tag": "19-peip",
+        "color": "#FF9900",
+        "tagColor": "#FF9900",
+        "lastUpdate": "2018-06-26T17:46:05.187"
+    },
+    {
+        "userTask": [],
+        "id": 84,
+        "projectId": 1609,
+        "name": "PROD. TRYOUT",
+        "description": null,
+        "tag": "20-peip",
+        "color": "#FFCC66",
+        "tagColor": "#FFCC66",
+        "lastUpdate": "2018-06-26T17:46:06.337"
+    },
+    {
+        "userTask": [],
+        "id": 85,
+        "projectId": 1609,
+        "name": "PROD APPROVAL",
+        "description": null,
+        "tag": "21-peip",
+        "color": "#FFCC66",
+        "tagColor": "#FFCC66",
+        "lastUpdate": "2018-06-26T17:49:23.207"
+    }
+]

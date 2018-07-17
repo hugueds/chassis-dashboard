@@ -10,6 +10,9 @@ body {
 .navbar-brand {
     margin-left: 1%;
 }
+.navbar-brand img {
+    height: 50px;   
+}
 
 .header {
     margin-top: 1%;

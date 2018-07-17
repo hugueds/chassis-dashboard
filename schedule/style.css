@@ -7,7 +7,130 @@ body {
     width: 100%;
 }
 
+body {
+    background-color: #f5f5f5;
+}
+
+.navbar {    
+    height: auto;
+    padding-bottom: 2.3rem;
+}
+
+.navbar img {
+    margin-left: 1.31rem;
+    margin-top: -0.5rem;
+}
+
+img {
+    height: 50px;
+}
+
+.navbar-dark {
+    background-color: #343a40;
+}
+
 .schedule-wrapper {
     margin: 0 auto;
     width: 95%;
+}
+
+#project-name {
+    font-size: 5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+
+/* PIT SCHEDULER*/
+#pit-scheduler {
+    font-size: 1.5rem;
+}
+
+.pts-header, .pts-main-group-header, .pts-group-header {
+    background-color: #343a40;
+    color: white;
+}
+
+.pts-group-user, .pts-column-element, .pts-line-title-container, 
+.pts-btn-day-view, .pts-btn-list-view, .pts-btn-month-view, .pts-corner-mask  {
+    background-color: lightgray;
+    
+}
+
+.pts-btn-next, .pts-btn-previous, .pts-corner-mask {
+    background-color: darkgrey;        
+}
+
+
+
+/* PEIP */ 
+.peip-container {
+    margin: 0 auto;
+    margin-top: 2rem;
+    width: 90%;
+    font-size: 2rem;    
+    text-align: center;
+    display: flex;
+}
+
+.peip-wrapper {
+    width: 30%;
+    margin: 1.2rem;
+    border: 1px solid black;
+    cursor: pointer;
+    text-align: center;
+    text-align-last:center; 
+}
+
+.peip-task {
+    width: 100%;    
+    padding: 1.2rem 0rem 1.2rem 0rem;    
+}
+
+/* USERS */
+.users-wrapper {
+    width: 20%;              
+    text-align-last:center;
+}
+
+#select-user {
+    width: 20%;
+    font-size: 3rem;
+    text-align-last:center;
+    margin: 1%;
+}
+
+#select-user option {
+    text-align-last:center;
+
+    text-align: center;
+}
+
+/* DATA */
+.peip-date-time-wrapper {
+    width: 30%;
+    margin: 1%;;
+}
+
+.peip-date-time input {
+    text-align: center;
+    width: 10%;
+    font-size: 2rem;    
+}
+
+.peip-date-time {
+    margin-bottom: 3%;
+    margin-top: 3%;
+}
+
+.peip-date-title {
+    background-color: #003388;
+    color: white;
+}
+
+#save-peip-task {
+    width: 20%;
+    margin: 1% 1% 1% 1%;
+    font-size: 2.5rem;
 }

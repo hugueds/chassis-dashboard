@@ -87,7 +87,7 @@ function generateTable(data) {
                 break;
                 case 'calendar':
                     var btn = document.createElement('button');
-                    btn.className = 'btn btn-primary';                    
+                    btn.className = 'btn btn-default';                    
                     btn.innerHTML = '<img  src="images/calendar-3x.png" />';
                     btn.onclick = function() { openCalendar(d) };
                     td.appendChild(btn);
@@ -114,8 +114,8 @@ function generateTable(data) {
     });
 }
 
-function openCalendar(project) {
-    localStorage.setItem('currentProject', JSON.stringify(project));
+function openCalendar(project) {    
+    localStorage.setItem('currentProject', JSON.stringify(project));    
     window.location = 'schedule';
 }
 

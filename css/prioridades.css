@@ -9,6 +9,9 @@ body {
 .navbar-brand {
     margin-left: 1%;
 }
+.navbar-brand img {
+    height: 50px;   
+}
 
 input {
     text-align: center;
